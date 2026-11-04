@@ -1,0 +1,69 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Private Photo Vault for Android: What to Check First | Vireault</title><meta name="description" content="A private photo vault for Android should encrypt your files, not just hide them. Here's what to check before you trust one, and how to test it yourself.">
+<link rel="canonical" href="https://dixonchoi22.github.io/vireault-site/guides/private-photo-vault-android.html">
+<meta name="theme-color" content="#0f1218">
+<link rel="icon" href="/vireault-site/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Vireault">
+<meta property="og:title" content="Private Photo Vault for Android: What to Check First | Vireault">
+<meta property="og:description" content="A private photo vault for Android should encrypt your files, not just hide them. Here's what to check before you trust one, and how to test it yourself.">
+<meta property="og:url" content="https://dixonchoi22.github.io/vireault-site/guides/private-photo-vault-android.html">
+<meta property="og:image" content="https://dixonchoi22.github.io/vireault-site/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Private photo vault for Android: what to check before you trust one","description":"A private photo vault for Android should encrypt your files, not just hide them. Here's what to check before you trust one, and how to test it yourself.","datePublished":"2026-11-01","dateModified":"2026-11-01","author":{"@type":"Organization","name":"Vireault"},"image":"https://dixonchoi22.github.io/vireault-site/assets/og.png","mainEntityOfPage":"https://dixonchoi22.github.io/vireault-site/guides/private-photo-vault-android.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Guides","item":"https://dixonchoi22.github.io/vireault-site/guides/"},{"@type":"ListItem","position":2,"name":"Private photo vault for Android: what to check before you trust one","item":"https://dixonchoi22.github.io/vireault-site/guides/private-photo-vault-android.html"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can a private photo vault be hacked?","acceptedAnswer":{"@type":"Answer","text":"Anything can have flaws, so be wary of any app that says otherwise. With proper encryption, someone who copies the files still has to guess your secret, which is why a long passphrase matters more than any other setting."}},{"@type":"Question","name":"What happens if I forget my PIN?","acceptedAnswer":{"@type":"Answer","text":"In a true zero-knowledge vault, your files are gone. Nobody holds a spare key. That's the trade-off for nobody else being able to get in, so make an encrypted backup and keep its code somewhere safe."}},{"@type":"Question","name":"Do private photos stay safe if I uninstall the app?","acceptedAnswer":{"@type":"Answer","text":"Usually they're deleted along with the app, because they live in its private storage. Check what your vault does before uninstalling, and make a backup first."}}]}</script>
+<link rel="stylesheet" href="/vireault-site/style.css"></head><body><nav><a href="/vireault-site/">Vireault</a><a href="/vireault-site/guides/">Guides</a><a href="/vireault-site/pricing.html">Pricing</a><a href="/vireault-site/security.html">Security</a></nav>
+<h1>Private photo vault for Android: what to check before you trust one</h1>
+<p><b>Short answer:</b> a private photo vault should encrypt your photos on the phone, with a key made from a secret only you know. Many vault-style apps only move files somewhere the gallery doesn't look. Before you trust one, check that the files are really encrypted, that nobody else can reset your access, and that you know what happens if you lose your phone.</p>
+<h2>Hidden isn't the same as encrypted</h2>
+<p>A hidden photo is still an ordinary photo, just stored out of sight. Anything that can read the phone's storage, such as a file manager or a computer over USB, may still open it. An encrypted photo is unreadable without the key, wherever the file ends up. That difference is the main thing to check.</p>
+<table><tr><th></th><th>Hidden folder</th><th>Encrypted vault</th></tr>
+<tr><td>Out of the gallery</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Unreadable in a file manager or on a computer</td><td>No</td><td>Yes</td></tr>
+<tr><td>Safe if the file is copied elsewhere</td><td>No</td><td>Yes, if your secret is strong</td></tr>
+<tr><td>Recoverable after a forgotten secret</td><td>Usually</td><td>No, if it's truly zero knowledge</td></tr></table>
+<h2>What to check before you trust a vault</h2>
+<ul>
+<li><b>Named encryption.</b> Look for a specific method such as AES-256-GCM, not just "military grade" or "secure".</li>
+<li><b>A slow key derivation.</b> Your PIN should go through a deliberately expensive function such as Argon2id, so guessing takes real time.</li>
+<li><b>No reset by email.</b> If the company can reset your PIN, it holds a way in. Real zero-knowledge encryption means a forgotten secret can't be recovered, so look for that warning.</li>
+<li><b>Thumbnails and file names.</b> Both can give away what's in a vault, so they should be encrypted too.</li>
+<li><b>Viewing without temporary copies.</b> Some apps decrypt a file to storage to show it, which can leave a readable copy behind.</li>
+<li><b>Screen protection.</b> Vault screens should be blocked from screenshots and the recent-apps view.</li>
+<li><b>Automatic locking.</b> It should lock when you leave the app, without you having to remember.</li>
+<li><b>A backup you control.</b> If the vault only lives on the phone, a lost phone means lost photos. A backup should stay encrypted wherever you keep it.</li>
+<li><b>Honest limits.</b> Be wary of "unhackable". Good security pages say what they can't protect against.</li>
+</ul>
+<div class="cta"><b>Try a vault that encrypts</b><br>Vireault encrypts photos, videos and files on your phone with a key only you hold.<br><br><a class="btn" href="https://play.google.com/store/apps/details?id=com.vireault.app&utm_source=site&utm_medium=guide&utm_campaign=private-photo-vault-android">Get Vireault free</a></div>
+<h2>How to test a vault yourself</h2>
+<p>You don't need to take a vault's word for it. These checks take about five minutes.</p>
+<ol>
+<li>Add a test photo to the vault, not a private one.</li>
+<li>Connect the phone to a computer, or open a file manager, and look for the photo. On a modern phone the app's private storage shouldn't be visible at all.</li>
+<li>Take a screenshot inside the vault. On a protected app, it should fail or come out blank.</li>
+<li>Open the recent-apps view. The vault's contents shouldn't appear.</li>
+<li>Press Home, then come back. It should ask for your PIN again.</li>
+<li>Look for the "forgot PIN" option. If it offers an email reset, ask what that means for who can get in.</li>
+</ol>
+<h2>Common mistakes</h2>
+<ul>
+<li><b>Leaving the original behind.</b> Importing usually copies a photo. The original stays in your gallery and any cloud backup until you delete it. Vireault offers to delete originals after import, once it has checked the encrypted copies, but cloud backups are still yours to clear.</li>
+<li><b>Using a short PIN.</b> Lockouts only work on the phone. If someone copies the encrypted files off it, the length of your secret is what protects them, so a long passphrase is much stronger than a 6-digit PIN.</li>
+<li><b>Reusing your screen lock.</b> Anyone who has seen you unlock your phone would know that too.</li>
+<li><b>Keeping your only copy in the vault.</b> Make an encrypted backup, and keep its code somewhere separate.</li>
+</ul>
+<h2>Common questions</h2>
+<h3>Can a private photo vault be hacked?</h3>
+<p>Anything can have flaws, so be wary of any app that says otherwise. With proper encryption, someone who copies the files still has to guess your secret, which is why a long passphrase matters more than any other setting.</p>
+<h3>What happens if I forget my PIN?</h3>
+<p>In a true zero-knowledge vault, your files are gone. Nobody holds a spare key. That's the trade-off for nobody else being able to get in, so make an encrypted backup and keep its code somewhere safe.</p>
+<h3>Do private photos stay safe if I uninstall the app?</h3>
+<p>Usually they're deleted along with the app, because they live in its private storage. Check what your vault does before uninstalling, and make a backup first.</p>
+<h2>How Vireault handles this</h2>
+<p>Vireault encrypts files, names and thumbnails with AES-256-GCM, protects the key with Argon2id, and has no accounts or servers, so a forgotten secret can't be reset by anyone. Videos and PDFs open inside the app without a decrypted copy being saved to storage, and new secrets get a strength rating. Backups are encrypted files that you keep wherever you like. It hasn't had an independent audit, and <a href="/vireault-site/security.html">our security page</a> lists what it can't protect against. It's free for 1 vault and 50 items; <a href="/vireault-site/pricing.html">see pricing</a> for unlimited.</p>
+<p>Related: <a href="/vireault-site/guides/how-to-hide-photos-on-android.html">How to hide private photos on Android</a> and <a href="/vireault-site/guides/how-to-encrypt-files-on-android.html">How to encrypt files on your Android phone</a>.</p>
+<div class="cta"><b>Keep private files private</b><br>Vireault encrypts photos, videos and files on your phone with a key only you hold.<br><br><a class="btn" href="https://play.google.com/store/apps/details?id=com.vireault.app&utm_source=site&utm_medium=guide&utm_campaign=private-photo-vault-android-bottom">Get Vireault free</a></div>
+<p>Also read: <a href="/vireault-site/guides/secure-folder-vs-private-space.html">Secure Folder vs Private Space: which should you use?</a></p>
+<footer><a href="/vireault-site/guides/">Guides</a><a href="/vireault-site/pricing.html">Pricing</a><a href="/vireault-site/security.html">Security</a><a href="/vireault-site/privacy.html">Privacy</a></footer>
+</body></html>

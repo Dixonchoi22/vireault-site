@@ -1,0 +1,37 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How Vireault Protects Your Files, and Its Limits</title>
+<meta name="description" content="How Vireault encrypts files on Android: AES-256-GCM, Argon2id, wiped keys, encrypted backups. Plus what it can't protect against, stated plainly.">
+<link rel="canonical" href="https://dixonchoi22.github.io/vireault-site/security.html">
+<meta name="theme-color" content="#0f1218">
+<link rel="icon" href="/vireault-site/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vireault">
+<meta property="og:title" content="How Vireault Protects Your Files, and Its Limits">
+<meta property="og:description" content="How Vireault encrypts files on Android: AES-256-GCM, Argon2id, wiped keys, encrypted backups. Plus what it can't protect against, stated plainly.">
+<meta property="og:url" content="https://dixonchoi22.github.io/vireault-site/security.html">
+<meta property="og:image" content="https://dixonchoi22.github.io/vireault-site/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/vireault-site/style.css"></head><body>
+<nav><a href="/vireault-site/">Vireault</a><a href="/vireault-site/guides/">Guides</a><a href="/vireault-site/pricing.html">Pricing</a><a href="/vireault-site/security.html">Security</a></nav>
+<h1>How Vireault protects your files</h1>
+<p><b>Short answer:</b> your files are encrypted on your phone with AES-256-GCM, using a random key that only your PIN, pattern or passphrase can unlock. We run no servers and hold no keys, so we can't open your vault. It has real limits too, and they're listed below.</p>
+<h2>What Vireault does</h2><ul>
+<li><b>Encrypts everything in the vault.</b> Files, file names and thumbnails are all encrypted with a random 256-bit key. New files are encrypted in small authenticated pieces tied to that file, so a swapped or cut-short file is detected.</li>
+<li><b>Slows down guessing.</b> That key is protected by Argon2id, which needs 64 MiB of memory per guess on most phones (32 MiB on phones that can't spare it).</li>
+<li><b>Locks quickly.</b> Leaving the app, or 5 minutes without a touch, locks the vault and wipes the key the app controls from memory.</li>
+<li><b>Leaves no decrypted copies.</b> Videos, audio and PDFs are decrypted piece by piece in memory while you view them, and nothing is written to storage.</li>
+<li><b>Keeps the screen private.</b> Vault screens are blocked from screenshots, screen recording and the recent-apps view.</li>
+<li><b>Erases on delete.</b> Deleted files are overwritten before they're removed, and deleting a vault destroys its encrypted key first.</li>
+<li><b>Backs up safely.</b> A backup is one encrypted file, protected by its own 120-bit code rather than your PIN. Any tampering, reordering or truncation is detected.</li></ul>
+<h2>What it can't do</h2><ul>
+<li><b>Recover a lost PIN, pattern, passphrase or backup code.</b> Nobody can, including us.</li>
+<li><b>Make a short PIN strong.</b> The on-device lockout doesn't apply if someone with forensic tools copies the vault off your phone, and a 6-digit PIN has only a million combinations. For strong protection, use a long passphrase.</li>
+<li><b>Guarantee erasure from flash storage.</b> Phone storage can keep old copies of data where no app can reach them. Overwriting is best effort. What's left is still encrypted.</li>
+<li><b>Protect an open vault on a compromised phone.</b> Rooted devices and malware with accessibility access are out of scope.</li>
+<li><b>Hide that a vault exists.</b> Someone with forensic access can see the app's folders, vault names, and roughly how many files there are and how big they are.</li>
+<li><b>Remove every original.</b> Vireault can delete originals from your phone after checking the encrypted copies, using Android's normal delete, so they aren't overwritten. Copies in cloud backups are yours to remove.</li></ul>
+<p>Vireault has not had an independent security audit.</p>
+<p>Read next: <a href="/vireault-site/guides/how-to-encrypt-files-on-android.html">How to encrypt files on your Android phone</a>.</p>
+<a class="btn" href="https://play.google.com/store/apps/details?id=com.vireault.app&utm_source=site&utm_medium=security&utm_campaign=security">Get Vireault free</a>
+<footer><a href="/vireault-site/guides/">Guides</a><a href="/vireault-site/pricing.html">Pricing</a><a href="/vireault-site/security.html">Security</a><a href="/vireault-site/privacy.html">Privacy</a></footer>
+</body></html>
