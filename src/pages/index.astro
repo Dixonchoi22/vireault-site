@@ -27,23 +27,29 @@ const faqs = [
   path="/"
   pageSlug={pageSlug}
 >
-  <section class="container hero">
+  <section class="hero-wrap">
+  <div class="container hero">
     <div class="hero-copy">
-      <p class="eyebrow">Encrypted vault for Android</p>
-      <h1>Your private photos, sealed on your own phone</h1>
-      <p class="lead">
-        Vireault locks photos, videos, audio and PDFs behind real encryption, not a hidden folder.
-        No sign-up, no cloud, no one else holding a key.
-      </p>
+      <p class="pill"><span class="pill-dot"></span> Argon2id · AES-256-GCM · No account</p>
+      <h1>Hiding a photo isn't<br /><u>protecting it</u>.<br /><span class="h1-accent">Vireault seals it.</span></h1>
+      <p class="lead lead-bar"><strong>Photos, videos and files locked with a key only you hold.</strong><br />Encrypted on your Android phone. No sign-up, no cloud, no email.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href={playUrl('home-hero')}>Get it on Google Play</a>
-        <a class="btn btn-secondary" href="/#how-it-works">How it works</a>
+        <a class="btn btn-primary btn-xl" href={playUrl('home-hero')}>Get it on Google Play</a>
       </div>
-      <p class="note">Free for {PRICING.free.vaults} vault · {PRICING.free.items} items. Pro from {PRICING.weekly}.</p>
+      <div class="qr-card">
+        <img src="/images/download-qr.svg" width="96" height="96" alt="QR code to download Vireault" />
+        <div><strong>Scan to download on Android</strong><span>Point your phone camera at the code to open the download page.</span><a href="/#how-it-works">See how it works →</a></div>
+      </div>
+      <p class="note mini-facts"><span>Free: {PRICING.free.vaults} vault · {PRICING.free.items} items</span><span>Pro from {PRICING.weekly}</span><span>Nothing leaves your phone</span></p>
     </div>
-    <div class="hero-media">
-      <img src="/images/screenshot-vault.png" width="1080" height="1920" alt="Vireault vault grid showing encrypted media on Android" />
+    <div class="hero-media phone">
+      <div class="phone-frame"><img src="/images/screenshot-vault.png" width="1080" height="1920" alt="Vireault vault grid showing encrypted media on Android" /></div>
     </div>
+  </div>
+  </section>
+
+  <section class="ribbon" aria-label="Promises">
+    <div class="container ribbon-inner"><span>✕ No accounts</span><span>✕ No cloud upload</span><span>✕ No back doors</span></div>
   </section>
 
   <section class="trust-strip" aria-label="Why people trust Vireault">
@@ -53,8 +59,8 @@ const faqs = [
   </section>
 
   <section class="container section" id="features">
-    <h2>Everything the vault does today</h2>
-    <p class="section-intro">Six capabilities, each with its own page explaining exactly how it works.</p>
+    <h2 class="center-h">What does a real<br />encrypted vault do?</h2>
+    <p class="section-intro center">Your files are encrypted before they ever touch storage. Six capabilities, each explained on its own page.</p>
     <div class="grid cols-3">
       {FEATURES.map((f) => (
         <a class="card card-click" href={f.href}>
