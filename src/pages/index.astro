@@ -1,8 +1,25 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Cta from '../components/Cta.astro';
 import { FEATURES, GUIDES, COMPARES, PRICING, playUrl } from '../data/site';
 const pageSlug = 'home';
+const trust = [
+  { k: 'No account', v: 'Open the app and create a vault. No email, no phone number.' },
+  { k: 'Stays on your phone', v: 'Nothing is uploaded. There is no Vireault server holding your files.' },
+  { k: 'Modern cryptography', v: 'Argon2id derives the key; AES-256-GCM seals every file.' },
+  { k: 'Free to start', v: `${PRICING.free.vaults} vault and ${PRICING.free.items} items at no cost.` },
+];
+const steps = [
+  { n: '1', t: 'Choose how you unlock', d: 'Set a PIN, draw a 3×3 pattern or type a passphrase. That secret is stretched with Argon2id into the key that guards a random master key.' },
+  { n: '2', t: 'Bring in your media', d: 'Pick photos, videos, audio or PDFs. Each one is encrypted as it enters the vault, and you can remove the original from your gallery afterwards.' },
+  { n: '3', t: 'Close it and it locks', d: 'Switch apps or leave the phone idle for five minutes and the vault seals itself. Screenshots of vault screens are blocked.' },
+];
+const faqs = [
+  { q: 'Can Vireault reset my PIN if I forget it?', a: 'No. Only you hold the secret, so there is no back door. Keep your recovery material somewhere safe.' },
+  { q: 'Does it upload anything?', a: 'No vault content ever leaves your device. Purchases go through Google Play Billing.' },
+  { q: 'What is free and what is Pro?', a: `Free covers ${PRICING.free.vaults} vault and ${PRICING.free.items} items. Pro is ${PRICING.weekly}, ${PRICING.annual} with a ${PRICING.annualTrial}, or ${PRICING.lifetime} once for lifetime.` },
+  { q: 'Can I move my vault to a new phone?', a: 'Yes. Export an encrypted backup file, copy it across, and restore it on the new device with your secret.' },
+  { q: 'Does it have folders, fingerprint unlock or a decoy vault?', a: 'Not yet. Today Vireault offers PIN, pattern and passphrase unlock plus multiple separate vaults. Folders are next on the list.' },
+];
 ---
 <BaseLayout
   title="Vireault — Encrypted photo and file vault for Android"
@@ -12,126 +29,112 @@ const pageSlug = 'home';
 >
   <section class="container hero">
     <div class="hero-copy">
-      <p class="badge">Android · Offline · No account</p>
-      <h1>Keep private photos and files encrypted on your phone</h1>
+      <p class="eyebrow">Encrypted vault for Android</p>
+      <h1>Your private photos, sealed on your own phone</h1>
       <p class="lead">
-        Vireault is a local-only vault for Android. Your media is encrypted with AES-256-GCM using a key derived with Argon2id.
-        There is no account and no server that can open your vault.
+        Vireault locks photos, videos, audio and PDFs behind real encryption, not a hidden folder.
+        No sign-up, no cloud, no one else holding a key.
       </p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href={playUrl(pageSlug)}>Get on Google Play</a>
-        <a class="btn btn-secondary" href="/features">See features</a>
+        <a class="btn btn-primary" href={playUrl('home-hero')}>Get it on Google Play</a>
+        <a class="btn btn-secondary" href="/#how-it-works">How it works</a>
       </div>
-      <div class="badge-row">
-        <span class="badge">Argon2id + AES-256-GCM</span>
-        <span class="badge">PIN · 3×3 pattern · passphrase</span>
-        <span class="badge">Encrypted backup file</span>
-        <span class="badge">Screenshot blocking</span>
-      </div>
+      <p class="note">Free for {PRICING.free.vaults} vault · {PRICING.free.items} items. Pro from {PRICING.weekly}.</p>
     </div>
     <div class="hero-media">
       <img src="/images/screenshot-vault.png" width="1080" height="1920" alt="Vireault vault grid showing encrypted media on Android" />
     </div>
   </section>
 
-  <section class="container section">
-    <h2>Built for people who want real encryption, not a renamed folder</h2>
-    <p class="section-intro">
-      Gallery “hide” tricks and calculator disguises often leave files readable on disk. Vireault encrypts content and the file index so names stay hidden too.
-    </p>
+  <section class="trust-strip" aria-label="Why people trust Vireault">
+    <div class="container trust-grid">
+      {trust.map((t) => (<div class="trust-item"><strong>{t.k}</strong><span>{t.v}</span></div>))}
+    </div>
+  </section>
+
+  <section class="container section" id="features">
+    <h2>Everything the vault does today</h2>
+    <p class="section-intro">Six capabilities, each with its own page explaining exactly how it works.</p>
     <div class="grid cols-3">
       {FEATURES.map((f) => (
-        <article class="card">
+        <a class="card card-click" href={f.href}>
           <h3>{f.title}</h3>
           <p>{f.short}</p>
-          <a class="card-link" href={f.href}>Learn more →</a>
-        </article>
+          <span class="card-link">Read more →</span>
+        </a>
       ))}
     </div>
+    <p><a class="card-link" href="/features">Browse all features →</a></p>
   </section>
 
-  <div class="container">
-    <Cta pageSlug={pageSlug} heading="Scroll-stop CTA: try the Android vault" body="Import photos, videos, audio or PDFs. Optionally delete the original after import. Free plan: 1 vault and 50 items." />
-  </div>
-
-  <section class="container section">
-    <h2>What you can do today</h2>
-    <div class="grid cols-2">
-      <article class="card">
-        <h3>Import and view inside the vault</h3>
-        <p>Photos with swipe and zoom, video and audio with scrubbing, and PDFs — without writing decrypted copies back to the gallery.</p>
-      </article>
-      <article class="card">
-        <h3>Search, sort and filter</h3>
-        <p>Find items quickly with encrypted thumbnails and kind filters. Folders are coming soon.</p>
-      </article>
-      <article class="card">
-        <h3>Auto-lock and lockout</h3>
-        <p>The vault locks when the app goes to the background or after 5 minutes idle. Wrong unlock attempts trigger lockout.</p>
-      </article>
-      <article class="card">
-        <h3>Backup you control</h3>
-        <p>Export an encrypted backup file and restore it later. If you lose your secret and recovery material, nobody can recover the data — including us.</p>
-      </article>
+  <section class="section-alt" id="how-it-works">
+    <div class="container section">
+      <h2>How it works</h2>
+      <p class="section-intro">From install to locked vault in about a minute.</p>
+      <ol class="steps">
+        {steps.map((s) => (<li class="step"><span class="step-n">{s.n}</span><h3>{s.t}</h3><p>{s.d}</p></li>))}
+      </ol>
     </div>
   </section>
 
-  <section class="container section">
-    <h2>Simple pricing</h2>
-    <p class="section-intro">Free forever for light use. Pro unlocks more capacity with weekly, annual (3-day trial) or lifetime options.</p>
-    <div class="grid cols-3">
-      <article class="card">
-        <h3>Free</h3>
-        <p>{PRICING.free.vaults} vault · {PRICING.free.items} items</p>
-      </article>
-      <article class="card">
-        <h3>Pro</h3>
-        <p>{PRICING.weekly} · {PRICING.annual} ({PRICING.annualTrial}) · {PRICING.lifetime} lifetime</p>
-      </article>
-      <article class="card">
-        <h3>Honest limits</h3>
-        <p>No cloud sync, biometrics, decoy vaults or in-app camera yet. Folders are coming soon.</p>
-        <a class="card-link" href="/pricing">Full pricing →</a>
-      </article>
+  <section class="container section split" id="security">
+    <div>
+      <h2>The security model, in plain words</h2>
+      <ul class="checks">
+        <li>Your secret is never stored. Argon2id turns it into a key each time you unlock.</li>
+        <li>A random master key encrypts file contents with AES-256-GCM, which also detects tampering.</li>
+        <li>The index is encrypted too, so file names and thumbnails are unreadable on disk.</li>
+        <li>Repeated wrong attempts trigger a lockout delay.</li>
+        <li>Backups are exported as encrypted files that only your secret can open.</li>
+      </ul>
+      <p><a class="card-link" href="/features/encryption">Read the encryption details →</a></p>
     </div>
-  </section>
-
-  <section class="container section">
-    <h2>Guides for Android privacy keywords</h2>
-    <div class="grid cols-2">
-      {GUIDES.map((g) => (
-        <article class="card">
-          <h3>{g.title}</h3>
-          <p>{g.description}</p>
-          <a class="card-link" href={g.href}>Read guide →</a>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="container section">
-    <h2>Compare with older Android vault apps</h2>
-    <div class="grid cols-3">
-      {COMPARES.map((c) => (
-        <article class="card">
-          <h3>{c.title}</h3>
-          <p>{c.short}</p>
-          <a class="card-link" href={c.href}>Compare →</a>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="container section">
-    <h2>Screens from the app</h2>
-    <div class="shot-grid">
+    <div class="shot-pair">
       <img src="/images/screenshot-unlock.png" alt="Vireault unlock screen" width="720" height="1280" loading="lazy" />
       <img src="/images/screenshot-security.png" alt="Vireault security settings" width="720" height="1280" loading="lazy" />
-      <img src="/images/screenshot-lockout.png" alt="Vireault lockout after wrong attempts" width="720" height="1280" loading="lazy" />
     </div>
   </section>
 
-  <div class="container">
-    <Cta pageSlug={pageSlug} heading="Ready when you are" />
-  </div>
+  <section class="container">
+    <aside class="cta-band big">
+      <h2>If someone picks up your phone, your gallery shows nothing private.</h2>
+      <p>Move what matters into Vireault and it stays encrypted until you unlock it.</p>
+      <p><a class="btn btn-primary" href={playUrl('home-mid')}>Get it on Google Play</a></p>
+    </aside>
+  </section>
+
+  <section class="container section">
+    <h2>Straight about what is not here yet</h2>
+    <p class="section-intro">We would rather tell you up front than surprise you after install.</p>
+    <div class="grid cols-2">
+      <article class="card"><h3>Not built yet</h3><p>Folders, fingerprint or face unlock, a decoy vault, an in-app camera and cloud sync. Folders come first.</p></article>
+      <article class="card"><h3>Pricing</h3><p>Free: {PRICING.free.vaults} vault, {PRICING.free.items} items. Pro: {PRICING.weekly}, {PRICING.annual} ({PRICING.annualTrial}) or {PRICING.lifetime} lifetime.</p><a class="card-link" href="/pricing">Compare plans →</a></article>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <div class="container section">
+      <h2>How Vireault stacks up</h2>
+      <p class="section-intro">Side-by-side looks at popular Android hiding and vault apps.</p>
+      <div class="grid cols-3">
+        {COMPARES.map((c) => (<a class="card card-click" href={c.href}><h3>{c.title}</h3><p>{c.short}</p><span class="card-link">See comparison →</span></a>))}
+      </div>
+      <p><a class="btn btn-secondary" href="/compare">All comparisons</a></p>
+    </div>
+  </section>
+
+  <section class="container section">
+    <h2>Guides</h2>
+    <p class="section-intro">Practical, step-by-step help with Android privacy.</p>
+    <div class="grid cols-3">
+      {GUIDES.slice(0, 3).map((g) => (<a class="card card-click" href={g.href}><h3>{g.title}</h3><p>{g.description}</p><span class="card-link">Read guide →</span></a>))}
+    </div>
+    <p><a class="card-link" href="/guides">All guides →</a></p>
+  </section>
+
+  <section class="container section faq" id="faq">
+    <h2>Frequently asked questions</h2>
+    {faqs.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
+    <p><a class="card-link" href="/faq">More answers →</a></p>
+  </section>
 </BaseLayout>

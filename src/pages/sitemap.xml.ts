@@ -7,7 +7,8 @@ export const GET: APIRoute = () => {
     '/features',
     '/pricing',
     '/faq',
-    '/privacy',
+    '/about',
+    '/whats-new',
     '/compare',
     '/guides',
   ];
@@ -22,7 +23,7 @@ export const GET: APIRoute = () => {
     `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
     paths
       .map((path) => {
-        const loc = path === '/' ? SITE.domain + '/' : `${SITE.domain}${path}`;
+        const loc = path === '/' ? SITE.domain + '/' : `${SITE.domain}${path}/`;
         return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${lastmod}</lastmod>\n  </url>`;
       })
       .join('\n') +

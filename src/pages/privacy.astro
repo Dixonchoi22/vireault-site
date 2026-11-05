@@ -1,65 +1,10 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
-import Cta from '../components/Cta.astro';
+// The published privacy policy lives at /privacy.html (unchanged legacy page). This path just forwards to it.
 import { SITE } from '../data/site';
-const pageSlug = 'privacy';
+const target = `${SITE.domain}/privacy.html`;
 ---
-<BaseLayout
-  title="Privacy policy"
-  description="Vireault privacy policy: no account, no vault data collection, offline local storage on your Android device."
-  path="/privacy"
-  pageSlug={pageSlug}
->
-  <div class="container">
-    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { label: 'Privacy' }]} />
-    <article class="section prose">
-      <h1>Privacy policy</h1>
-      <p class="note">Last updated: 5 November 2026 (Europe/London)</p>
-      <p>
-        Vireault (“the app”, package <strong>{SITE.packageId}</strong>) is a local encrypted vault for Android.
-        This policy describes what we do and do not collect.
-      </p>
-
-      <h2>Summary</h2>
-      <ul>
-        <li>No account, email or phone number is required.</li>
-        <li>Vault contents stay on your device unless you export a backup file yourself.</li>
-        <li>We do not operate a content server that receives your photos, videos, files, unlock secrets or encryption keys.</li>
-        <li>We do not sell personal data.</li>
-        <li>Purchases are processed by Google Play; Vireault does not receive your payment card details.</li>
-      </ul>
-
-      <h2>Data we do not collect</h2>
-      <p>
-        The app is designed for offline, local use. We do not collect vault files, thumbnails, file names, PINs, patterns,
-        passphrases, master keys or backup recovery material. There is no analytics SDK in the product description used for this site,
-        and the vault workflow does not depend on sending content to us.
-      </p>
-
-      <h2>Data stored on your device</h2>
-      <p>
-        Encrypted vault data, the encrypted index and unlock-related material needed to open your vaults are stored locally on your phone.
-        Uninstalling the app or deleting a vault removes that local data from the app’s storage. If you created an encrypted backup file,
-        that file remains wherever you saved it until you delete it.
-      </p>
-
-      <h2>Permissions and platform services</h2>
-      <p>
-        Access to photos or documents happens through the Android system pickers when you choose to import.
-        Screenshot blocking and auto-lock are local protections. Google Play Billing handles subscriptions and the lifetime purchase;
-        Google’s terms and privacy policy apply to payment processing.
-      </p>
-
-      <h2>Children</h2>
-      <p>Vireault is a utility app and is not directed at children under 13. Do not use it to store others’ private data without permission.</p>
-
-      <h2>Changes</h2>
-      <p>If this policy changes, we will update the date above on this page.</p>
-
-      <h2>Contact</h2>
-      <p>Questions: <a href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a></p>
-    </article>
-    <Cta pageSlug={pageSlug} heading="Privacy-first by design" body="No account. Offline encryption on your Android phone." />
-  </div>
-</BaseLayout>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8" /><title>Privacy policy | Vireault</title>
+<meta name="robots" content="noindex" /><link rel="canonical" href={target} />
+<meta http-equiv="refresh" content={`0; url=${target}`} /></head>
+<body><p><a href={target}>Privacy policy</a></p></body></html>

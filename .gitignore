@@ -8,3 +8,5 @@ preview-*.png
 .vscode/
 dist/
 .astro/
+.env
+.env.*

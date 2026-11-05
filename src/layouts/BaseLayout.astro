@@ -27,9 +27,9 @@ const {
   article,
 } = Astro.props;
 
-const canonical = path === '/' ? `${SITE.domain}/` : `${SITE.domain}${path}`;
+const canonical = path === '/' ? `${SITE.domain}/` : `${SITE.domain}${path.replace(/\/$/, "")}/`;
 const fullTitle = title.includes('Vireault') ? title : `${title} | Vireault`;
-const ogImage = new URL('/images/feature-graphic.png', SITE.domain).toString();
+const ogImage = `${SITE.domain}/images/feature-graphic.png`;
 const softwareLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',

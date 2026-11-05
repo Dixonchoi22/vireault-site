@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Cta from '../components/Cta.astro';
+const pageSlug = 'about';
+---
+<BaseLayout title="About Vireault" description="Why Vireault exists: an Android vault built around local encryption, no accounts and honest feature claims." path="/about" pageSlug={pageSlug}>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { label: 'About' }]} />
+    <article class="section prose">
+      <h1>About Vireault</h1>
+      <p class="lead">Vireault is a small, independent Android app with one job: keep the photos and files you choose encrypted on your own phone.</p>
+      <h2>Why it exists</h2>
+      <p>Many "hide" apps on Android simply move files into a folder the gallery skips, or put a calculator screen in front of them. The files themselves often stay readable to anyone who plugs the phone into a computer. Vireault was built to close that gap with <a href="/features/encryption">real encryption</a> rather than disguise.</p>
+      <h2>What we believe</h2>
+      <ul>
+        <li><strong>Your data, your device.</strong> No account and <a href="/features/offline">no cloud</a>. We cannot see your vault, so we cannot lose it or hand it over.</li>
+        <li><strong>Honest claims.</strong> The site only lists features that ship today. Folders, biometric unlock, decoy vaults, an in-app camera and cloud sync are not built yet, and we say so.</li>
+        <li><strong>Fair pricing.</strong> A useful free tier, and a one-time <a href="/pricing">lifetime option</a> for people who dislike subscriptions.</li>
+      </ul>
+      <h2>How it is built</h2>
+      <p>Keys are derived with Argon2id, files are sealed with AES-256-GCM, and the index is encrypted so names stay hidden. Read the <a href="/features">feature pages</a> for detail, or the <a href="/privacy.html">privacy policy</a> for exactly what is (and is not) collected.</p>
+      <h2>Get in touch</h2>
+      <p>Questions or bug reports: <a href="mailto:chumiapp.support@gmail.com">chumiapp.support@gmail.com</a>. See also the <a href="/faq">FAQ</a> and <a href="/whats-new">what's new</a>.</p>
+    </article>
+    <Cta pageSlug={pageSlug} />
+  </div>
+</BaseLayout>

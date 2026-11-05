@@ -1,43 +1,58 @@
 ---
-import { SITE, FEATURES, COMPARES, GUIDES } from '../data/site';
+import { SITE, FEATURES, COMPARES, GUIDES, playUrl } from '../data/site';
 ---
 <footer class="site-footer">
+  <div class="container">
+    <div class="footer-cta">
+      <p><strong>Lock your private media in under a minute.</strong></p>
+      <a class="btn btn-primary" href={playUrl('footer')}>Get it on Google Play</a>
+    </div>
+  </div>
   <div class="container footer-grid">
     <div class="footer-col">
       <h3>{SITE.name}</h3>
       <p>Offline encrypted vault for Android photos, videos and files. No account. Only you hold the key.</p>
-      <p class="note">Package: {SITE.packageId}</p>
+      <p class="note">Support: <a href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a></p>
     </div>
     <div class="footer-col">
       <h3>Product</h3>
       <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/#how-it-works">How it works</a></li>
+        <li><a href="/#security">Security model</a></li>
         <li><a href="/features">Features</a></li>
         <li><a href="/pricing">Pricing</a></li>
-        <li><a href="/faq">FAQ</a></li>
-        <li><a href="/privacy">Privacy</a></li>
+        <li><a href="/whats-new">What's new</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h3>Features</h3>
+      <ul>{FEATURES.map((f) => (<li><a href={f.href}>{f.title}</a></li>))}</ul>
+    </div>
+    <div class="footer-col">
+      <h3>Guides</h3>
       <ul>
-        {FEATURES.map((f) => (
-          <li><a href={f.href}>{f.title}</a></li>
-        ))}
+        {GUIDES.map((g) => (<li><a href={g.href}>{g.title}</a></li>))}
+        <li><a href="/guides">All guides</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h3>Guides & compares</h3>
+      <h3>Compare</h3>
       <ul>
-        {GUIDES.slice(0, 3).map((g) => (
-          <li><a href={g.href}>{g.title}</a></li>
-        ))}
-        {COMPARES.map((c) => (
-          <li><a href={c.href}>{c.title}</a></li>
-        ))}
+        {COMPARES.map((c) => (<li><a href={c.href}>{c.title}</a></li>))}
+        <li><a href="/compare">All comparisons</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3>Company</h3>
+      <ul>
+        <li><a href="/about">About</a></li>
+        <li><a href="/faq">FAQ</a></li>
+        <li><a href={SITE.privacyUrl}>Privacy policy</a></li>
       </ul>
     </div>
   </div>
   <div class="container" style="margin-top:1.5rem">
-    <p class="note">© {new Date().getFullYear()} Vireault. Not affiliated with Keepsafe, Hide it Pro, Private Photo Vault, or Vaultaire.</p>
+    <p class="note">© {new Date().getFullYear()} Vireault. Not affiliated with Keepsafe, Hide it Pro or any other app named on this site.</p>
   </div>
 </footer>

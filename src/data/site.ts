@@ -3,7 +3,9 @@ export const SITE = {
   tagline: 'Private encrypted vault for Android',
   description:
     'Encrypt photos, videos and files on your Android phone. No account. Offline and local only. Argon2id + AES-256-GCM.',
-  domain: 'https://vireault.app',
+  // Full public origin + base path, derived from astro.config (SITE_URL / BASE_PATH).
+  domain: (import.meta.env.SITE as string).replace(/\/$/, '') + import.meta.env.BASE_URL.replace(/\/$/, ''),
+  privacyUrl: '/privacy.html',
   packageId: 'com.vireault.app',
   supportEmail: 'chumiapp.support@gmail.com',
   playBase:
@@ -28,6 +30,7 @@ export const NAV = [
   { href: '/guides', label: 'Guides' },
   { href: '/compare', label: 'Compare' },
   { href: '/faq', label: 'FAQ' },
+  { href: '/about', label: 'About' },
 ] as const;
 
 export const FEATURES = [

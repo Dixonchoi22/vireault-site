@@ -18,3 +18,13 @@ npm run dev
 ## Content rules
 
 Only claim shipping features. Never copy Vaultaire branding or text. See `SEO-PLAYBOOK.md` for the daily Search Console → one guide → internal links routine.
+
+## Hosting
+
+Deployed to GitHub Pages (branch `gh-pages`, built by `./deploy/publish-gh-pages.sh`) at https://dixonchoi22.github.io/vireault-site/.
+`/privacy.html` is the original published privacy policy, kept byte-for-byte in `public/`.
+
+To move to a custom domain later: set repo variables `SITE_URL=https://yourdomain` and `BASE_PATH=/`,
+add `public/CNAME` with the domain, and configure it in Settings → Pages. Canonicals, sitemap, robots and links follow automatically.
+
+`deploy/github-pages-workflow.yml` is a ready GitHub Actions alternative; move it to `.github/workflows/` once the gh token has the `workflow` scope (`gh auth refresh -s workflow`), then set Pages source to GitHub Actions.

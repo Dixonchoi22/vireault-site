@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Cta from '../components/Cta.astro';
+import { PRICING } from '../data/site';
+const pageSlug = 'whats-new';
+---
+<BaseLayout title="What's new in Vireault" description="Release notes and roadmap for Vireault, the offline encrypted vault for Android." path="/whats-new" pageSlug={pageSlug}>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { label: "What's new" }]} />
+    <section class="section prose">
+      <h1>What's new</h1>
+      <p class="lead">Release notes and what we are working on next.</p>
+      <h2>Up next</h2>
+      <p><strong>Folders</strong> are the next feature in progress. Biometric unlock, a decoy vault, an in-app camera and cloud sync are ideas we are considering; none of them is in the app today.</p>
+      <h2>Releases</h2>
+      <div class="timeline">
+        <article>
+          <h3>First release — November 2026</h3>
+          <ul>
+            <li>Vaults encrypted with <a href="/features/encryption">Argon2id + AES-256-GCM</a>, including an encrypted index.</li>
+            <li><a href="/features/unlock">PIN, 3×3 pattern or passphrase</a> unlock with lockout after wrong attempts.</li>
+            <li><a href="/features/multiple-vaults">Multiple vaults</a>, each with its own secret.</li>
+            <li><a href="/features/import-media">Import and view</a> photos, video, audio and PDF, with search, sort and filters.</li>
+            <li><a href="/features/backup-restore">Encrypted backup and restore</a>, auto-lock and screenshot blocking.</li>
+            <li>Free plan ({PRICING.free.vaults} vault, {PRICING.free.items} items) and Pro: {PRICING.weekly}, {PRICING.annual} with a {PRICING.annualTrial}, or {PRICING.lifetime} lifetime.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+    <Cta pageSlug={pageSlug} />
+  </div>
+</BaseLayout>
