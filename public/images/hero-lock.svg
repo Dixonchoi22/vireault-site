@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 460" role="img" aria-label="Padlock">
+<defs>
+<linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b1fd1"/><stop offset=".55" stop-color="#7a2be0"/><stop offset="1" stop-color="#e0245e"/></linearGradient>
+<linearGradient id="s" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffc93c"/><stop offset="1" stop-color="#ff7a3d"/></linearGradient>
+<radialGradient id="g" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#1fc8a0" stop-opacity=".35"/><stop offset="1" stop-color="#1fc8a0" stop-opacity="0"/></radialGradient>
+</defs>
+<circle cx="200" cy="270" r="190" fill="url(#g)"/>
+<path d="M110 210V140a90 90 0 0 1 180 0v70" fill="none" stroke="url(#s)" stroke-width="38" stroke-linecap="round"/>
+<path d="M110 210V140a90 90 0 0 1 180 0v70" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="8" stroke-linecap="round" transform="translate(-8 0)"/>
+<rect x="50" y="200" width="300" height="230" rx="34" fill="url(#b)"/>
+<rect x="66" y="216" width="268" height="198" rx="24" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="3"/>
+<g fill="#fff" fill-opacity=".9">
+<circle cx="200" cy="295" r="30"/><path d="M186 310h28l8 62h-44z"/></g>
+<g fill="#fff" fill-opacity=".35"><circle cx="100" cy="250" r="6"/><circle cx="300" cy="250" r="6"/><circle cx="100" cy="385" r="6"/><circle cx="300" cy="385" r="6"/></g>
+<g font-family="monospace" font-size="13" fill="#fff" fill-opacity=".55"><text x="88" y="408">AES-256-GCM</text><text x="236" y="408">ARGON2ID</text></g>
+<g fill="#ffc93c"><path d="M340 70l6 16 16 6-16 6-6 16-6-16-16-6 16-6z"/></g>
+<g fill="#1fc8a0"><path d="M50 110l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/></g>
+</svg>
