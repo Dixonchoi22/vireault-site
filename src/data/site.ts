@@ -130,4 +130,10 @@ export const GUIDES = [
     description: 'What to do when an Android photo vault goes empty after an update, reinstall or new phone — and how to avoid it.',
     href: '/guides/photo-vault-lost-photos-android',
   },
+  {
+    slug: 'keepsafe-alternative-android-no-account',
+    title: 'Keepsafe alternative without an account (Android)',
+    description: 'A factual Keepsafe alternative checklist for Android users who want a vault with no email account, citing Keepsafe’s own docs.',
+    href: '/guides/keepsafe-alternative-android-no-account',
+  },
 ] as const;

@@ -1,0 +1,207 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cta from '../../components/Cta.astro';
+
+const pageSlug = 'keepsafe-alternative-android-no-account';
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Keepsafe alternative without an account (Android)',
+  description:
+    'What “no account” means for an Android photo vault, how Keepsafe’s public docs describe accounts and cloud caps, and when a local vault like Vireault fits.',
+  author: { '@type': 'Organization', name: 'Vireault' },
+  datePublished: '2026-11-05',
+  dateModified: '2026-11-05',
+  mainEntityOfPage: 'https://vireault.app/guides/keepsafe-alternative-android-no-account',
+};
+---
+<BaseLayout
+  title="Keepsafe alternative without an account (Android)"
+  description="Looking for a Keepsafe alternative on Android that does not need an email account? Compare public Keepsafe docs with a local Argon2id + AES-256-GCM vault."
+  path="/guides/keepsafe-alternative-android-no-account"
+  pageSlug={pageSlug}
+  ogType="article"
+  jsonLd={articleLd}
+  article={{ published: '2026-11-05', modified: '2026-11-05' }}
+>
+  <div class="container">
+    <Breadcrumbs
+      items={[
+        { href: '/', label: 'Home' },
+        { href: '/guides', label: 'Guides' },
+        { label: 'Keepsafe alternative (no account)' },
+      ]}
+    />
+    <article class="section prose">
+      <h1>Keepsafe alternative without an account (Android)</h1>
+      <p>
+        Keepsafe is one of the best-known Android photo vaults — Google Play lists it at
+        <strong>50M+</strong> downloads with ads and in-app purchases on the free tier
+        (<a href="https://play.google.com/store/apps/details?id=com.kii.safe">Play listing</a>,
+        checked Nov 2026). Many people who search for a “Keepsafe alternative” are not asking for
+        another cloud gallery. They want a vault that works <strong>without creating an email
+        account</strong>, without ads, and with encryption details they can read.
+      </p>
+      <p>
+        This page stays factual. It cites Keepsafe’s own help center and Play listing, notes what a
+        third-party comparison observed about ads, and explains where Vireault fits — including what
+        Vireault does <em>not</em> ship yet. It is not a claim that Keepsafe is unsafe for every
+        user.
+      </p>
+
+      <h2>What Keepsafe’s public docs say about accounts and recovery</h2>
+      <ul>
+        <li>
+          Keepsafe’s help article
+          <a href="https://support.getkeepsafe.com/hc/en-us/articles/360035454311-How-does-Keepsafe-protect-my-data"
+            >How does Keepsafe protect my data?</a
+          >
+          describes 256-bit AES encryption at rest, Private Cloud backups, and PIN/pattern unlock.
+          For a forgotten PIN it points to a reset process that uses an
+          <strong>access code through your account email</strong>.
+        </li>
+        <li>
+          The same article states that Basic (free) backs up the <strong>first 200 items</strong>;
+          Premium raises the cloud cap (Keepsafe documents up to 10,000). It also warns that losing a
+          device without backup means photos and videos are gone forever.
+        </li>
+        <li>
+          A separate help article states Keepsafe is
+          <strong>not currently designed as a completely zero-knowledge app</strong>, and lists
+          limited cases where the company can view or share personal data (user-requested support,
+          legal requirements, Terms/Privacy concerns):
+          <a
+            href="https://support.getkeepsafe.com/hc/en-us/articles/360035082512-Can-Keepsafe-see-any-of-my-content"
+            >Can Keepsafe see any of my content?</a
+          >.
+        </li>
+        <li>
+          Trash recovery is documented as a <strong>Premium</strong> feature:
+          <a href="https://support.getkeepsafe.com/hc/en-us/articles/360035445111-Recovering-items-from-Trash"
+            >Recovering items from Trash</a
+          >.
+        </li>
+      </ul>
+      <p>
+        None of that means Keepsafe “does not encrypt.” It means the product model includes an
+        account, a vendor cloud with free-tier caps, and a trust boundary that is not zero-knowledge
+        by Keepsafe’s own wording. If that is what you want to avoid, look for a local vault.
+      </p>
+
+      <h2>What “no account” actually buys you</h2>
+      <p>A no-account Android vault typically means:</p>
+      <ul>
+        <li>No email or phone number required to open or unlock the vault</li>
+        <li>No vendor login that can reset access to your ciphertext</li>
+        <li>Keys derived on-device from a secret only you hold</li>
+        <li>Backups as files <em>you</em> copy (USB, Files, your own Drive), not an automatic vendor cloud</li>
+      </ul>
+      <p>
+        The tradeoff is blunt: if you forget the secret and lose the backup recovery material,
+        <strong>nobody can restore the files</strong> — including the developer. That is the cost of
+        not giving a company a recovery path. Read that before migrating irreplaceable media.
+      </p>
+
+      <Cta
+        pageSlug={pageSlug}
+        heading="Try a local vault with no signup"
+        body="Vireault runs offline on Android: Argon2id + AES-256-GCM, no account, no ads. Free: 1 vault / 50 items. Pro from $1.99/week, $19.99/year (3-day trial), or $29.99 lifetime."
+      />
+
+      <h2>Checklist: Keepsafe alternative without an account</h2>
+      <ol>
+        <li>
+          <strong>Signup.</strong> Does the app insist on an email before you can store files?
+        </li>
+        <li>
+          <strong>Crypto detail.</strong> Does it name a KDF and AEAD (for example Argon2id +
+          AES-256-GCM), or only “military-grade”? Keepsafe’s Play listing uses the latter phrasing
+          without a cipher mode on the store page.
+        </li>
+        <li>
+          <strong>Ads.</strong> York Vault’s Oct 2026 Android comparison of seven mainstream vaults
+          (Keepsafe, NQ Vault, Hide It Pro, Calculator vault, Vaulty, LockMyPix, Private Photo Vault)
+          reported that <strong>all seven</strong> Play listings said “Contains ads” on the free
+          version (
+          <a href="https://yorkvault.com/guides/best-photo-vault-apps-android"
+            >yorkvault.com/guides/best-photo-vault-apps-android</a
+          >). If you want a vault free of ad networks, filter for that explicitly.
+        </li>
+        <li>
+          <strong>Backup you control.</strong> Prefer an encrypted export you can restore after
+          uninstall — and practice one restore before deleting gallery originals. See
+          <a href="/guides/photo-vault-lost-photos-android">photo vault lost my photos</a>.
+        </li>
+        <li>
+          <strong>Paywalls in front of your files.</strong> Check whether Trash recovery, basic
+          unlock or export of <em>your</em> items requires Premium. Prefer products that never hold
+          your ciphertext hostage.
+        </li>
+        <li>
+          <strong>Honest missing features.</strong> A good alternative page admits what is not built
+          yet instead of promising a full Keepsafe clone on day one.
+        </li>
+      </ol>
+
+      <h2>Where Vireault fits</h2>
+      <p>
+        Vireault is an Android vault built around the no-account model:
+      </p>
+      <ul>
+        <li>No account, offline / local storage, no ads and no analytics in the product we ship against</li>
+        <li><a href="/security">Argon2id key derivation</a> and AES-256-GCM for vault contents, with an encrypted index</li>
+        <li>Unlock with PIN, 3×3 pattern or passphrase; lockout after wrong attempts</li>
+        <li><a href="/features/backup-restore">Encrypted backup file</a> you export and restore yourself</li>
+        <li>
+          Free: 1 vault / 50 items. Pro: $1.99/week, $19.99/year with a 3-day trial, or
+          <a href="/pricing">$29.99 lifetime</a> via Google Play
+        </li>
+      </ul>
+      <p>
+        <strong>Not shipped yet</strong> (so this is not a feature-for-feature Keepsafe replacement):
+        cloud sync across devices, biometrics, decoy / fake PIN vault, in-app camera. Folders are
+        coming soon. There is no third-party audit claim on this page. Full limits:
+        <a href="/security">/security</a>.
+      </p>
+
+      <h2>Who might still prefer Keepsafe</h2>
+      <ul>
+        <li>You want vendor Private Cloud sync and are fine creating an account</li>
+        <li>You already rely on Keepsafe’s workflow, Safe Send or multi-device habits</li>
+        <li>You need mature Premium extras (album locks, break-in alerts, fake PIN) that Vireault has not shipped</li>
+        <li>You value a long public review history over a newer indie vault</li>
+      </ul>
+      <p>
+        Side-by-side category comparison:
+        <a href="/compare/keepsafe">Vireault vs Keepsafe</a>. Keep both privacy policies open before
+        you migrate private media.
+      </p>
+
+      <h2>Price note (lifetime seekers)</h2>
+      <p>
+        If your search is really “cheaper lifetime than LockMyPix,” that is a different intent.
+        LockMyPix sells a separate
+        <a href="https://play.google.com/store/apps/details?id=com.fourchars.lmp"
+          >PREMIUM app</a
+        >
+        listed around <strong>$149.99</strong> one-time in the US on aggregators and Play mirrors
+        (prices vary by country and change — check Play live). Vireault’s lifetime Pro is
+        <strong>$29.99</strong>. That is a price comparison only; LockMyPix and Vireault differ in
+        features, maturity and threat model. Prefer the product whose backup and crypto story you
+        verified yourself.
+      </p>
+
+      <h2>Related reading</h2>
+      <ul>
+        <li><a href="/compare/keepsafe">Vireault vs Keepsafe</a></li>
+        <li><a href="/guides/photo-vault-lost-photos-android">Photo vault lost my photos on Android</a></li>
+        <li><a href="/guides/secure-photo-vault-android">Secure photo vault for Android</a></li>
+        <li><a href="/guides/safest-private-gallery-android">Safest private gallery checklist</a></li>
+        <li><a href="/security">How Vireault encrypts (and what it does not)</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+      </ul>
+    </article>
+    <Cta pageSlug={pageSlug} heading="Keep private media without a signup" />
+  </div>
+</BaseLayout>
