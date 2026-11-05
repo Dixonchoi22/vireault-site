@@ -124,4 +124,10 @@ export const GUIDES = [
     description: 'A buyer’s checklist for private gallery apps: offline storage, real crypto, lockout, and no account required.',
     href: '/guides/safest-private-gallery-android',
   },
+  {
+    slug: 'photo-vault-lost-photos-android',
+    title: 'Photo vault app lost my photos on Android',
+    description: 'What to do when an Android photo vault goes empty after an update, reinstall or new phone — and how to avoid it.',
+    href: '/guides/photo-vault-lost-photos-android',
+  },
 ] as const;

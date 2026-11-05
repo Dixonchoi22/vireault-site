@@ -1,0 +1,247 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cta from '../../components/Cta.astro';
+
+const pageSlug = 'photo-vault-lost-photos-android';
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Photo vault app lost my photos on Android: what to do and how to avoid it',
+  description:
+    'Calm recovery steps when an Android photo vault goes empty after an update, reinstall or new phone — plus how to reduce the risk next time.',
+  author: { '@type': 'Organization', name: 'Vireault' },
+  datePublished: '2026-11-05',
+  dateModified: '2026-11-05',
+  mainEntityOfPage: 'https://vireault.app/guides/photo-vault-lost-photos-android',
+};
+---
+<BaseLayout
+  title="Photo vault app lost my photos on Android"
+  description="What to do when an Android photo vault shows an empty library after an update, reinstall or new phone — with cited vendor docs and habits that reduce risk."
+  path="/guides/photo-vault-lost-photos-android"
+  pageSlug={pageSlug}
+  ogType="article"
+  jsonLd={articleLd}
+  article={{ published: '2026-11-05', modified: '2026-11-05' }}
+>
+  <div class="container">
+    <Breadcrumbs
+      items={[
+        { href: '/', label: 'Home' },
+        { href: '/guides', label: 'Guides' },
+        { label: 'Lost photos in a vault' },
+      ]}
+    />
+    <article class="section prose">
+      <h1>Photo vault app lost my photos on Android: what to do and how to avoid it</h1>
+      <p>
+        Searching “photo vault lost my photos” is usually a panic moment: the app opens, the PIN
+        works, and the library is empty — or you moved to a new phone and nothing came back. This
+        guide is a calm checklist. It is not a guarantee you will recover every file. It cites
+        public vendor help pages and third-party review samples so you can verify claims yourself.
+      </p>
+
+      <h2>Why vault apps “lose” photos so often</h2>
+      <p>Most reports cluster around a few mechanical causes, not mysterious deletion:</p>
+      <ul>
+        <li>
+          <strong>Local-only data wiped on uninstall.</strong> If items never finished a cloud or
+          file backup, reinstalling the app starts from an empty store.
+        </li>
+        <li>
+          <strong>Cloud caps.</strong> Some products only back up a limited number of items on the
+          free plan. Unsynced items stay on that one handset.
+        </li>
+        <li>
+          <strong>Cleaner / “boost” apps.</strong> Aggressive cleaners may delete app data folders
+          that look like cache.
+        </li>
+        <li>
+          <strong>Trash or recovery behind a paywall.</strong> Files may still exist in an in-app
+          Trash that requires a paid plan to restore.
+        </li>
+        <li>
+          <strong>Wrong account or PIN reset without a backup.</strong> Account-based recovery can
+          reopen an empty cloud, not the files that never left the old phone.
+        </li>
+      </ul>
+
+      <h2>What major apps say publicly (cited)</h2>
+      <h3>Keepsafe</h3>
+      <p>
+        Keepsafe’s help center states that Photo Vault encrypts files with 256-bit AES at rest and
+        that Basic (free) accounts back up the <strong>first 200 items</strong>; paid Premium raises
+        the cloud cap (Keepsafe documents up to 10,000 for Premium). The same article warns that if
+        you lose a device <em>without</em> backup, photos and videos are gone forever. See
+        <a href="https://support.getkeepsafe.com/hc/en-us/articles/360035454311-How-does-Keepsafe-protect-my-data"
+          >How does Keepsafe protect my data?</a
+        >.
+      </p>
+      <p>
+        Keepsafe also states it is <strong>not designed as a completely zero-knowledge app</strong>
+        — employees can access content with user consent for support, when required by law, or when
+        investigating Terms/Privacy concerns (
+        <a
+          href="https://support.getkeepsafe.com/hc/en-us/articles/360035082512-Can-Keepsafe-see-any-of-my-content"
+          >Can Keepsafe see any of my content?</a
+        >). Separately, recovering items from Trash is documented as a
+        <strong>Premium</strong> feature (
+        <a href="https://support.getkeepsafe.com/hc/en-us/articles/360035445111-Recovering-items-from-Trash"
+          >Recovering items from Trash</a
+        >).
+      </p>
+      <p>
+        Independent review samples repeatedly list “lost photos” after updates, new phones or
+        reinstalls as a top complaint theme. For example, York Vault’s Keepsafe review (2026)
+        reports 111 “lost photos” mentions in a 495-review App Store sample and notes the sample is
+        skewed toward negative / “most helpful” sorts — useful as a theme list, <em>not</em> a
+        failure rate (
+        <a href="https://yorkvault.com/reviews/keepsafe">yorkvault.com/reviews/keepsafe</a>).
+        Individual users also describe cloud-backed libraries that support could not restore when
+        items were never synced (
+        <a href="https://www.reddit.com/r/datarecovery/comments/1jbln8z/keepsafe_photo_vault/"
+          >r/datarecovery thread, Mar 2025</a
+        >).
+      </p>
+
+      <h3>NQ Vault and cleaner apps</h3>
+      <p>
+        NQ Vault’s Google Play presence and user discussions often warn that cleaner apps can wipe
+        the app’s data folder (sometimes described around a <code>SystemAndroid</code>-style path).
+        Treat “phone cleaner” tools as hostile to any local vault: exclude the vault app from
+        cleaners, or avoid them entirely while you store irreplaceable media there. Check the live
+        <a href="https://play.google.com/store/apps/details?id=com.netqin.ps">NQ Vault Play listing</a>
+        and developer replies for the current wording.
+      </p>
+
+      <h3>Calculator-style vaults</h3>
+      <p>
+        Some calculator disguise vaults publish a public master unlock path (for example FishingNet’s
+        Calculator vault FAQ on Play has long documented a recovery sequence involving
+        <code>11223344</code>). That is convenient for forgotten PINs and terrible against anyone who
+        knows the sequence. See the live Play FAQ for
+        <a href="https://play.google.com/store/apps/details?id=com.hld.anzenbokusucal"
+          >Calculator – photo vault</a
+        >, and our comparison:
+        <a href="/compare/calculator-vault">Vireault vs calculator vault apps</a>.
+      </p>
+
+      <Cta
+        pageSlug={pageSlug}
+        heading="Prefer a vault you can export yourself"
+        body="Vireault stays offline on Android, encrypts with Argon2id + AES-256-GCM, and lets you export an encrypted backup file you control. Free: 1 vault / 50 items."
+      />
+
+      <h2>What to do right now (recovery checklist)</h2>
+      <ol>
+        <li>
+          <strong>Stop wiping the phone.</strong> Do not factory reset, “clear data” on the vault
+          app, or run a storage cleaner until you have exhausted recovery options.
+        </li>
+        <li>
+          <strong>Confirm you are in the right vault / account.</strong> Multi-vault apps and
+          account-based products can open an empty container while the full library sits under
+          another login or vault.
+        </li>
+        <li>
+          <strong>Check in-app Trash / Recently deleted.</strong> If recovery requires Premium, that
+          is a product decision — verify on the vendor’s help page before paying, and export anything
+          you recover immediately.
+        </li>
+        <li>
+          <strong>Check the vendor cloud status.</strong> For Keepsafe-style products, confirm whether
+          items finished syncing before the old phone was wiped. Unsynced items will not reappear
+          after reinstall.
+        </li>
+        <li>
+          <strong>Search the device for leftover folders.</strong> Some hiders leave a named folder
+          under shared storage. File managers or a USB connection may still show encrypted or
+          renamed files even when the UI is empty — do not delete unknown folders yet.
+        </li>
+        <li>
+          <strong>Contact support with facts, not rage.</strong> App version, Android version,
+          whether you uninstalled, whether backup/cloud was enabled, and approximate item count.
+          Keep expectations realistic: if the vendor never held a copy, they cannot invent one.
+        </li>
+        <li>
+          <strong>Professional data recovery</strong> is a last resort for physical failure, not for
+          “I cleared app data.” It is expensive and often fails on encrypted app-private storage.
+        </li>
+      </ol>
+
+      <h2>How to avoid this next time</h2>
+      <h3>1. Own a backup file you can copy</h3>
+      <p>
+        Prefer vaults that let you export an encrypted archive to Files, Drive, a USB stick or
+        another phone — and that let you restore without holding your media hostage. Practice a
+        restore drill once before you need it. Vireault’s model is
+        <a href="/features/backup-restore">encrypted backup and restore</a> under a recovery code you
+        control; there is no vendor cloud that can resurrect a forgotten secret.
+      </p>
+
+      <h3>2. Know what “backed up” means on free plans</h3>
+      <p>
+        If a product only syncs the first N items, treat everything after N as local-only. Export or
+        upgrade before a phone swap. Keepsafe’s published Basic cap of 200 items is an example of
+        why “I thought everything was in the cloud” fails.
+      </p>
+
+      <h3>3. Ban cleaners from vault app data</h3>
+      <p>
+        Add the vault to every cleaner’s exclusion list, or uninstall cleaners. Local ciphertext is
+        still just files to a dumb wiper.
+      </p>
+
+      <h3>4. Prefer real cryptography over disguise</h3>
+      <p>
+        Hiding an album or dressing as a calculator does not authenticate file bytes. Read how the
+        app claims to encrypt — key derivation, cipher mode, whether names are encrypted — and what
+        it admits it cannot do. Our
+        <a href="/security">security page</a> and
+        <a href="/guides/secure-photo-vault-android">secure photo vault guide</a> spell out
+        Vireault’s Argon2id + AES-256-GCM model and its limits.
+      </p>
+
+      <h3>5. Keep gallery / cloud copies until restore is proven</h3>
+      <p>
+        When migrating, do not delete originals or cancel cloud photo backups until you have opened
+        the vault on the new device and verified a sample of files. Optional “delete original after
+        import” is convenient only after trust is earned.
+      </p>
+
+      <h3>6. Watch paywalls that sit in front of your own files</h3>
+      <p>
+        Trash recovery or restore tools gated behind Premium are a common complaint theme in public
+        reviews. Prefer products that never hold basic unlock or export of <em>your</em> ciphertext
+        hostage. Compare Keepsafe-style tradeoffs on
+        <a href="/compare/keepsafe">Vireault vs Keepsafe</a>.
+      </p>
+
+      <h2>Where Vireault fits (honest)</h2>
+      <p>
+        Vireault is a local Android vault: no account, no ads, no analytics in the product brief we
+        ship against, Argon2id + AES-256-GCM, free 1 vault / 50 items, Pro at $1.99/week, $19.99/year
+        (3-day trial) or $29.99 lifetime. It will not email you a reset that decrypts content. If you
+        lose the unlock secret and the backup code, the files stay unreadable — by design. That is
+        safer against account takeovers and weaker against forgetfulness; pick the tradeoff
+        consciously, and keep an encrypted export somewhere safe.
+      </p>
+      <p>
+        Not shipped yet: biometrics, decoy vaults, cloud sync, in-app camera; folders are coming
+        soon. Full limits:
+        <a href="/security">/security</a>.
+      </p>
+
+      <h2>Related reading</h2>
+      <ul>
+        <li><a href="/features/backup-restore">Encrypted backup and restore</a></li>
+        <li><a href="/guides/how-to-hide-photos-on-android">How to hide photos on Android</a></li>
+        <li><a href="/guides/safest-private-gallery-android">Safest private gallery checklist</a></li>
+        <li><a href="/compare/keepsafe">Vireault vs Keepsafe</a></li>
+        <li><a href="/compare/hide-it-pro">Vireault vs Hide it Pro</a></li>
+      </ul>
+    </article>
+    <Cta pageSlug={pageSlug} heading="Export your own encrypted backup" />
+  </div>
+</BaseLayout>

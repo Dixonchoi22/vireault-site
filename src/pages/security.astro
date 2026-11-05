@@ -1,0 +1,156 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Cta from '../components/Cta.astro';
+
+const pageSlug = 'security';
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'How Vireault encrypts your files on Android',
+  description:
+    'Plain-language security model for Vireault: Argon2id, AES-256-GCM, encrypted index, backups, and what encryption does not protect against.',
+  author: { '@type': 'Organization', name: 'Vireault' },
+  datePublished: '2026-11-05',
+  dateModified: '2026-11-05',
+  mainEntityOfPage: 'https://vireault.app/security',
+};
+---
+<BaseLayout
+  title="How Vireault encrypts your files"
+  description="How Vireault protects Android vault files with Argon2id and AES-256-GCM, what stays local, and the limits we do not overclaim."
+  path="/security"
+  pageSlug={pageSlug}
+  ogType="article"
+  jsonLd={articleLd}
+  article={{ published: '2026-11-05', modified: '2026-11-05' }}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { label: 'Security' }]} />
+    <article class="section prose">
+      <h1>How Vireault encrypts your files</h1>
+      <p>
+        <strong>Short answer:</strong> Vireault encrypts vault contents on your Android phone with
+        AES-256-GCM. A random 256-bit master key does the encryption. Your PIN, 3×3 pattern or
+        passphrase unlocks that key through Argon2id. We run no vault servers and hold no keys, so
+        we cannot open your vault or reset a forgotten secret. This page states what ships today and
+        what encryption does <em>not</em> protect against.
+      </p>
+
+      <h2>Design goals</h2>
+      <ul>
+        <li><strong>On-device only.</strong> Vault bytes stay in app-private storage unless you export a backup file you control.</li>
+        <li><strong>No account.</strong> There is no Vireault login, cloud sync or remote recovery.</li>
+        <li><strong>Authenticated encryption.</strong> AES-256-GCM both encrypts and detects tampering of vault blobs.</li>
+        <li><strong>Honest limits.</strong> We describe weak spots instead of marketing “military-grade” with no detail.</li>
+      </ul>
+
+      <h2>What happens when you unlock</h2>
+      <ol>
+        <li>You enter a PIN, draw a 3×3 pattern, or type a passphrase.</li>
+        <li>Argon2id stretches that secret with a per-vault salt (default about 64&nbsp;MiB of memory on phones that can spare it; 32&nbsp;MiB on tighter devices).</li>
+        <li>The derived key unwraps a random master key stored in the vault header (AES-256-GCM wrap).</li>
+        <li>That master key decrypts the encrypted index and file blobs while the vault stays open.</li>
+        <li>When the vault locks, the in-app master key material the app controls is wiped so further reads fail closed.</li>
+      </ol>
+      <p>
+        New vaults use Argon2id. Older vaults created under a legacy PBKDF2 header format are upgraded
+        on a successful unlock. Details live in the open
+        <a href="https://github.com/Dixonchoi22/vaultdroid/blob/main/SECURITY.md">SECURITY.md</a>
+        in the app repository.
+      </p>
+
+      <Cta
+        pageSlug={pageSlug}
+        heading="Try on-device encryption without an account"
+        body="Free plan: 1 vault and 50 items. Pro from $1.99/week, $19.99/year (3-day trial), or $29.99 lifetime."
+      />
+
+      <h2>What is encrypted on disk</h2>
+      <ul>
+        <li><strong>File contents</strong> — AES-256-GCM. Newer items use segmented STREAM-style blobs bound to the item id so truncation, reordering or swapping blobs fails authentication.</li>
+        <li><strong>Index / names</strong> — the list of items (names, types, sizes) is encrypted, so cleartext titles are not sitting beside the blobs.</li>
+        <li><strong>Thumbnails</strong> — encrypted and bound to their item when present.</li>
+        <li><strong>Backups</strong> — an exported backup is its own encrypted file, protected by a generated recovery code (not your everyday PIN), with authenticated segments so tampering is detected.</li>
+      </ul>
+      <p>
+        Related product pages:
+        <a href="/features/encryption">encryption feature</a>,
+        <a href="/features/offline">offline design</a>,
+        <a href="/features/backup-restore">backup and restore</a>.
+      </p>
+
+      <h2>Day-to-day protections</h2>
+      <ul>
+        <li>Auto-lock when the app goes to the background, and after about five minutes idle.</li>
+        <li>Screenshot / screen-recording blocking on vault screens (<code>FLAG_SECURE</code>).</li>
+        <li>Escalating on-device lockout after repeated wrong unlocks.</li>
+        <li>Viewing media and PDFs without writing decrypted temp files to storage.</li>
+        <li>Optional delete of gallery originals after a successful import (Android’s normal delete; cloud copies are yours to remove).</li>
+      </ul>
+
+      <h2>What Vireault does <em>not</em> protect against</h2>
+      <p>Encryption is not magic. These limits are intentional or inherent — please read them before trusting irreplaceable media to any vault.</p>
+      <ul>
+        <li>
+          <strong>Lost secrets.</strong> If you forget your unlock secret and lose backup recovery
+          material, nobody can reconstruct the files — including us. There is no email reset of vault
+          contents.
+        </li>
+        <li>
+          <strong>Short PINs or patterns against offline copies.</strong> On-device lockout does not
+          apply if someone with root or forensic access copies vault files off the phone. A 6-digit
+          PIN has one million combinations; Argon2id makes each guess expensive but cannot enlarge
+          the search space. Prefer a long passphrase for stronger protection.
+        </li>
+        <li>
+          <strong>A compromised or rooted OS while the vault is unlocked.</strong> Malware with
+          accessibility rights, a malicious screen overlay, or full device compromise is out of scope.
+        </li>
+        <li>
+          <strong>Existence leakage.</strong> Someone inspecting app storage can still see that vaults
+          exist, vault directory names, approximate sizes and counts. Encryption hides contents, not
+          that you installed a vault.
+        </li>
+        <li>
+          <strong>Guaranteed flash erasure.</strong> Secure delete overwrites then unlinks; flash wear
+          levelling can still leave unreachable remnants. Remnants of vault data remain ciphertext.
+        </li>
+        <li>
+          <strong>Files you leave outside the vault.</strong> Gallery, messaging and cloud backups can
+          keep copies after import unless you remove them yourself.
+        </li>
+        <li>
+          <strong>Features not shipped yet.</strong> No biometrics, decoy vaults, cloud sync or in-app
+          camera today. Folders are coming soon. We do not claim a third-party audit on this page.
+        </li>
+      </ul>
+
+      <h2>How this differs from “hide” apps</h2>
+      <p>
+        Many Android “photo vault” products primarily hide or rename files, show ads, or rely on an
+        account and vendor cloud. Hiding is not the same as authenticated encryption. If you are
+        choosing an app after a scare, also read
+        <a href="/guides/photo-vault-lost-photos-android">what to do when a photo vault loses photos</a>
+        and the <a href="/guides/secure-photo-vault-android">secure photo vault checklist</a>.
+      </p>
+
+      <h2>Privacy and purchases</h2>
+      <p>
+        Vault content is not uploaded to us. Purchases go through Google Play Billing. See the
+        <a href="/privacy.html">privacy policy</a> for data practices, and
+        <a href="/pricing">pricing</a> for free vs Pro limits (free: 1 vault / 50 items; Pro
+        $1.99/week, $19.99/year with a 3-day trial, or $29.99 lifetime).
+      </p>
+
+      <h2>Keep reading</h2>
+      <ul>
+        <li><a href="/features/encryption">AES-256 encryption feature page</a></li>
+        <li><a href="/guides/encrypt-files-on-android">Encrypting files on Android</a></li>
+        <li><a href="/faq">FAQ</a></li>
+        <li><a href="https://github.com/Dixonchoi22/vaultdroid/blob/main/SECURITY.md">Full SECURITY.md (technical)</a></li>
+      </ul>
+    </article>
+    <Cta pageSlug={pageSlug} />
+  </div>
+</BaseLayout>

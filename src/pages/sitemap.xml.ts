@@ -11,6 +11,8 @@ export const GET: APIRoute = () => {
     '/whats-new',
     '/compare',
     '/guides',
+    '/security',
+    '/privacy',
   ];
   const paths = [
     ...staticPaths,
