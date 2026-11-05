@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cta from '../../components/Cta.astro';
+const pageSlug = 'features-unlock';
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'PIN, pattern or passphrase unlock',
+  description: 'Unlock Vireault with a PIN, 3x3 pattern or passphrase, with lockout after wrong attempts.',
+  author: { '@type': 'Organization', name: 'Vireault' },
+  datePublished: '2026-11-05',
+  dateModified: '2026-11-05',
+  mainEntityOfPage: 'https://vireault.app/features/unlock',
+};
+---
+<BaseLayout
+  title="PIN, pattern or passphrase unlock"
+  description="Unlock Vireault using a PIN, 3×3 pattern or passphrase. Wrong attempts trigger lockout. Auto-lock on background and idle."
+  path="/features/unlock"
+  pageSlug={pageSlug}
+  ogType="article"
+  jsonLd={articleLd}
+  article={{ published: '2026-11-05', modified: '2026-11-05' }}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/features', label: 'Features' }, { label: 'Unlock' }]} />
+    <article class="section prose">
+      <h1>PIN, 3×3 pattern or passphrase</h1>
+      <p>Every vault needs an unlock secret. Vireault lets you pick the style that fits how you use the phone.</p>
+      <h2>Supported unlock methods</h2>
+      <ul>
+        <li><strong>PIN</strong> for quick numeric unlock</li>
+        <li><strong>3×3 pattern</strong> for gesture unlock</li>
+        <li><strong>Passphrase</strong> for longer secrets</li>
+      </ul>
+      <p>Your secret feeds <a href="/features/encryption">Argon2id key derivation</a>. Biometric unlock is not available yet.</p>
+      <Cta pageSlug={pageSlug} heading="Set up unlock in minutes" />
+      <h2>Lockout and auto-lock</h2>
+      <p>Wrong attempts lead to lockout. The app also locks when it goes to the background or after about five minutes idle, and screenshot blocking is enabled to reduce casual capture of open vault contents.</p>
+      <h2>Several vaults, several secrets</h2>
+      <p>With <a href="/features/multiple-vaults">multiple vaults</a>, each vault can use its own secret. Free plan includes one vault.</p>
+      <p>More context: <a href="/guides/how-to-hide-photos-on-android">how to hide photos on Android</a> and <a href="/faq">FAQ</a>.</p>
+    </article>
+    <Cta pageSlug={pageSlug} />
+  </div>
+</BaseLayout>

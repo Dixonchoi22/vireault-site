@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cta from '../../components/Cta.astro';
+const pageSlug = 'how-to-lock-folder-on-android';
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'How to lock a folder on Android',
+  description: 'Android folder locking options, OEM tools, and encrypted vaults when a true locked folder is missing.',
+  author: { '@type': 'Organization', name: 'Vireault' },
+  datePublished: '2026-11-05',
+  dateModified: '2026-11-05',
+  mainEntityOfPage: 'https://vireault.app/guides/how-to-lock-folder-on-android',
+};
+---
+<BaseLayout
+  title="How to lock a folder on Android"
+  description="How to lock a folder on Android using manufacturer tools where available, and encrypted vaults when stock Android has no locked folder."
+  path="/guides/how-to-lock-folder-on-android"
+  pageSlug={pageSlug}
+  ogType="article"
+  jsonLd={articleLd}
+  article={{ published: '2026-11-05', modified: '2026-11-05' }}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/guides', label: 'Guides' }, { label: 'Lock a folder' }]} />
+    <article class="section prose">
+      <h1>How to lock a folder on Android</h1>
+      <p>Search results promise a universal “lock folder” switch. Reality is messier: some phones include Secure Folder or Locked Folder style tools, while stock Android file managers often do not encrypt a directory for you.</p>
+      <h2>Option A — Manufacturer secure spaces</h2>
+      <p>Samsung Secure Folder, Google Photos Locked Folder, and similar OEM features can isolate media behind device authentication. They are excellent when you already live in that ecosystem. They may not travel cleanly if you switch brands.</p>
+      <h2>Option B — App-level vault instead of a filesystem folder</h2>
+      <p>When you need a portable approach, import files into an encrypted vault. That is not identical to locking an existing folder path, but it solves the same user job: keep selected files out of casual reach. Vireault supports photos, video, audio and PDF today, with folders inside the vault coming soon.</p>
+      <Cta pageSlug={pageSlug} heading="Lock private files in a vault" body="Create a Vireault vault, import the folder’s contents, then optionally delete originals." />
+      <h2>Option C — Encrypt before you share or archive</h2>
+      <p>If your goal is long-term storage, export an <a href="/features/backup-restore">encrypted backup</a> and keep it somewhere you control. A locked UI without a backup plan fails the day the phone is wiped.</p>
+      <h2>Practical steps with Vireault</h2>
+      <ol>
+        <li>Install from Google Play and create a vault with PIN, pattern or passphrase.</li>
+        <li>Import the files you would have placed in a locked folder.</li>
+        <li>Confirm they open inside the vault.</li>
+        <li>Delete originals only after you are satisfied.</li>
+        <li>Create an encrypted backup before changing devices.</li>
+      </ol>
+      <h2>Related guides</h2>
+      <ul>
+        <li><a href="/guides/how-to-hide-photos-on-android">Hide photos on Android</a></li>
+        <li><a href="/features/multiple-vaults">Several vaults</a></li>
+        <li><a href="/compare/hide-it-pro">Vireault vs Hide it Pro</a></li>
+      </ul>
+    </article>
+    <Cta pageSlug={pageSlug} />
+  </div>
+</BaseLayout>

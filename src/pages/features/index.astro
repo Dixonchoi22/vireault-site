@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cta from '../../components/Cta.astro';
+import { FEATURES } from '../../data/site';
+const pageSlug = 'features';
+---
+<BaseLayout
+  title="Features"
+  description="Explore Vireault features: AES-256 encryption, offline storage, PIN/pattern/passphrase unlock, multiple vaults, media import and encrypted backups."
+  path="/features"
+  pageSlug={pageSlug}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { label: 'Features' }]} />
+    <section class="section">
+      <h1>Features</h1>
+      <p class="section-intro">Only shipping capabilities are listed. Folders are coming soon; cloud sync, biometrics, decoy vaults and an in-app camera are not available yet.</p>
+      <div class="grid cols-2">
+        {FEATURES.map((f) => (
+          <article class="card">
+            <h2 style="font-size:1.2rem;margin:0 0 0.5rem">{f.title}</h2>
+            <p>{f.short}</p>
+            <a class="card-link" href={f.href}>Open feature page →</a>
+          </article>
+        ))}
+      </div>
+    </section>
+    <Cta pageSlug={pageSlug} />
+  </div>
+</BaseLayout>

@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cta from '../../components/Cta.astro';
+const pageSlug = 'safest-private-gallery-android';
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Safest private gallery app for Android',
+  description: 'A checklist for choosing a private gallery or vault app on Android without falling for disguise-only tools.',
+  author: { '@type': 'Organization', name: 'Vireault' },
+  datePublished: '2026-11-05',
+  dateModified: '2026-11-05',
+  mainEntityOfPage: 'https://vireault.app/guides/safest-private-gallery-android',
+};
+---
+<BaseLayout
+  title="Safest private gallery app for Android"
+  description="Checklist for the safest private gallery app on Android: offline mode, real encryption, lockout, backups and transparent pricing."
+  path="/guides/safest-private-gallery-android"
+  pageSlug={pageSlug}
+  ogType="article"
+  jsonLd={articleLd}
+  article={{ published: '2026-11-05', modified: '2026-11-05' }}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/guides', label: 'Guides' }, { label: 'Safest private gallery' }]} />
+    <article class="section prose">
+      <h1>Safest private gallery app for Android</h1>
+      <p>No reviewer can crown a single forever-winner. Threat models differ. What you can do is score apps against a checklist that weeds out disguise-only tools and vague “military grade” claims.</p>
+      <h2>Buyer’s checklist</h2>
+      <ol>
+        <li>Are algorithms named (for example AES-256-GCM and a modern KDF)?</li>
+        <li>Is an account required to store files?</li>
+        <li>Does the privacy policy say vault contents are not collected?</li>
+        <li>Can you export an encrypted backup you control?</li>
+        <li>Is there lockout / auto-lock behavior?</li>
+        <li>Can you delete originals after import?</li>
+        <li>Are missing features admitted in public docs?</li>
+      </ol>
+      <h2>How Vireault scores on that list</h2>
+      <p>Vireault documents Argon2id, AES-256-GCM, a random master key and an encrypted index. It is offline and local only, with no account. It supports PIN, 3×3 pattern or passphrase, lockout, auto-lock, screenshot blocking, media/PDF import, search/sort/filter, optional original deletion, and encrypted backup/restore.</p>
+      <Cta pageSlug={pageSlug} heading="Install the checklist-friendly vault" body="Free plan includes 1 vault and 50 items. Pro starts at $1.99/week, $19.99/year with a 3-day trial, or $29.99 lifetime." />
+      <h2>Apps to compare, not dismiss</h2>
+      <p>Older incumbents still help many people. Read our fair notes on <a href="/compare/keepsafe">Keepsafe</a>, <a href="/compare/hide-it-pro">Hide it Pro</a> and <a href="/compare/calculator-vault">calculator vault apps</a> before you migrate a large library.</p>
+      <h2>What “safest” cannot mean</h2>
+      <p>It cannot mean invulnerable. A weak passphrase, malware with accessibility abuse, or a compromised unlocked session can defeat almost any gallery app. Safety is layered: device screen lock, vault encryption, backups, and cautious sharing.</p>
+      <h2>Continue</h2>
+      <ul>
+        <li><a href="/guides/secure-photo-vault-android">Secure photo vault guide</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/privacy">Privacy policy</a></li>
+      </ul>
+    </article>
+    <Cta pageSlug={pageSlug} />
+  </div>
+</BaseLayout>

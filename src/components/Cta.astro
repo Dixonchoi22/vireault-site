@@ -1,0 +1,21 @@
+---
+import { playUrl } from '../data/site';
+interface Props {
+  pageSlug: string;
+  heading?: string;
+  body?: string;
+}
+const {
+  pageSlug,
+  heading = 'Try Vireault on Android',
+  body = 'Encrypt photos, videos and files on your phone. Offline and local only — no account required.',
+} = Astro.props;
+---
+<aside class="cta-band" aria-label="Call to action">
+  <h2>{heading}</h2>
+  <p>{body}</p>
+  <p>
+    <a class="btn btn-primary" href={playUrl(pageSlug)}>Open on Google Play</a>
+  </p>
+  <p class="note">Closed testing may show a limited listing until the app is public. The Play link uses package com.vireault.app.</p>
+</aside>

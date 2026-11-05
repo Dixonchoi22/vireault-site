@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cta from '../../components/Cta.astro';
+const pageSlug = 'features-offline';
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Offline and local-only Android vault',
+  description: 'Vireault stores encrypted photos and files on your phone with no account and no cloud vault server.',
+  author: { '@type': 'Organization', name: 'Vireault' },
+  datePublished: '2026-11-05',
+  dateModified: '2026-11-05',
+  mainEntityOfPage: 'https://vireault.app/features/offline',
+};
+---
+<BaseLayout
+  title="Offline and local-only vault"
+  description="Vireault is offline and local only: no account, no cloud vault, encryption keys stay on your Android device."
+  path="/features/offline"
+  pageSlug={pageSlug}
+  ogType="article"
+  jsonLd={articleLd}
+  article={{ published: '2026-11-05', modified: '2026-11-05' }}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/features', label: 'Features' }, { label: 'Offline' }]} />
+    <article class="section prose">
+      <h1>Offline and local only</h1>
+      <p>Some vault apps pair convenience with accounts and sync. Vireault takes the opposite default: your encrypted library stays on the phone you hold.</p>
+      <h2>No account</h2>
+      <p>There is no email signup and no phone-number login. You create a vault, choose an unlock method, and start importing.</p>
+      <h2>No cloud vault server</h2>
+      <p>We do not host your photos or files. If you want a copy elsewhere, you export an <a href="/features/backup-restore">encrypted backup file</a> and store it where you choose.</p>
+      <Cta pageSlug={pageSlug} heading="Use a vault that works without an account" />
+      <h2>Trade-offs we will not hide</h2>
+      <ul>
+        <li>Losing the device without a backup can mean losing access to the vault data</li>
+        <li>Cloud sync is not built yet</li>
+        <li>We cannot reset a forgotten PIN, pattern or passphrase</li>
+      </ul>
+      <p>Those trade-offs are the point of a local-first design. Compare approaches in <a href="/compare/keepsafe">Vireault vs Keepsafe</a> and learn practical habits in <a href="/guides/secure-photo-vault-android">secure photo vault for Android</a>.</p>
+    </article>
+    <Cta pageSlug={pageSlug} />
+  </div>
+</BaseLayout>

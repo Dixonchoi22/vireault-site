@@ -1,0 +1,43 @@
+---
+import { SITE, FEATURES, COMPARES, GUIDES } from '../data/site';
+---
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-col">
+      <h3>{SITE.name}</h3>
+      <p>Offline encrypted vault for Android photos, videos and files. No account. Only you hold the key.</p>
+      <p class="note">Package: {SITE.packageId}</p>
+    </div>
+    <div class="footer-col">
+      <h3>Product</h3>
+      <ul>
+        <li><a href="/features">Features</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/faq">FAQ</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3>Features</h3>
+      <ul>
+        {FEATURES.map((f) => (
+          <li><a href={f.href}>{f.title}</a></li>
+        ))}
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3>Guides & compares</h3>
+      <ul>
+        {GUIDES.slice(0, 3).map((g) => (
+          <li><a href={g.href}>{g.title}</a></li>
+        ))}
+        {COMPARES.map((c) => (
+          <li><a href={c.href}>{c.title}</a></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+  <div class="container" style="margin-top:1.5rem">
+    <p class="note">© {new Date().getFullYear()} Vireault. Not affiliated with Keepsafe, Hide it Pro, Private Photo Vault, or Vaultaire.</p>
+  </div>
+</footer>

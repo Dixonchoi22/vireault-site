@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cta from '../../components/Cta.astro';
+const pageSlug = 'secure-photo-vault-android';
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Secure photo vault for Android',
+  description: 'What makes a photo vault secure on Android: key derivation, AES-256, offline storage and lockout.',
+  author: { '@type': 'Organization', name: 'Vireault' },
+  datePublished: '2026-11-05',
+  dateModified: '2026-11-05',
+  mainEntityOfPage: 'https://vireault.app/guides/secure-photo-vault-android',
+};
+---
+<BaseLayout
+  title="Secure photo vault for Android"
+  description="A practical definition of a secure photo vault for Android: Argon2id, AES-256-GCM, offline storage, lockout and honest feature limits."
+  path="/guides/secure-photo-vault-android"
+  pageSlug={pageSlug}
+  ogType="article"
+  jsonLd={articleLd}
+  article={{ published: '2026-11-05', modified: '2026-11-05' }}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/guides', label: 'Guides' }, { label: 'Secure photo vault' }]} />
+    <article class="section prose">
+      <h1>Secure photo vault for Android</h1>
+      <p>“Secure” is a marketing word until you unpack it. For a photo vault on Android, security usually means protecting file bytes, reducing metadata leaks, controlling unlock attempts, and avoiding an unnecessary account.</p>
+      <h2>Minimum bar for a secure vault</h2>
+      <ul>
+        <li>Modern authenticated encryption for file contents (Vireault uses AES-256-GCM)</li>
+        <li>A memory-hard or slow key derivation step (Vireault uses Argon2id)</li>
+        <li>Encrypted index / hidden names</li>
+        <li>Local key handling with no vendor backdoor</li>
+        <li>Lockout after repeated wrong unlocks</li>
+      </ul>
+      <h2>Offline beats “trust us” defaults</h2>
+      <p>Cloud features can be useful, but they expand the trust boundary. A <a href="/features/offline">local-only vault</a> keeps ciphertext on the phone unless you choose to export a backup file. That also means lost secrets are unrecoverable by the developer — a feature, not a bug, for many privacy users.</p>
+      <Cta pageSlug={pageSlug} heading="Try a local AES-256 vault" body="Vireault runs offline on Android with no account. Free plan: 1 vault and 50 items." />
+      <h2>Operational security still matters</h2>
+      <p>Encryption cannot help if you leave the vault unlocked on a table, reuse a weak PIN, or forget that screenshots and screen recordings may capture previews in other apps. Vireault blocks screenshots inside the vault and auto-locks on background or idle, but you still choose the unlock secret.</p>
+      <h2>Feature honesty</h2>
+      <p>A secure product page should say what is missing. Vireault does not yet ship biometrics, decoy vaults, cloud sync or an in-app camera. Folders are coming soon. Prefer apps that state limits clearly over ones that imply military-grade magic without details.</p>
+      <h2>Keep learning</h2>
+      <ul>
+        <li><a href="/features/encryption">Encryption deep dive</a></li>
+        <li><a href="/guides/encrypt-files-on-android">Encrypting files on Android</a></li>
+        <li><a href="/compare/keepsafe">Vireault vs Keepsafe</a></li>
+      </ul>
+    </article>
+    <Cta pageSlug={pageSlug} />
+  </div>
+</BaseLayout>

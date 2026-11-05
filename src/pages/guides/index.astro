@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cta from '../../components/Cta.astro';
+import { GUIDES } from '../../data/site';
+const pageSlug = 'guides';
+---
+<BaseLayout
+  title="Android privacy guides"
+  description="Practical Android guides on hiding photos, locking folders, encrypting files and choosing a private gallery vault."
+  path="/guides"
+  pageSlug={pageSlug}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { label: 'Guides' }]} />
+    <section class="section">
+      <h1>Android privacy guides</h1>
+      <p class="section-intro">Keyword-focused how-tos written for people searching beyond the Play Store. Each guide links to relevant Vireault features without overclaiming.</p>
+      <div class="grid cols-2">
+        {GUIDES.map((g) => (
+          <article class="card">
+            <h2 style="font-size:1.15rem;margin:0 0 0.5rem">{g.title}</h2>
+            <p>{g.description}</p>
+            <a class="card-link" href={g.href}>Read guide →</a>
+          </article>
+        ))}
+      </div>
+    </section>
+    <Cta pageSlug={pageSlug} />
+  </div>
+</BaseLayout>

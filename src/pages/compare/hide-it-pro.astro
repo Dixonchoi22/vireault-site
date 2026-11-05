@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cta from '../../components/Cta.astro';
+const pageSlug = 'compare-hide-it-pro';
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Vireault vs Hide it Pro',
+  description: 'Compare Vireault with Hide it Pro for hiding and protecting private files on Android.',
+  author: { '@type': 'Organization', name: 'Vireault' },
+  datePublished: '2026-11-05',
+  dateModified: '2026-11-05',
+  mainEntityOfPage: 'https://vireault.app/compare/hide-it-pro',
+};
+---
+<BaseLayout
+  title="Vireault vs Hide it Pro"
+  description="Vireault vs Hide it Pro: modern local AES-256 vault compared with a veteran Android file-hider app."
+  path="/compare/hide-it-pro"
+  pageSlug={pageSlug}
+  ogType="article"
+  jsonLd={articleLd}
+  article={{ published: '2026-11-05', modified: '2026-11-05' }}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/compare', label: 'Compare' }, { label: 'Hide it Pro' }]} />
+    <article class="section prose" style="max-width:none">
+      <h1>Vireault vs Hide it Pro</h1>
+      <p class="lead">Hide it Pro is one of the best-known Android apps for hiding pictures and files. Vireault focuses on a compact encrypted vault with no account and a clear cryptography stack.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Topic</th>
+              <th>Vireault</th>
+              <th>Hide it Pro (category view)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Primary pitch</td>
+              <td>Encrypted local vault</td>
+              <td>Hide private data / disguise-oriented privacy utility</td>
+            </tr>
+            <tr>
+              <td>Account</td>
+              <td>None</td>
+              <td>Typically device-centric; check the current app for any account features</td>
+            </tr>
+            <tr>
+              <td>Encryption described here</td>
+              <td>Argon2id + AES-256-GCM + encrypted index</td>
+              <td>Consult Hide it Pro’s own documentation for current crypto details</td>
+            </tr>
+            <tr>
+              <td>Media support in Vireault</td>
+              <td>Photos, video, audio, PDF import/view</td>
+              <td>Broad hider category often covers pictures and files; exact formats vary</td>
+            </tr>
+            <tr>
+              <td>Locking</td>
+              <td>PIN / pattern / passphrase, lockout, auto-lock, screenshot blocking</td>
+              <td>Passcode-style protection is common in the category</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <Cta pageSlug={pageSlug} heading="Want encryption called out explicitly?" />
+      <h2>Choosing between them</h2>
+      <p>If you already know Hide it Pro’s interface and it meets your needs, switching is optional. Choose Vireault if you specifically want a no-account vault that documents Argon2id, AES-256-GCM, encrypted backups and optional original deletion after import.</p>
+      <h2>Limits to remember</h2>
+      <p>Vireault does not yet offer decoy vaults, biometrics, cloud sync or an in-app camera. Folders are coming soon. Hide it Pro may include workflows outside that list; verify on Google Play before you decide.</p>
+      <p>Continue with <a href="/compare/keepsafe">Keepsafe</a>, <a href="/compare/calculator-vault">calculator vaults</a>, <a href="/features/encryption">encryption</a>, and <a href="/guides/how-to-hide-photos-on-android">how to hide photos on Android</a>.</p>
+    </article>
+    <Cta pageSlug={pageSlug} />
+  </div>
+</BaseLayout>

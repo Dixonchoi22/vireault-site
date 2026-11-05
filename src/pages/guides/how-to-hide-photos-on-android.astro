@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cta from '../../components/Cta.astro';
+const pageSlug = 'how-to-hide-photos-on-android';
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'How to hide photos on Android',
+  description: 'Practical ways to hide private photos on Android, from gallery tools to encrypted vaults.',
+  author: { '@type': 'Organization', name: 'Vireault' },
+  datePublished: '2026-11-05',
+  dateModified: '2026-11-05',
+  mainEntityOfPage: 'https://vireault.app/guides/how-to-hide-photos-on-android',
+};
+---
+<BaseLayout
+  title="How to hide photos on Android"
+  description="Learn how to hide photos on Android using gallery tools, Locked Folder where available, and an encrypted local vault when you need stronger protection."
+  path="/guides/how-to-hide-photos-on-android"
+  pageSlug={pageSlug}
+  ogType="article"
+  jsonLd={articleLd}
+  article={{ published: '2026-11-05', modified: '2026-11-05' }}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/guides', label: 'Guides' }, { label: 'Hide photos on Android' }]} />
+    <article class="section prose">
+      <h1>How to hide photos on Android</h1>
+      <p>People search for “hide photos on Android” when a shared phone, a borrowed device, or a nosy gallery scroll becomes a problem. Android does not give every manufacturer the same privacy tools, so the honest answer is a short menu of options with different strengths.</p>
+      <h2>1. Use your gallery’s built-in hide or Locked Folder</h2>
+      <p>Google Photos offers a Locked Folder on many devices. Some OEM galleries also let you move albums out of the main grid. These tools are convenient and free, but they usually stay inside one vendor ecosystem and may still leave originals elsewhere if you share or sync aggressively.</p>
+      <h2>2. Move files out of DCIM without encryption</h2>
+      <p>Copying images into an obscure folder or prefixing names with a dot is a weak form of hiding. Anyone who can browse storage, plug the phone into a computer, or open a file manager can still find them. Treat this as temporary tidying, not protection.</p>
+      <Cta pageSlug={pageSlug} heading="Need more than a hidden album?" body="Vireault encrypts photos on your Android phone with AES-256-GCM. No account. Optional delete of the original after import." />
+      <h2>3. Use an encrypted vault app</h2>
+      <p>A vault imports the photo, encrypts it, and keeps an encrypted index so names are not sitting in cleartext. With <a href="/features/import-media">Vireault’s import flow</a>, you can view images inside the app and optionally delete the gallery original after a successful import.</p>
+      <h2>4. Checklist before you call a photo “hidden”</h2>
+      <ol>
+        <li>Is the file encrypted, or only removed from the gallery UI?</li>
+        <li>Did cloud backup already upload a copy?</li>
+        <li>Did messaging apps keep a compressed duplicate?</li>
+        <li>Do you have an <a href="/features/backup-restore">encrypted backup</a> if the phone dies?</li>
+        <li>Is unlock protected with lockout, not a trivial PIN?</li>
+      </ol>
+      <h2>Where Vireault fits</h2>
+      <p>Vireault is built for the encryption path: <a href="/features/offline">offline and local only</a>, <a href="/features/encryption">Argon2id + AES-256-GCM</a>, and <a href="/features/unlock">PIN, pattern or passphrase</a>. It does not yet offer an in-app camera or folders (folders are coming soon).</p>
+      <h2>Related reading</h2>
+      <ul>
+        <li><a href="/guides/secure-photo-vault-android">Secure photo vault for Android</a></li>
+        <li><a href="/guides/safest-private-gallery-android">Safest private gallery app checklist</a></li>
+        <li><a href="/compare/calculator-vault">Why calculator vaults are different</a></li>
+      </ul>
+    </article>
+    <Cta pageSlug={pageSlug} heading="Hide photos with encryption, not hope" />
+  </div>
+</BaseLayout>

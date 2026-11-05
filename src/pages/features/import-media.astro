@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cta from '../../components/Cta.astro';
+const pageSlug = 'features-import-media';
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Import photos, video, audio and PDF',
+  description: 'Import and view photos, video, audio and PDFs inside Vireault, with search, sort, filter and optional original deletion.',
+  author: { '@type': 'Organization', name: 'Vireault' },
+  datePublished: '2026-11-05',
+  dateModified: '2026-11-05',
+  mainEntityOfPage: 'https://vireault.app/features/import-media',
+};
+---
+<BaseLayout
+  title="Import photos, video, audio and PDF"
+  description="Import Android photos, videos, audio and PDFs into Vireault. View inside the vault, search and filter, optionally delete originals."
+  path="/features/import-media"
+  pageSlug={pageSlug}
+  ogType="article"
+  jsonLd={articleLd}
+  article={{ published: '2026-11-05', modified: '2026-11-05' }}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/features', label: 'Features' }, { label: 'Import media' }]} />
+    <article class="section prose">
+      <h1>Import and view private media</h1>
+      <p>Vireault is for more than still photos. Bring in the files you actually need to keep private, then browse them without dumping decrypted copies back into the gallery.</p>
+      <h2>Supported today</h2>
+      <ul>
+        <li>Photos with swipe and zoom</li>
+        <li>Video and audio with scrubbing</li>
+        <li>PDF viewing inside the vault</li>
+        <li>Search, sort and filter by kind</li>
+        <li>Optional delete of the original after import</li>
+      </ul>
+      <Cta pageSlug={pageSlug} heading="Move private files out of your gallery" />
+      <h2>Coming soon</h2>
+      <p>Folders are coming soon. An in-app camera is not available yet, so capture still happens with your normal camera app before import.</p>
+      <p>Guides that help: <a href="/guides/how-to-hide-photos-on-android">hide photos on Android</a>, <a href="/guides/how-to-lock-folder-on-android">lock a folder on Android</a>, <a href="/guides/safest-private-gallery-android">safest private gallery checklist</a>.</p>
+    </article>
+    <Cta pageSlug={pageSlug} />
+  </div>
+</BaseLayout>

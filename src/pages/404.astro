@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const pageSlug = '404';
+---
+<BaseLayout
+  title="Page not found"
+  description="The page you requested is not on the Vireault site."
+  path="/404"
+  pageSlug={pageSlug}
+>
+  <div class="container section prose">
+    <h1>Page not found</h1>
+    <p>That URL is not part of the Vireault marketing site.</p>
+    <p>
+      <a href="/">Home</a> ·
+      <a href="/features">Features</a> ·
+      <a href="/guides">Guides</a> ·
+      <a href="/pricing">Pricing</a>
+    </p>
+  </div>
+</BaseLayout>

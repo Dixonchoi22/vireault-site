@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Cta from '../components/Cta.astro';
+
+const pageSlug = 'faq';
+const faqs = [
+  {
+    q: 'Does Vireault need an account?',
+    a: 'No. There is no signup, email or phone number. The vault lives on your device.',
+  },
+  {
+    q: 'Is my data uploaded to a server?',
+    a: 'No. Vireault is offline and local only. Purchases are handled by Google Play Billing; the app does not send your vault contents to us.',
+  },
+  {
+    q: 'What encryption does Vireault use?',
+    a: 'Argon2id for key derivation, AES-256-GCM for file contents, a random master key, and an encrypted index so file names stay hidden.',
+  },
+  {
+    q: 'How do I unlock the vault?',
+    a: 'Choose a PIN, a 3×3 pattern, or a passphrase when you create a vault. Wrong attempts lead to lockout.',
+  },
+  {
+    q: 'Can I have more than one vault?',
+    a: 'Yes. Several vaults are supported. The free plan includes 1 vault and 50 items; Pro raises those limits.',
+  },
+  {
+    q: 'What file types can I import?',
+    a: 'Photos, video, audio and PDF. You can view them inside the vault and optionally delete the original after import.',
+  },
+  {
+    q: 'Does Vireault auto-lock?',
+    a: 'Yes. It locks when the app goes to the background or after about 5 minutes idle. Screenshots are blocked.',
+  },
+  {
+    q: 'How do backups work?',
+    a: 'You export an encrypted backup file and restore it later. Keep your recovery material safe; if you lose your secret and recovery data, the files cannot be recovered.',
+  },
+  {
+    q: 'Do you have cloud sync, biometrics, decoy vaults or a camera?',
+    a: 'Not yet. Folders are coming soon. We only claim features that ship today.',
+  },
+  {
+    q: 'How much does Pro cost?',
+    a: 'Pro is $1.99/week, $19.99/year with a 3-day free trial, or $29.99 lifetime via Google Play.',
+  },
+];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
+---
+<BaseLayout
+  title="FAQ"
+  description="Answers about Vireault encryption, offline storage, unlock methods, pricing, backups and what is not built yet."
+  path="/faq"
+  pageSlug={pageSlug}
+  jsonLd={faqLd}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { label: 'FAQ' }]} />
+    <section class="section">
+      <h1>Frequently asked questions</h1>
+      <p class="section-intro">Straight answers based on what the Android app supports today.</p>
+      <div class="faq">
+        {faqs.map((item) => (
+          <details>
+            <summary>{item.q}</summary>
+            <p>{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+    <p>Related: <a href="/features/encryption">encryption</a>, <a href="/features/offline">offline vault</a>, <a href="/pricing">pricing</a>, <a href="/guides/secure-photo-vault-android">secure photo vault guide</a>.</p>
+    <Cta pageSlug={pageSlug} />
+  </div>
+</BaseLayout>

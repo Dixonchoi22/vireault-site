@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cta from '../../components/Cta.astro';
+const pageSlug = 'features-backup-restore';
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Encrypted backup and restore',
+  description: 'Export an encrypted Vireault backup file and restore it on another Android phone. Includes auto-lock and screenshot blocking.',
+  author: { '@type': 'Organization', name: 'Vireault' },
+  datePublished: '2026-11-05',
+  dateModified: '2026-11-05',
+  mainEntityOfPage: 'https://vireault.app/features/backup-restore',
+};
+---
+<BaseLayout
+  title="Encrypted backup and restore"
+  description="Create an encrypted Vireault backup file, restore on a new phone, and rely on auto-lock plus screenshot blocking day to day."
+  path="/features/backup-restore"
+  pageSlug={pageSlug}
+  ogType="article"
+  jsonLd={articleLd}
+  article={{ published: '2026-11-05', modified: '2026-11-05' }}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/features', label: 'Features' }, { label: 'Backup & restore' }]} />
+    <article class="section prose">
+      <h1>Encrypted backup and restore</h1>
+      <p>Local-only storage still needs an escape hatch when you change phones. Vireault lets you export an encrypted backup file and restore it later.</p>
+      <h2>Backup basics</h2>
+      <ul>
+        <li>Export an encrypted backup file you control</li>
+        <li>Restore on a new device with your recovery material</li>
+        <li>Keep recovery codes offline and private</li>
+      </ul>
+      <p>If you forget your unlock secret and lose recovery material, nobody can reconstruct the vault — including us. That is the cost of not holding keys on a server.</p>
+      <Cta pageSlug={pageSlug} heading="Back up before you switch phones" />
+      <h2>Day-to-day protections</h2>
+      <ul>
+        <li>Auto-lock when the app goes to the background</li>
+        <li>Auto-lock after about 5 minutes idle</li>
+        <li>Screenshot blocking while using the vault</li>
+      </ul>
+      <p>Learn more in <a href="/features/encryption">encryption</a>, <a href="/features/offline">offline design</a>, and <a href="/guides/encrypt-files-on-android">encrypting files on Android</a>.</p>
+    </article>
+    <Cta pageSlug={pageSlug} />
+  </div>
+</BaseLayout>

@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cta from '../../components/Cta.astro';
+const pageSlug = 'features-encryption';
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'AES-256 encryption on device',
+  description: 'How Vireault uses Argon2id, AES-256-GCM, a random master key and an encrypted index on Android.',
+  author: { '@type': 'Organization', name: 'Vireault' },
+  datePublished: '2026-11-05',
+  dateModified: '2026-11-05',
+  mainEntityOfPage: 'https://vireault.app/features/encryption',
+};
+---
+<BaseLayout
+  title="AES-256 encryption on device"
+  description="Vireault encrypts Android vault files with AES-256-GCM, derives keys with Argon2id, and keeps an encrypted index with hidden file names."
+  path="/features/encryption"
+  pageSlug={pageSlug}
+  ogType="article"
+  jsonLd={articleLd}
+  article={{ published: '2026-11-05', modified: '2026-11-05' }}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/features', label: 'Features' }, { label: 'Encryption' }]} />
+    <article class="section prose">
+      <h1>AES-256 encryption on your Android phone</h1>
+      <p>Vireault is built around on-device cryptography. Content is not “hidden” by renaming a folder or changing an icon. Files are encrypted before they rest in the vault.</p>
+      <h2>What ships today</h2>
+      <ul>
+        <li><strong>Argon2id</strong> key derivation from your unlock secret</li>
+        <li><strong>AES-256-GCM</strong> for vault file contents</li>
+        <li>A <strong>random master key</strong> that wraps the encrypted data</li>
+        <li>An <strong>encrypted index</strong> so file names stay hidden on disk</li>
+      </ul>
+      <Cta pageSlug={pageSlug} heading="Encrypt a private album on Android" />
+      <h2>Why the index matters</h2>
+      <p>Even when file bytes are encrypted, cleartext names can leak what you stored. Vireault encrypts the index as well, which reduces that metadata leak on the device filesystem.</p>
+      <h2>What encryption does not replace</h2>
+      <p>If someone knows your PIN, pattern or passphrase, they can open the vault. Choose a strong secret, enable lockout discipline, and keep backup recovery material offline. Related reading: <a href="/features/unlock">unlock methods</a>, <a href="/features/offline">offline design</a>, and <a href="/guides/encrypt-files-on-android">encrypting files on Android</a>.</p>
+      <h2>Honest boundaries</h2>
+      <p>We do not claim third-party audits on this page. We describe the algorithms and local model the app uses. For privacy practices, see the <a href="/privacy">privacy policy</a>.</p>
+    </article>
+    <Cta pageSlug={pageSlug} />
+  </div>
+</BaseLayout>

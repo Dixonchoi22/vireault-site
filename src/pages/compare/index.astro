@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cta from '../../components/Cta.astro';
+import { COMPARES } from '../../data/site';
+const pageSlug = 'compare';
+---
+<BaseLayout
+  title="Compare Android vault apps"
+  description="Fair comparisons of Vireault with Keepsafe, Hide it Pro and calculator vault apps — focused on encryption, accounts and offline storage."
+  path="/compare"
+  pageSlug={pageSlug}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { label: 'Compare' }]} />
+    <section class="section">
+      <h1>Compare Android vault apps</h1>
+      <p class="section-intro">These pages stick to verifiable differences and clearly mark what Vireault does not offer yet.</p>
+      <div class="grid cols-3">
+        {COMPARES.map((c) => (
+          <article class="card">
+            <h2 style="font-size:1.15rem;margin:0 0 0.5rem">{c.title}</h2>
+            <p>{c.short}</p>
+            <a class="card-link" href={c.href}>Read comparison →</a>
+          </article>
+        ))}
+      </div>
+    </section>
+    <Cta pageSlug={pageSlug} />
+  </div>
+</BaseLayout>

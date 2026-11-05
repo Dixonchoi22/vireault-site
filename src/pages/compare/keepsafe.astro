@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cta from '../../components/Cta.astro';
+const pageSlug = 'compare-keepsafe';
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Vireault vs Keepsafe',
+  description: 'A factual comparison of Vireault and Keepsafe for Android private photos and files.',
+  author: { '@type': 'Organization', name: 'Vireault' },
+  datePublished: '2026-11-05',
+  dateModified: '2026-11-05',
+  mainEntityOfPage: 'https://vireault.app/compare/keepsafe',
+};
+---
+<BaseLayout
+  title="Vireault vs Keepsafe"
+  description="Compare Vireault and Keepsafe for Android: local encryption, accounts, pricing model and feature honesty."
+  path="/compare/keepsafe"
+  pageSlug={pageSlug}
+  ogType="article"
+  jsonLd={articleLd}
+  article={{ published: '2026-11-05', modified: '2026-11-05' }}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/compare', label: 'Compare' }, { label: 'Keepsafe' }]} />
+    <article class="section prose" style="max-width:none">
+      <h1>Vireault vs Keepsafe</h1>
+      <p class="lead">Keepsafe is a long-running private photo app with a large install base. Vireault is a newer local-only Android vault focused on on-device AES-256 encryption without an account.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Topic</th>
+              <th>Vireault</th>
+              <th>Keepsafe (general public positioning)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Account</td>
+              <td>No account</td>
+              <td>Historically associated with account-based features and recovery flows</td>
+            </tr>
+            <tr>
+              <td>Storage model</td>
+              <td>Offline / local vault on device</td>
+              <td>Private gallery product with cloud-related options in the broader Keepsafe ecosystem over time</td>
+            </tr>
+            <tr>
+              <td>Cryptography claims on this site</td>
+              <td>Argon2id, AES-256-GCM, encrypted index</td>
+              <td>Refer to Keepsafe’s own current help docs; we do not mirror their internal design here</td>
+            </tr>
+            <tr>
+              <td>Unlock</td>
+              <td>PIN, 3×3 pattern, passphrase</td>
+              <td>PIN/passcode style unlock is common in the category; exact current options vary by version</td>
+            </tr>
+            <tr>
+              <td>Pricing shape</td>
+              <td>Free 1 vault / 50 items; Pro weekly, annual + 3-day trial, or lifetime</td>
+              <td>Freemium with premium upgrades; check Play Store for live prices</td>
+            </tr>
+            <tr>
+              <td>Not in Vireault yet</td>
+              <td>Cloud sync, biometrics, decoy vaults, camera, folders (soon)</td>
+              <td>Mature ecosystem features may exist that Vireault has not shipped</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <Cta pageSlug={pageSlug} heading="Prefer a local-only vault?" body="If you want encryption without creating an account, try Vireault on Android." />
+      <h2>Who might prefer Vireault</h2>
+      <ul>
+        <li>People who want offline storage and no signup</li>
+        <li>Users who care about an encrypted index and explicit AES-256-GCM framing</li>
+        <li>Anyone evaluating a smaller free tier before paying</li>
+      </ul>
+      <h2>Who might prefer Keepsafe</h2>
+      <ul>
+        <li>Users who already rely on Keepsafe’s workflow or multi-platform habits</li>
+        <li>People who want a long-established brand with a large review history</li>
+        <li>Anyone who needs features Vireault has not shipped yet</li>
+      </ul>
+      <h2>Fairness note</h2>
+      <p>Keepsafe’s store listing, help center and pricing change over time. This page compares product categories and Vireault’s verified capabilities. It is not a claim that Keepsafe lacks encryption or that Vireault is “better” for every user. Read both privacy policies before migrating private media.</p>
+      <p>Related: <a href="/compare/hide-it-pro">Hide it Pro</a>, <a href="/compare/calculator-vault">calculator vault apps</a>, <a href="/features/offline">offline design</a>, <a href="/guides/secure-photo-vault-android">secure photo vault guide</a>.</p>
+    </article>
+    <Cta pageSlug={pageSlug} />
+  </div>
+</BaseLayout>

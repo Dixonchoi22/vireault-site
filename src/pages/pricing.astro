@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Cta from '../components/Cta.astro';
+import { PRICING, playUrl } from '../data/site';
+const pageSlug = 'pricing';
+---
+<BaseLayout
+  title="Pricing"
+  description="Vireault free plan includes 1 vault and 50 items. Pro is $1.99/week, $19.99/year with a 3-day trial, or $29.99 lifetime."
+  path="/pricing"
+  pageSlug={pageSlug}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { label: 'Pricing' }]} />
+    <section class="section prose" style="max-width:none">
+      <h1>Pricing</h1>
+      <p class="lead">Start free. Upgrade only if you need more vaults or items. Purchases go through Google Play.</p>
+      <div class="pricing-grid">
+        <article class="card">
+          <h2>Free</h2>
+          <p class="price">$0</p>
+          <ul>
+            <li>{PRICING.free.vaults} vault</li>
+            <li>{PRICING.free.items} items</li>
+            <li>Full encryption stack</li>
+            <li>PIN, pattern or passphrase</li>
+            <li>Encrypted backup file</li>
+          </ul>
+        </article>
+        <article class="card price-card featured">
+          <h2>Pro weekly</h2>
+          <p class="price">{PRICING.weekly}</p>
+          <ul>
+            <li>More vaults and items</li>
+            <li>Same local encryption</li>
+            <li>Cancel anytime in Play</li>
+          </ul>
+        </article>
+        <article class="card price-card featured">
+          <h2>Pro annual</h2>
+          <p class="price">{PRICING.annual}</p>
+          <p>{PRICING.annualTrial} on the annual plan</p>
+          <ul>
+            <li>Best value subscription</li>
+            <li>Billed through Google Play</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>Pro lifetime</h2>
+          <p class="price">{PRICING.lifetime}</p>
+          <ul>
+            <li>One-time purchase</li>
+            <li>No recurring bill</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section prose">
+      <h2>What Pro is for</h2>
+      <p>The free plan is enough to evaluate encryption, unlock methods, import, viewing, search and backup. Pro raises capacity so you can keep more vaults and items as your library grows.</p>
+      <h2>What we do not claim</h2>
+      <ul>
+        <li>No cloud sync yet</li>
+        <li>No biometric unlock yet</li>
+        <li>No decoy vaults yet</li>
+        <li>No in-app camera yet</li>
+        <li>Folders are coming soon</li>
+      </ul>
+      <p>See the <a href="/faq">FAQ</a>, <a href="/features">features</a>, and <a href="/privacy">privacy policy</a> for details.</p>
+    </section>
+
+    <Cta pageSlug={pageSlug} heading="Start on the free plan" body="Install from Google Play, create a vault, and import a few private files before you decide on Pro." />
+    <p><a class="btn btn-primary" href={playUrl(pageSlug)}>View on Google Play</a></p>
+  </div>
+</BaseLayout>

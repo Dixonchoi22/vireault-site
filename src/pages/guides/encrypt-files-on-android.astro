@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cta from '../../components/Cta.astro';
+const pageSlug = 'encrypt-files-on-android';
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Encrypting files on Android',
+  description: 'How file encryption works on Android phones and how Vireault applies AES-256-GCM locally.',
+  author: { '@type': 'Organization', name: 'Vireault' },
+  datePublished: '2026-11-05',
+  dateModified: '2026-11-05',
+  mainEntityOfPage: 'https://vireault.app/guides/encrypt-files-on-android',
+};
+---
+<BaseLayout
+  title="Encrypting files on Android"
+  description="A plain-language guide to encrypting files on Android, covering AES-256-GCM, key derivation, backups and common mistakes."
+  path="/guides/encrypt-files-on-android"
+  pageSlug={pageSlug}
+  ogType="article"
+  jsonLd={articleLd}
+  article={{ published: '2026-11-05', modified: '2026-11-05' }}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/guides', label: 'Guides' }, { label: 'Encrypt files' }]} />
+    <article class="section prose">
+      <h1>Encrypting files on Android</h1>
+      <p>Full-disk encryption protects a powered-off phone, but it does not stop someone who unlocks your device from opening the gallery. App-level file encryption adds a second gate around specific private documents and media.</p>
+      <h2>The pieces that matter</h2>
+      <ul>
+        <li><strong>Key derivation</strong> — turns a PIN, pattern or passphrase into cryptographic material (Vireault: Argon2id)</li>
+        <li><strong>Master key</strong> — a random key that actually encrypts file bytes</li>
+        <li><strong>Authenticated encryption</strong> — AES-256-GCM protects confidentiality and detects tampering</li>
+        <li><strong>Encrypted index</strong> — keeps names from leaking beside the ciphertext</li>
+      </ul>
+      <h2>Common mistakes</h2>
+      <ul>
+        <li>Assuming “hidden” equals “encrypted”</li>
+        <li>Leaving gallery originals after import</li>
+        <li>Storing recovery material inside the same unlocked photo roll</li>
+        <li>Skipping backups because the vault “feels permanent”</li>
+      </ul>
+      <Cta pageSlug={pageSlug} heading="Encrypt files without creating an account" body="Vireault keeps ciphertext local and lets you export an encrypted backup file when you need a spare copy." />
+      <h2>Backup without undoing encryption</h2>
+      <p>Copying raw vault directories around is risky if you do not understand the format. Prefer the app’s <a href="/features/backup-restore">encrypted backup and restore</a> flow, then store that file deliberately.</p>
+      <h2>How this ties to Vireault features</h2>
+      <p>Read the <a href="/features/encryption">encryption page</a>, the <a href="/features/offline">offline design</a>, and the <a href="/faq">FAQ</a> for product specifics. For category shopping, use the <a href="/guides/safest-private-gallery-android">private gallery checklist</a>.</p>
+    </article>
+    <Cta pageSlug={pageSlug} />
+  </div>
+</BaseLayout>

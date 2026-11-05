@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cta from '../../components/Cta.astro';
+const pageSlug = 'compare-calculator-vault';
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Vireault vs calculator vault apps',
+  description: 'Why disguise-only calculator vaults differ from an encrypted local Android vault like Vireault.',
+  author: { '@type': 'Organization', name: 'Vireault' },
+  datePublished: '2026-11-05',
+  dateModified: '2026-11-05',
+  mainEntityOfPage: 'https://vireault.app/compare/calculator-vault',
+};
+---
+<BaseLayout
+  title="Vireault vs calculator vault apps"
+  description="Calculator vault apps hide behind a keypad UI. Vireault encrypts files with AES-256-GCM on device. Here is a fair comparison."
+  path="/compare/calculator-vault"
+  pageSlug={pageSlug}
+  ogType="article"
+  jsonLd={articleLd}
+  article={{ published: '2026-11-05', modified: '2026-11-05' }}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/compare', label: 'Compare' }, { label: 'Calculator vaults' }]} />
+    <article class="section prose" style="max-width:none">
+      <h1>Vireault vs calculator vault apps</h1>
+      <p class="lead">“Calculator vault” apps disguise a private gallery behind a calculator icon or keypad. Disguise can deter casual snooping, but it is not the same thing as documented on-device encryption.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Topic</th>
+              <th>Vireault</th>
+              <th>Typical calculator vault</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Main protection</td>
+              <td>Encryption + unlock secret</td>
+              <td>UI disguise + passcode gate (quality varies widely)</td>
+            </tr>
+            <tr>
+              <td>App appearance</td>
+              <td>Standard vault app icon/name</td>
+              <td>Often looks like a calculator</td>
+            </tr>
+            <tr>
+              <td>Cryptography</td>
+              <td>Argon2id, AES-256-GCM, encrypted index</td>
+              <td>Some apps encrypt; many only hide. Read each listing carefully.</td>
+            </tr>
+            <tr>
+              <td>Account</td>
+              <td>No account</td>
+              <td>Mixed; some are local, some push sign-in or ads</td>
+            </tr>
+            <tr>
+              <td>Backup</td>
+              <td>Encrypted backup file + restore</td>
+              <td>Inconsistent across apps</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <Cta pageSlug={pageSlug} heading="Choose encryption over disguise alone" />
+      <h2>When a calculator vault may be enough</h2>
+      <p>If your threat model is a roommate glancing at your phone, a disguised app might be adequate. If you worry about someone browsing device storage, backups or leftover gallery copies, prefer an app that encrypts file bytes and names.</p>
+      <h2>What Vireault still does not do</h2>
+      <p>Vireault does not currently ship an alternate calculator icon. Alternate icons and decoy vaults are not available yet. Its bet is cryptography and local control, not camouflage.</p>
+      <p>Next reads: <a href="/features/encryption">encryption feature</a>, <a href="/guides/safest-private-gallery-android">safest private gallery checklist</a>, <a href="/compare/keepsafe">vs Keepsafe</a>.</p>
+    </article>
+    <Cta pageSlug={pageSlug} />
+  </div>
+</BaseLayout>

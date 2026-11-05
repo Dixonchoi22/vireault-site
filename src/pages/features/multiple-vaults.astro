@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cta from '../../components/Cta.astro';
+const pageSlug = 'features-multiple-vaults';
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Several encrypted vaults on Android',
+  description: 'Create more than one Vireault vault, each with its own unlock secret. Free plan includes one vault.',
+  author: { '@type': 'Organization', name: 'Vireault' },
+  datePublished: '2026-11-05',
+  dateModified: '2026-11-05',
+  mainEntityOfPage: 'https://vireault.app/features/multiple-vaults',
+};
+---
+<BaseLayout
+  title="Several vaults"
+  description="Keep separate encrypted vaults in Vireault, each with its own secret. Free: 1 vault. Pro unlocks more capacity."
+  path="/features/multiple-vaults"
+  pageSlug={pageSlug}
+  ogType="article"
+  jsonLd={articleLd}
+  article={{ published: '2026-11-05', modified: '2026-11-05' }}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/features', label: 'Features' }, { label: 'Multiple vaults' }]} />
+    <article class="section prose">
+      <h1>Several vaults on one phone</h1>
+      <p>Not every private file belongs in the same bucket. Vireault supports more than one vault so you can separate work, family or personal media.</p>
+      <h2>How it works</h2>
+      <ul>
+        <li>Each vault has its own unlock secret</li>
+        <li>Items stay inside the vault you import them into</li>
+        <li>Free plan: 1 vault and 50 items</li>
+        <li>Pro raises vault and item limits</li>
+      </ul>
+      <Cta pageSlug={pageSlug} heading="Create your first vault" />
+      <h2>What is not included yet</h2>
+      <p>Decoy vaults and hidden vault lists are not built yet. The lock experience lists vaults you created. Folders inside a vault are coming soon.</p>
+      <p>See <a href="/pricing">pricing</a>, <a href="/features/unlock">unlock options</a>, and <a href="/compare/hide-it-pro">Vireault vs Hide it Pro</a>.</p>
+    </article>
+    <Cta pageSlug={pageSlug} />
+  </div>
+</BaseLayout>

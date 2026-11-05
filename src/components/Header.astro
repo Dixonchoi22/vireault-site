@@ -1,0 +1,42 @@
+---
+import { SITE, NAV, playUrl } from '../data/site';
+interface Props {
+  currentPath?: string;
+  pageSlug: string;
+}
+const { currentPath = '/', pageSlug } = Astro.props;
+---
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/">
+      <img src="/images/icon-512.png" width="36" height="36" alt="" />
+      <span>{SITE.name}</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      {NAV.map((item) => (
+        <a href={item.href} aria-current={currentPath === item.href || currentPath.startsWith(item.href + '/') ? 'page' : undefined}>
+          {item.label}
+        </a>
+      ))}
+      <a class="btn btn-primary" href={playUrl(pageSlug)}>Get on Google Play</a>
+    </nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" id="menu-toggle">
+      Menu
+    </button>
+  </div>
+  <nav class="container mobile-nav" id="mobile-nav" aria-label="Mobile">
+    {NAV.map((item) => (
+      <a href={item.href}>{item.label}</a>
+    ))}
+    <a class="btn btn-primary" href={playUrl(pageSlug)}>Get on Google Play</a>
+  </nav>
+</header>
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const panel = document.getElementById('mobile-nav');
+  toggle?.addEventListener('click', () => {
+    const open = panel?.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+</script>
