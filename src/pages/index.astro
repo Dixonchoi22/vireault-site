@@ -4,21 +4,21 @@ import { FEATURES, GUIDES, COMPARES, PRICING, playUrl } from '../data/site';
 const pageSlug = 'home';
 const trust = [
   { k: 'No account', v: 'Open the app and create a vault. No email, no phone number.' },
-  { k: 'Stays on your phone', v: 'Nothing is uploaded. There is no Vireault server holding your files.' },
+  { k: 'No automatic upload', v: 'The app does not upload vault content to us and has no built-in cloud sync. There is no Vireault server holding your files.' },
   { k: 'Modern cryptography', v: 'Argon2id derives the key; AES-256-GCM seals every file.' },
   { k: 'Free to start', v: `${PRICING.free.vaults} vault and ${PRICING.free.items} items at no cost.` },
 ];
 const steps = [
-  { n: '1', t: 'Choose how you unlock', d: 'Set a PIN, draw a 3×3 pattern or type a passphrase. That secret is stretched with Argon2id into the key that guards a random master key.' },
+  { n: '1', t: 'Choose how you unlock', d: 'Set a PIN, draw a 3×3 or 5×5 pattern, or type a passphrase. Argon2id protects the key that unlocks a random vault master key. Compatible devices can enable fingerprint unlock after an unlock with your secret.' },
   { n: '2', t: 'Bring in your media', d: 'Pick photos, videos, audio or PDFs. Each one is encrypted as it enters the vault, and you can remove the original from your gallery afterwards.' },
   { n: '3', t: 'Close it and it locks', d: 'Switch apps or leave the phone idle for five minutes and the vault seals itself. Screenshots of vault screens are blocked.' },
 ];
 const faqs = [
-  { q: 'Can Vireault reset my PIN if I forget it?', a: 'No. Only you hold the secret, so there is no back door. Keep your recovery material somewhere safe.' },
-  { q: 'Does it upload anything?', a: 'No vault content ever leaves your device. Purchases go through Google Play Billing.' },
+  { q: 'Can Vireault reset my PIN if I forget it?', a: 'We cannot reset it for you. If you set up and retain your user-held 12-word recovery phrase, you can use it to choose a new unlock secret. Skipping setup means a forgotten secret can permanently lock you out. Separate encrypted backups need their own recovery material.' },
+  { q: 'Does it upload anything?', a: 'The app does not upload vault content to us and has no built-in cloud sync. You can deliberately export files or encrypted backups to a destination you choose. Purchases use Google Play Billing.' },
   { q: 'What is free and what is Pro?', a: `Free covers ${PRICING.free.vaults} vault and ${PRICING.free.items} items. Pro is ${PRICING.weekly}, ${PRICING.annual} with a ${PRICING.annualTrial}, or ${PRICING.lifetime} once for lifetime.` },
-  { q: 'Can I move my vault to a new phone?', a: 'Yes. Export an encrypted backup file, copy it across, and restore it on the new device with your secret.' },
-  { q: 'Does it have folders, fingerprint unlock or a decoy vault?', a: 'Not yet. Today Vireault offers PIN, pattern and passphrase unlock plus multiple separate vaults. Folders are next on the list.' },
+  { q: 'Can I move my vault to a new phone?', a: 'Export an encrypted backup, transfer it yourself, and restore it using that backup\'s recovery material. Keep that material separately and safely.' },
+  { q: 'Does it have folders, fingerprint unlock or a decoy vault?', a: 'The current build supports folders, encrypted notes, compatible-device fingerprint unlock, in-app photo/video capture, and Pro hidden-list / decoy use. Cloud sync is not built in. Hidden mode is not forensic-proof.' },
 ];
 ---
 <BaseLayout
@@ -40,10 +40,10 @@ const faqs = [
         <img src="/images/download-qr.svg" width="96" height="96" alt="QR code to download Vireault" />
         <div><strong>Scan to download on Android</strong><span>Point your phone camera at the code to open the download page.</span><a href="/#how-it-works">See how it works →</a></div>
       </div>
-      <p class="note mini-facts"><span>Free: {PRICING.free.vaults} vault · {PRICING.free.items} items</span><span>Pro from {PRICING.weekly}</span><span>Nothing leaves your phone</span></p>
+      <p class="note mini-facts"><span>Free: {PRICING.free.vaults} vault · {PRICING.free.items} items</span><span>Pro from {PRICING.weekly}</span><span>No automatic vault upload</span></p>
     </div>
     <div class="hero-media phone">
-      <div class="phone-frame"><img src="/images/hero-pattern.webp" width="720" height="1600" alt="Vireault pattern lock screen with a pattern drawn while creating a vault" fetchpriority="high" /></div>
+      <div class="phone-frame"><img src="/images/hero-pattern.webp" width="720" height="1600" alt="Vireault's real Android lock screen with a 5×5 pattern pad" fetchpriority="high" /></div>
     </div>
   </div>
   </section>
@@ -60,7 +60,7 @@ const faqs = [
 
   <section class="container section" id="features">
     <h2 class="center-h">What does a real<br />encrypted vault do?</h2>
-    <p class="section-intro center">Your files are encrypted before they ever touch storage. Six capabilities, each explained on its own page.</p>
+    <p class="section-intro center">Vault contents and their index are encrypted at rest. Video recording needs a temporary app-private plaintext spool while recording; unfinished recordings are discarded when the app backgrounds or the vault locks. Six capabilities, each explained on its own page.</p>
     <div class="grid cols-3">
       {FEATURES.map((f) => (
         <a class="card card-click" href={f.href}>
@@ -91,7 +91,7 @@ const faqs = [
         <li>A random master key encrypts file contents with AES-256-GCM, which also detects tampering.</li>
         <li>The index is encrypted too, so file names and thumbnails are unreadable on disk.</li>
         <li>Repeated wrong attempts trigger a lockout delay.</li>
-        <li>Backups are exported as encrypted files that only your secret can open.</li>
+        <li>Backups are exported as encrypted files protected by their own recovery material.</li>
       </ul>
       <p><a class="card-link" href="/security">Read the full security model →</a> · <a class="card-link" href="/features/encryption">Encryption feature →</a></p>
     </div>
@@ -110,10 +110,10 @@ const faqs = [
   </section>
 
   <section class="container section">
-    <h2>Straight about what is not here yet</h2>
+    <h2>Straight about what is here, and what is not</h2>
     <p class="section-intro">We would rather tell you up front than surprise you after install.</p>
     <div class="grid cols-2">
-      <article class="card"><h3>Not built yet</h3><p>Folders, fingerprint or face unlock, a decoy vault, an in-app camera and cloud sync. Folders come first.</p></article>
+      <article class="card"><h3>Local features and honest limits</h3><p>Folders, notes, fingerprint unlock, recovery phrases, camera capture and Pro hidden / decoy vault use are implemented. Cloud sync is not built in. See the security page for limits, including temporary video storage and hidden mode.</p></article>
       <article class="card"><h3>Pricing</h3><p>Free: {PRICING.free.vaults} vault, {PRICING.free.items} items. Pro: {PRICING.weekly}, {PRICING.annual} ({PRICING.annualTrial}) or {PRICING.lifetime} lifetime.</p><a class="card-link" href="/pricing">Compare plans →</a></article>
     </div>
   </section>

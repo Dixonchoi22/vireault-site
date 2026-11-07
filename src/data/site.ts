@@ -49,7 +49,7 @@ export const FEATURES = [
   {
     slug: 'unlock',
     title: 'PIN, pattern or passphrase',
-    short: 'Unlock with a PIN, a 3×3 pattern, or a passphrase. Lockout after wrong attempts.',
+    short: 'Unlock with a PIN, a 3×3 or 5×5 pattern, or a passphrase. Compatible devices can add fingerprint unlock. Lockout after wrong attempts.',
     href: '/features/unlock',
   },
   {

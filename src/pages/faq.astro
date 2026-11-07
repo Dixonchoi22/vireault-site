@@ -19,7 +19,7 @@ const faqs = [
   },
   {
     q: 'How do I unlock the vault?',
-    a: 'Choose a PIN, a 3×3 pattern, or a passphrase when you create a vault. Wrong attempts lead to lockout.',
+    a: 'Choose a PIN, a 3×3 or 5×5 pattern, or a passphrase. Compatible devices can enable fingerprint unlock after unlocking with your secret. The first unlock after reboot requires your secret. Wrong unlock attempts trigger lockout delays.',
   },
   {
     q: 'Can I have more than one vault?',
@@ -39,7 +39,19 @@ const faqs = [
   },
   {
     q: 'Do you have cloud sync, biometrics, decoy vaults or a camera?',
-    a: 'Not yet. Folders are coming soon. We only claim features that ship today.',
+    a: 'The current build supports folders, encrypted notes, compatible-device fingerprint unlock, in-app photo/video capture, and Pro hidden-list / decoy use. Cloud sync is not built in. Hidden mode is not forensic-proof.',
+  },
+  {
+    q: 'What is the 12-word recovery phrase?',
+    a: 'Keep the user-held 12-word phrase offline and private. It allows you to reset the vault unlock secret. Skipping it requires explicit acknowledgement that a forgotten unlock secret may permanently lose access; we have no email reset.',
+  },
+  {
+    q: 'Does the in-app camera save to my gallery?',
+    a: 'Photo capture saves to encrypted vault storage rather than the gallery. During video recording only, the app needs an unencrypted spool in private app storage. An unfinished recording is discarded and its spool deleted when you leave the app or lock the vault. Power-loss / force-kill residue was not tested.',
+  },
+  {
+    q: 'Can I export files on the free plan?',
+    a: 'Export is free and can preserve folders. Free includes one vault and 50 items; Pro adds unlimited limits and privacy conveniences, not stronger cryptography.',
   },
   {
     q: 'How much does Pro cost?',
@@ -62,7 +74,7 @@ const faqLd = {
 ---
 <BaseLayout
   title="FAQ"
-  description="Answers about Vireault encryption, offline storage, unlock methods, pricing, backups and what is not built yet."
+  description="Answers about Vireault encryption, offline storage, unlock methods, recovery phrases, pricing, backups and current limits."
   path="/faq"
   pageSlug={pageSlug}
   jsonLd={faqLd}

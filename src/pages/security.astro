@@ -12,7 +12,7 @@ const articleLd = {
     'Plain-language security model for Vireault: Argon2id, AES-256-GCM, encrypted index, backups, and what encryption does not protect against.',
   author: { '@type': 'Organization', name: 'Vireault' },
   datePublished: '2026-11-05',
-  dateModified: '2026-11-05',
+  dateModified: '2026-11-07',
   mainEntityOfPage: 'https://vireault.app/security',
 };
 ---
@@ -23,7 +23,7 @@ const articleLd = {
   pageSlug={pageSlug}
   ogType="article"
   jsonLd={articleLd}
-  article={{ published: '2026-11-05', modified: '2026-11-05' }}
+  article={{ published: '2026-11-05', modified: '2026-11-07' }}
 >
   <div class="container">
     <Breadcrumbs items={[{ href: '/', label: 'Home' }, { label: 'Security' }]} />
@@ -31,9 +31,10 @@ const articleLd = {
       <h1>How Vireault encrypts your files</h1>
       <p>
         <strong>Short answer:</strong> Vireault encrypts vault contents on your Android phone with
-        AES-256-GCM. A random 256-bit master key does the encryption. Your PIN, 3×3 pattern or
+        AES-256-GCM. A random 256-bit master key does the encryption. Your PIN, 3×3 or 5×5 pattern or
         passphrase unlocks that key through Argon2id. We run no vault servers and hold no keys, so
-        we cannot open your vault or reset a forgotten secret. This page states what ships today and
+        we cannot perform a remote reset. If you keep a user-held 12-word recovery phrase, you can
+        use it locally to choose a new unlock secret. This page states what ships today and
         what encryption does <em>not</em> protect against.
       </p>
 
@@ -47,7 +48,7 @@ const articleLd = {
 
       <h2>What happens when you unlock</h2>
       <ol>
-        <li>You enter a PIN, draw a 3×3 pattern, or type a passphrase.</li>
+        <li>You enter a PIN, draw a 3×3 or 5×5 pattern, or type a passphrase.</li>
         <li>Argon2id stretches that secret with a per-vault salt (default about 64&nbsp;MiB of memory on phones that can spare it; 32&nbsp;MiB on tighter devices).</li>
         <li>The derived key unwraps a random master key stored in the vault header (AES-256-GCM wrap).</li>
         <li>That master key decrypts the encrypted index and file blobs while the vault stays open.</li>
@@ -56,7 +57,7 @@ const articleLd = {
       <p>
         New vaults use Argon2id. Older vaults created under a legacy PBKDF2 header format are upgraded
         on a successful unlock. Details live in the open
-        <a href="https://github.com/Dixonchoi22/vaultdroid/blob/main/SECURITY.md">SECURITY.md</a>
+        <a href="https://github.com/Dixonchoi22/Vireault/blob/main/SECURITY.md">SECURITY.md</a>
         in the app repository.
       </p>
 
@@ -82,20 +83,50 @@ const articleLd = {
 
       <h2>Day-to-day protections</h2>
       <ul>
-        <li>Auto-lock when the app goes to the background, and after about five minutes idle.</li>
-        <li>Screenshot / screen-recording blocking on vault screens (<code>FLAG_SECURE</code>).</li>
+        <li>Auto-lock when the app goes to the background, and after about five minutes idle. A very fast app switch can race the lock, so we do not claim it is instantaneous.</li>
+        <li>Screenshot / screen-recording blocking on vault screens (<code>FLAG_SECURE</code>). This blocks ordinary app screenshots; a compromised operating system or emulator display capture can still see pixels.</li>
         <li>Escalating on-device lockout after repeated wrong unlocks.</li>
         <li>Viewing media and PDFs without writing decrypted temp files to storage.</li>
         <li>Optional delete of gallery originals after a successful import (Android’s normal delete; cloud copies are yours to remove).</li>
       </ul>
 
+      <h2>Fingerprint unlock</h2>
+      <p>
+        On supported devices, you can enable fingerprint unlock after unlocking the vault with your
+        secret. Android's biometric prompt controls access through the device Keystore. After a
+        device reboot, the first unlock requires your PIN, pattern or passphrase. Recovery-based
+        changes disable existing biometric unlock. Fingerprint is unavailable in hidden-list mode to
+        avoid revealing the matching vault.
+      </p>
+
+      <h2>Your 12-word recovery phrase</h2>
+      <p>
+        Setup offers a generated, user-held 12-word phrase. Keep it offline and private: anyone with
+        it can open the vault. It permits choosing a new unlock secret if you forget yours. Skipping
+        requires two explicit confirmations. Without the phrase or a usable separate encrypted backup
+        and its recovery material, a forgotten unlock secret means we cannot recover the vault.
+        There is no email or server reset.
+      </p>
+
+      <h2>Camera capture and temporary video storage</h2>
+      <p>
+        Photos taken inside the app are saved to encrypted vault storage, not the gallery. Android's
+        video recording pipeline currently requires a seekable temporary file, so plaintext exists in
+        app-private no_backup/capture only while recording normally. If the app goes to the
+        background or the vault locks, the unfinished video is discarded and the temporary file
+        deleted. Emulator testing confirmed deletion on normal backgrounding; abrupt power loss,
+        force-kill and flash remnants were not tested. This is not a claim of guaranteed physical
+        erasure.
+      </p>
+
       <h2>What Vireault does <em>not</em> protect against</h2>
       <p>Encryption is not magic. These limits are intentional or inherent — please read them before trusting irreplaceable media to any vault.</p>
       <ul>
         <li>
-          <strong>Lost secrets.</strong> If you forget your unlock secret and lose backup recovery
-          material, nobody can reconstruct the files — including us. There is no email reset of vault
-          contents.
+          <strong>Lost secrets.</strong> We cannot perform a remote reset. A user-held recovery
+          phrase can reset the unlock secret locally. If you skip that phrase and also lose backup
+          recovery material, nobody can reconstruct the files — including us. There is no email
+          reset of vault contents.
         </li>
         <li>
           <strong>Short PINs or patterns against offline copies.</strong> On-device lockout does not
@@ -108,9 +139,11 @@ const articleLd = {
           accessibility rights, a malicious screen overlay, or full device compromise is out of scope.
         </li>
         <li>
-          <strong>Existence leakage.</strong> Someone inspecting app storage can still see that vaults
-          exist, vault directory names, approximate sizes and counts. Encryption hides contents, not
-          that you installed a vault.
+          <strong>Existence leakage.</strong> In normal mode, app-private directory names can reveal
+          vault names. Hidden mode removes the normal lock-screen vault list and the secret selects a
+          matching vault; it does not hide the installed app or make storage forensics impossible.
+          Directory counts, approximate sizes and markers can still reveal vault existence. Neither
+          hidden nor decoy use is forensic-proof deniability.
         </li>
         <li>
           <strong>Guaranteed flash erasure.</strong> Secure delete overwrites then unlinks; flash wear
@@ -121,10 +154,27 @@ const articleLd = {
           keep copies after import unless you remove them yourself.
         </li>
         <li>
-          <strong>Features not shipped yet.</strong> No biometrics, decoy vaults, cloud sync or in-app
-          camera today. Folders are coming soon. We do not claim a third-party audit on this page.
+          <strong>No cloud sync, and no third-party audit claim.</strong> The current build
+          implements folders, notes, 5×5 patterns, compatible-device fingerprint unlock, recovery
+          phrases, camera capture and Pro hidden/decoy and alternate-icon features. We do not claim
+          an independent third-party audit.
         </li>
       </ul>
+
+      <h2>Internal emulator checks — 7 November 2026</h2>
+      <p>
+        We tested a debug build on Android 14, not a release-signed app or real hardware. Bounded
+        plaintext scans found no test note title/body or test secrets in app-private files; normal
+        screenshot blocking, hidden-list selection, pattern/recovery flows and biometric unlock were
+        exercised. The review found a camera permission-request crash, caused by an old AndroidX
+        Fragment version rejecting large Activity Result request codes, and a change-secret check
+        that could confirm another vault's secret without normal unlock throttling. Both were fixed
+        in the development tree: Fragment 1.8.5 is pinned, colliding change-secret attempts now use
+        a generic error and count toward the global lockout. Capture of photos stays out of the
+        gallery; unfinished video spools are discarded when the app backgrounds. A very quick
+        Home-and-return once retained the unlocked view, while a confirmed background transition
+        locked it. These checks are not a passed independent audit.
+      </p>
 
       <h2>How this differs from “hide” apps</h2>
       <p>
@@ -150,7 +200,7 @@ const articleLd = {
         <li><a href="/guides/encrypt-files-on-android">Encrypting files on Android</a></li>
         <li><a href="/guides/keepsafe-alternative-android-no-account">Keepsafe alternative without an account</a></li>
         <li><a href="/faq">FAQ</a></li>
-        <li><a href="https://github.com/Dixonchoi22/vaultdroid/blob/main/SECURITY.md">Full SECURITY.md (technical)</a></li>
+        <li><a href="https://github.com/Dixonchoi22/Vireault/blob/main/SECURITY.md">Full SECURITY.md (technical)</a></li>
       </ul>
     </article>
     <Cta pageSlug={pageSlug} />

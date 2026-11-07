@@ -12,14 +12,27 @@ const pageSlug = 'whats-new';
       <h1>What's new</h1>
       <p class="lead">Release notes and what we are working on next.</p>
       <h2>Up next</h2>
-      <p><strong>Folders</strong> are the next feature in progress. Biometric unlock, a decoy vault, an in-app camera and cloud sync are ideas we are considering; none of them is in the app today.</p>
+      <p>Cloud sync is not planned as a built-in feature. Remaining work is polish, release review and listing the app — not those already-shipped local features.</p>
       <h2>Releases</h2>
+      <div class="timeline">
+        <article>
+          <h3>Development build — 7 November 2026</h3>
+          <ul>
+            <li>5×5 pattern unlock, folders and encrypted notes.</li>
+            <li>Compatible-device fingerprint unlock (first unlock after reboot still needs your secret).</li>
+            <li>User-held 12-word recovery phrase, with an informed skip.</li>
+            <li>In-app photo and video capture into the vault. Video uses a temporary private spool while recording; unfinished recordings are discarded on lock or background.</li>
+            <li>Pro hidden-list / decoy vaults and alternate app icons. Hidden mode is not forensic-proof.</li>
+          </ul>
+        </article>
+      </div>
+      <h2>Earlier</h2>
       <div class="timeline">
         <article>
           <h3>First release — November 2026</h3>
           <ul>
             <li>Vaults encrypted with <a href="/features/encryption">Argon2id + AES-256-GCM</a>, including an encrypted index.</li>
-            <li><a href="/features/unlock">PIN, 3×3 pattern or passphrase</a> unlock with lockout after wrong attempts.</li>
+            <li><a href="/features/unlock">PIN, 3×3 or 5×5 pattern or passphrase</a> unlock with lockout after wrong attempts.</li>
             <li><a href="/features/multiple-vaults">Multiple vaults</a>, each with its own secret.</li>
             <li><a href="/features/import-media">Import and view</a> photos, video, audio and PDF, with search, sort and filters.</li>
             <li><a href="/features/backup-restore">Encrypted backup and restore</a>, auto-lock and screenshot blocking.</li>
