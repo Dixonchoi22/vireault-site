@@ -9,7 +9,7 @@ export const SITE = {
   packageId: 'com.vireault.app',
   supportEmail: 'chumiapp.support@gmail.com',
   playBase:
-    'https://play.google.com/store/apps/details?id=com.vireault.app&utm_source=web&utm_medium=guide&utm_campaign=',
+    'https://play.google.com/store/apps/details?id=com.vireault.app&utm_source=vireault-site&utm_medium=guide&utm_campaign=',
 } as const;
 
 export function playUrl(pageSlug: string): string {
@@ -135,5 +135,11 @@ export const GUIDES = [
     title: 'Keepsafe alternative without an account (Android)',
     description: 'A factual Keepsafe alternative checklist for Android users who want a vault with no email account, citing Keepsafe’s own docs.',
     href: '/guides/keepsafe-alternative-android-no-account',
+  },
+  {
+    slug: 'hide-photos-android-without-app',
+    title: 'How to hide photos on Android without an app',
+    description: 'Built-in ways to keep photos out of the gallery — Google Photos Locked Folder, Android 15 Private Space, and weak file-manager tricks — plus when encryption still matters.',
+    href: '/guides/hide-photos-android-without-app',
   },
 ] as const;
