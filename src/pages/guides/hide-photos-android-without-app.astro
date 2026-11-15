@@ -1,0 +1,189 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cta from '../../components/Cta.astro';
+const pageSlug = 'hide-photos-android-without-app';
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'How to hide photos on Android without an app',
+  description:
+    'Built-in ways to keep photos out of the gallery on Android: Google Photos Locked Folder, Android 15 Private Space, and why file-manager tricks are weak.',
+  author: { '@type': 'Organization', name: 'Vireault' },
+  datePublished: '2026-11-09',
+  dateModified: '2026-11-09',
+  mainEntityOfPage: 'https://vireault.app/guides/hide-photos-android-without-app',
+};
+---
+<BaseLayout
+  title="How to hide photos on Android without an app"
+  description="Hide photos on Android without installing a vault: Google Photos Locked Folder, Android 15 Private Space, OEM tools, and when built-in options are not enough."
+  path="/guides/hide-photos-android-without-app"
+  pageSlug={pageSlug}
+  ogType="article"
+  jsonLd={articleLd}
+  article={{ published: '2026-11-09', modified: '2026-11-09' }}
+>
+  <div class="container">
+    <Breadcrumbs
+      items={[
+        { href: '/', label: 'Home' },
+        { href: '/guides', label: 'Guides' },
+        { label: 'Hide photos without an app' },
+      ]}
+    />
+    <article class="section prose">
+      <h1>How to hide photos on Android without an app</h1>
+      <p>
+        You can keep many private photos out of the main gallery without installing a third-party
+        vault. The honest catch is that “hidden” is not the same as “encrypted,” and the built-in
+        options differ by Android version and manufacturer. This guide sticks to methods that ship
+        with Google Photos or the system, cites Google’s own docs, and ends with a short checklist
+        for when a local encrypted vault is the better fit.
+      </p>
+
+      <h2>1. Google Photos Locked Folder</h2>
+      <p>
+        On Android 6 and later, Google Photos can move sensitive items into a
+        <strong>Locked Folder</strong>. According to
+        <a href="https://support.google.com/photos/answer/10694388?hl=en">Google Photos Help</a>,
+        items there do not appear in the Photos grid, Memories, search, or albums, and they are not
+        available to other apps that can read your photos. Unlocking uses your
+        <strong>device screen lock</strong> — you cannot set a separate Locked Folder password.
+      </p>
+      <p>Typical steps (wording follows Google’s help article):</p>
+      <ol>
+        <li>Open the Google Photos app.</li>
+        <li>Tap <strong>Collections</strong>, then <strong>Locked</strong>.</li>
+        <li>Set up Locked Folder if prompted, and authenticate with your screen lock.</li>
+        <li>Select photos or videos, then choose <strong>Add to → Move to Locked Folder</strong>.</li>
+      </ol>
+      <p>
+        Google also documents optional backup for Locked Folder. If backup is off, items live only
+        on that device; uninstalling Photos, clearing app data, or losing the phone can wipe them.
+        If backup is on, you can open Locked Folder on other signed-in devices with that device’s
+        screen lock. Anyone who knows the phone lock can open the folder on that phone.
+      </p>
+
+      <h2>2. Android 15 Private Space (apps and files)</h2>
+      <p>
+        Starting with <strong>Android 15</strong>, many phones include
+        <strong>Private space</strong>: a separate profile that can hide apps and hold files away
+        from the main user. Google’s
+        <a href="https://support.google.com/android/answer/15341885?hl=en">Android Help page</a>
+        describes setup under Settings → Security &amp; privacy → Private space, a separate lock,
+        and an option to hide the Private space entry when it is locked.
+      </p>
+      <p>
+        You can move or copy files into Private space with <strong>Add → Add files</strong>.
+        <strong>Move</strong> deletes the original from the main profile;
+        <strong>Copy</strong> leaves the original in place. When Private space is locked, its apps
+        stop, drop out of search and Recents, and leave the photo picker and sharing surfaces.
+      </p>
+      <p>Limits that matter for photos:</p>
+      <ul>
+        <li>Requires Android 15+, supporting hardware, and the main user (not guest or secondary).</li>
+        <li>
+          Google states the space can still be discovered via computer/adb access, device logs, or
+          other apps in some cases — so it is not forensic deniability.
+        </li>
+        <li>
+          On-device Private space data is not part of a normal device backup restore. Deleting the
+          space removes apps and data with no local backup.
+        </li>
+        <li>
+          Google recommends a <strong>dedicated Google Account</strong> inside Private space so
+          synced photos and history do not leak into the main profile.
+        </li>
+      </ul>
+      <p>
+        Private space is strongest when you install a gallery or vault <em>inside</em> the space and
+        keep the space locked. On its own it isolates files; it does not replace file-level
+        encryption with a secret only you hold.
+      </p>
+
+      <Cta
+        pageSlug={pageSlug}
+        heading="Built-in hide is not the same as a vault key"
+        body="Vireault encrypts photos on your phone with Argon2id and AES-256-GCM. No Vireault account. Export stays free."
+      />
+
+      <h2>3. OEM “secure folder” and gallery hide tools</h2>
+      <p>
+        Samsung Secure Folder, Xiaomi Second space, and other manufacturer tools can hide albums or
+        whole workspaces. Steps and strength vary by brand. Treat them like Private space: useful
+        for shared-phone moments, still tied to the vendor account and device lock model. Check your
+        maker’s support pages for the exact menu path on your build.
+      </p>
+
+      <h2>4. Weak tricks that are not protection</h2>
+      <p>
+        Moving images into an obscure folder, renaming them, or relying on a
+        <code>.nomedia</code> file only changes what some galleries index. A file manager, USB
+        connection, or backup tool can still read the bytes. Do not treat this as privacy for IDs,
+        medical images, or anything you would not leave in Downloads.
+      </p>
+
+      <h2>5. Checklist: is “without an app” enough?</h2>
+      <ol>
+        <li>Who can unlock the phone? Locked Folder and most OEM tools use that same lock.</li>
+        <li>Did cloud backup already keep a copy outside the hidden place?</li>
+        <li>Do messaging apps still hold a compressed duplicate?</li>
+        <li>Can you recover the files if Photos is cleared or Private space is deleted?</li>
+        <li>Do you need a secret that is not the device PIN (passphrase, separate vault PIN)?</li>
+      </ol>
+      <p>
+        If you need encryption under a vault secret, optional delete of gallery originals after
+        import, and an encrypted backup file you control, that is the job of a vault app — not a
+        renamed folder.
+      </p>
+
+      <h2>Where Vireault fits</h2>
+      <p>
+        <a href="/features/offline">Vireault stays offline and local</a>: no Vireault account, no
+        built-in cloud sync. Each vault uses
+        <a href="/features/encryption">Argon2id and AES-256-GCM</a> with an encrypted index so item
+        names are not sitting in cleartext. You can
+        <a href="/features/import-media">import photos and media</a>, optionally remove the gallery
+        original after a successful import, and keep an
+        <a href="/features/backup-restore">encrypted backup</a> you restore with recovery material
+        you hold. Free plan: 1 vault and 50 items; export remains free.
+      </p>
+      <p>
+        Vireault does not replace Android Private space, and Private space does not replace
+        per-file vault encryption. Many people use a built-in hide for casual privacy and a vault
+        when the files must stay unreadable without the vault secret.
+      </p>
+
+      <h2>Primary sources</h2>
+      <ul>
+        <li>
+          <a href="https://support.google.com/photos/answer/10694388?hl=en"
+            >Hide sensitive photos &amp; videos in Locked Folder — Google Photos Help</a
+          >
+        </li>
+        <li>
+          <a href="https://support.google.com/android/answer/15341885?hl=en"
+            >Hide sensitive apps with private space — Android Help</a
+          >
+        </li>
+        <li>
+          <a href="https://source.android.com/docs/security/features/private-space"
+            >Private space — Android Open Source Project</a
+          >
+        </li>
+      </ul>
+
+      <h2>Related reading</h2>
+      <ul>
+        <li><a href="/guides/how-to-hide-photos-on-android">How to hide photos on Android</a></li>
+        <li><a href="/guides/how-to-lock-folder-on-android">How to lock a folder on Android</a></li>
+        <li><a href="/guides/secure-photo-vault-android">Secure photo vault for Android</a></li>
+        <li><a href="/guides/safest-private-gallery-android">Safest private gallery checklist</a></li>
+        <li><a href="/security">How Vireault encrypts</a></li>
+        <li><a href="/compare/calculator-vault">Vireault vs calculator vault apps</a></li>
+      </ul>
+    </article>
+    <Cta pageSlug={pageSlug} heading="Encrypt photos when hiding is not enough" />
+  </div>
+</BaseLayout>
