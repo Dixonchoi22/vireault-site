@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Cta from '../../components/Cta.astro';
+const pageSlug = 'where-do-hidden-photos-go-android';
+const title = 'Where do hidden photos go on Android? Why hidden albums aren’t private';
+const description = 'Hiding an album on Android usually leaves the photo where it was. See where hidden photos really live, who can still see them, and what actually locks them.';
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  author: { '@type': 'Organization', name: 'Vireault' },
+  datePublished: '2026-11-17',
+  dateModified: '2026-11-17',
+  mainEntityOfPage: 'https://vireault.app/guides/where-do-hidden-photos-go-android',
+};
+---
+<BaseLayout
+  title={title}
+  description={description}
+  path="/guides/where-do-hidden-photos-go-android"
+  pageSlug={pageSlug}
+  ogType="article"
+  jsonLd={articleLd}
+  article={{ published: '2026-11-17', modified: '2026-11-17' }}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/guides', label: 'Guides' }, { label: 'Where hidden photos go' }]} />
+    <article class="section prose">
+      <h1>Where do hidden photos go on Android? Why hidden albums aren’t private</h1>
+      <p><strong>Short answer:</strong> usually nowhere. When you hide an album in Samsung Gallery, archive a photo in Google Photos, or drop a <code>.nomedia</code> file into a folder, the photo stays in the same place on your phone’s storage, normally <code>DCIM/Camera</code> or <code>Pictures</code>. Only the view in one app changes. A file manager, another gallery app with photo access, or a computer plugged in over USB can still find it.</p>
+      <p>A few tools do move the file somewhere other apps can’t reach: Google Photos Locked Folder, the Safe folder in Files by Google, Samsung Secure Folder, and Private space on Android 15. Encrypted vault apps work the same way. Below is what each option really does, what it protects you from, and the copies people tend to forget about.</p>
+
+      <h2>How Android keeps track of your photos</h2>
+      <p>When your camera saves a picture, it writes a normal file to shared storage. Android then adds that file to a system index called the media store. Gallery apps, Google Photos, WhatsApp’s photo picker and any other app you’ve given photo and video access all read from that index or from the folders behind it.</p>
+      <p>That matters because most “hide” buttons only change what <em>one</em> app shows. The file and its entry in shared storage are untouched. Think of it as turning a picture to face the wall rather than locking it in a drawer.</p>
+
+      <h2>Options that only hide the photo from view</h2>
+
+      <h3>Google Photos Archive</h3>
+      <p>Select photos, tap <strong>More</strong> (three dots), then <strong>Move to archive</strong>. The photos leave the main Photos grid and show up under <strong>Collections → Archive</strong>.</p>
+      <p>Where they go: nowhere. Archived photos still appear in albums they belong to and in search results, they stay in the phone’s device folders, and if backup is on they stay backed up to your Google account. Anyone who opens Google Photos can tap Archive and look. It’s a decluttering tool for receipts and screenshots, not a privacy feature.</p>
+
+      <h3>Samsung Gallery “Hide albums”</h3>
+      <p>On recent Samsung phones, open Gallery, go to the <strong>Albums</strong> tab, tap the three-dot menu and look for an option to hide albums. Menu names shift a little between One UI versions, so yours may read slightly differently.</p>
+      <p>Where they go: the folder stays exactly where it was in internal storage. Samsung Gallery just stops listing it. Open <strong>My Files</strong>, install another gallery, or connect the phone to a PC and the photos are right there. If you sync Gallery to a cloud service, check whether hidden albums are included rather than assuming they’re skipped.</p>
+
+      <h3>.nomedia files and dot folders</h3>
+      <p>An empty file called <code>.nomedia</code> inside a folder asks Android’s media scanner to leave that folder out of the media store. Folders whose names start with a dot are also treated as hidden by many file browsers. Galleries that rely on the media store then stop showing those photos.</p>
+      <p>Where they go: still in the same folder. Any file manager with “show hidden files” turned on, many third-party galleries, backup tools and a computer over USB can all read them. This is the weakest option here, and it’s easy to undo by accident when an app rescans storage.</p>
+
+      <h2>Options that actually move the photo</h2>
+
+      <h3>Google Photos Locked Folder</h3>
+      <p>In Google Photos, select the photos, tap <strong>More</strong>, then <strong>Move to Locked Folder</strong>. You open it later from <strong>Collections</strong> with your screen lock or fingerprint.</p>
+      <p>Where they go: out of shared storage and into space only Google Photos can open. Google says items in Locked Folder don’t appear in the Photos grid, albums, search or Memories, and that other apps with access to your photos can’t see them. Backup to your Google account is optional. With backup off, the photos exist only on that phone, so clearing Photos’ data, uninstalling it or losing the phone can take them with it.</p>
+      <p>The catch: the lock is your phone’s screen lock. Anyone who knows your PIN, such as a partner, a child or someone you handed the unlocked phone to, can open it.</p>
+
+      <h3>Safe folder in Files by Google</h3>
+      <p>Open Files by Google, scroll to <strong>Collections</strong>, tap <strong>Safe folder</strong> and choose a PIN or pattern. Then select files elsewhere in the app and move them in.</p>
+      <p>Where they go: into the app’s own encrypted storage. Google’s help page says Safe folder files don’t show up in search results or categories, and the lock is separate from your screen lock, which is a real advantage. The downsides are just as real. The Files by Google community FAQ is blunt: if you forget the PIN or pattern, reset the folder, clear the app’s data or uninstall Files, the files are gone and can’t be recovered.</p>
+
+      <h3>Samsung Secure Folder</h3>
+      <p>On Samsung phones, Secure Folder is a separate, Knox-protected workspace with its own lock. You can move photos into it from Gallery or My Files using the move-to-Secure-Folder option, and use a separate copy of Gallery inside it.</p>
+      <p>Where they go: into a separate space that apps in your normal profile can’t browse. Your main Gallery stops seeing them, and so do other apps you’ve installed outside Secure Folder. It’s a strong option on Samsung hardware, though it only exists on Samsung phones and works best if you remember that anything you share out of it lands back in normal storage.</p>
+
+      <h3>Private space on Android 15</h3>
+      <p>Android 15 added Private space on many phones: a second, locked profile under <strong>Settings → Security &amp; privacy → Private space</strong>. You can add files to it, install a gallery inside it, and hide the entry point when it’s locked. When it’s locked, its apps stop and its content leaves the photo picker and sharing screens.</p>
+      <p>Where they go: into that separate profile. Google is open about the limits, noting that the space can still be detected through things like a computer with debugging access or device logs, and that it isn’t included in a normal device backup. Google also suggests using a separate Google account inside it, so synced photos don’t leak back into your main account.</p>
+
+      <h2>Side-by-side: what each option protects against</h2>
+      <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Method</th><th>Where the file is</th><th>Other apps with photo access</th><th>Someone using your unlocked phone</th><th>PC over USB</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Google Photos Archive</td><td>Same folder as before</td><td>Can see it</td><td>Can see it (Archive, albums, search)</td><td>Can see it</td></tr>
+          <tr><td>Samsung “hide album”</td><td>Same folder as before</td><td>Can see it</td><td>Can find it in My Files</td><td>Can see it</td></tr>
+          <tr><td><code>.nomedia</code> / dot folder</td><td>Same folder as before</td><td>Many can still see it</td><td>Can find it with a file manager</td><td>Can see it</td></tr>
+          <tr><td>Locked Folder</td><td>Google Photos’ private space</td><td>Blocked</td><td>Needs your screen lock</td><td>Not in shared storage</td></tr>
+          <tr><td>Files by Google Safe folder</td><td>Encrypted app storage</td><td>Blocked</td><td>Needs a separate PIN or pattern</td><td>Not in shared storage</td></tr>
+          <tr><td>Samsung Secure Folder</td><td>Separate workspace</td><td>Blocked for main-profile apps</td><td>Needs the Secure Folder lock</td><td>Not in main storage</td></tr>
+          <tr><td>Private space (Android 15)</td><td>Separate profile</td><td>Blocked while locked</td><td>Needs the space’s lock</td><td>Google says it can be detected</td></tr>
+          <tr><td>Encrypted vault app</td><td>App storage, encrypted</td><td>Blocked</td><td>Needs the vault’s own secret</td><td>Not in shared storage</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>Cloud backup is its own question for every row. If a photo was backed up before you hid it, that cloud copy doesn’t care what you did on the phone.</p>
+
+      <h2>The copies people forget</h2>
+      <p>Moving a photo into a locked place doesn’t clean up everywhere else it already exists. Before you call something private, check these:</p>
+      <ul>
+        <li><strong>Cloud backup.</strong> Google Photos, OneDrive or Samsung Cloud may have uploaded the original the moment you took it. Check the web version of the service and delete it there if needed.</li>
+        <li><strong>The bin.</strong> Deleting the original after copying it somewhere safe usually sends it to the Trash or Recycle bin in your gallery or file manager, where it can sit for weeks. Empty it.</li>
+        <li><strong>Messaging apps.</strong> Photos you sent or received in WhatsApp, Telegram and similar apps are often saved to their own media folders as separate copies.</li>
+        <li><strong>Edited versions and screenshots.</strong> A cropped copy or a screenshot of the photo is a new file in a new folder.</li>
+        <li><strong>Shared albums and links.</strong> Hiding or archiving a photo doesn’t un-share it.</li>
+      </ul>
+
+      <h2>Which option should you use?</h2>
+      <p>If you just want a photo out of the way when you show someone your camera roll, Archive or a hidden album is fine. Just know it isn’t a lock.</p>
+      <p>If you need other apps not to see a photo and you’re the only person who knows your screen lock, Locked Folder is a sensible free choice. If other people know your phone PIN, pick something with its own lock: Safe folder, Secure Folder on a Samsung, Private space on Android 15, or a vault app. And whichever you pick, make sure you have a backup plan, because several of these delete their contents when the app is cleared or the lock is forgotten.</p>
+
+      <Cta pageSlug={pageSlug} heading="Want photos locked behind their own secret?" body="Vireault encrypts photos, videos and files on your Android phone, separate from your screen lock. No account. Nothing is uploaded." />
+
+      <h2>Where Vireault fits</h2>
+      <p>Vireault is a vault app, so it sits in the “actually moves the photo” group. When you import a photo it’s <a href="/features/encryption">encrypted on the phone with AES-256-GCM</a>, using a key derived from your secret with Argon2id, and stored in the app’s private storage. File names are kept in an encrypted index too. After an import, the app reminds you that the originals are still in your gallery and offers to delete them, which deals with the most common leftover copy. Photos taken with the in-app camera go straight into the vault and are never written to your gallery.</p>
+      <p>The vault has its own lock, separate from your phone’s: a PIN, a <a href="/features/unlock">pattern on a 5×5, 10×10 or 25×25 grid</a>, or a passphrase, with fingerprint unlock on compatible phones and a lockout after wrong attempts. It blocks screenshots and screen recording, and locks itself when you leave the app or after five minutes idle. There’s <a href="/features/offline">no account and no cloud sync</a>, so nothing is uploaded. For moving phones you can export an <a href="/features/backup-restore">encrypted backup file</a> that you keep yourself. Pro adds a disguised launcher icon (Calculator, Notes or Clock) and an option to hide the list of vaults on the lock screen. The free plan covers one vault and 50 items.</p>
+      <p>A vault can’t reach copies that already exist in your cloud backup or chat apps, so work through the checklist above as well.</p>
+
+      <h2>Sources</h2>
+      <ul>
+        <li><a href="https://support.google.com/photos/answer/10694388?hl=en">Hide sensitive photos and videos in Locked Folder (Google Photos Help)</a></li>
+        <li><a href="https://support.google.com/files/answer/9935264">Protect your files with Safe folder (Files by Google Help)</a></li>
+        <li><a href="https://support.google.com/android/answer/15341885?hl=en">Hide sensitive apps with private space (Android Help)</a></li>
+      </ul>
+
+      <h2>Related reading</h2>
+      <ul>
+        <li><a href="/guides/hide-photos-android-without-app">How to hide photos on Android without an app</a></li>
+        <li><a href="/guides/how-to-hide-photos-on-android">How to hide photos on Android</a></li>
+        <li><a href="/guides/how-to-lock-folder-on-android">How to lock a folder on Android</a></li>
+        <li><a href="/guides/secure-photo-vault-android">What makes a photo vault secure</a></li>
+        <li><a href="/guides/encrypt-files-on-android">Encrypting files on Android</a></li>
+        <li><a href="/guides/safest-private-gallery-android">Safest private gallery app checklist</a></li>
+      </ul>
+    </article>
+  </div>
+</BaseLayout>
