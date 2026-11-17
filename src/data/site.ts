@@ -142,4 +142,10 @@ export const GUIDES = [
     description: 'Built-in ways to keep photos out of the gallery — Google Photos Locked Folder, Android 15 Private Space, and weak file-manager tricks — plus when encryption still matters.',
     href: '/guides/hide-photos-android-without-app',
   },
+  {
+    slug: 'where-do-hidden-photos-go-android',
+    title: 'Where do hidden photos go on Android?',
+    description: 'Why hidden albums and archived photos stay in the same folder, who can still see them, and which options actually lock photos away.',
+    href: '/guides/where-do-hidden-photos-go-android',
+  },
 ] as const;
