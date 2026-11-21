@@ -12,7 +12,7 @@ const articleLd = {
     'Plain-language security model for Vireault: Argon2id, AES-256-GCM, encrypted index, backups, and what encryption does not protect against.',
   author: { '@type': 'Organization', name: 'Vireault' },
   datePublished: '2026-11-05',
-  dateModified: '2026-11-07',
+  dateModified: '2026-11-21',
   mainEntityOfPage: 'https://vireault.app/security',
 };
 ---
@@ -23,7 +23,7 @@ const articleLd = {
   pageSlug={pageSlug}
   ogType="article"
   jsonLd={articleLd}
-  article={{ published: '2026-11-05', modified: '2026-11-07' }}
+  article={{ published: '2026-11-05', modified: '2026-11-21' }}
 >
   <div class="container">
     <Breadcrumbs items={[{ href: '/', label: 'Home' }, { label: 'Security' }]} />
@@ -31,8 +31,8 @@ const articleLd = {
       <h1>How Vireault encrypts your files</h1>
       <p>
         <strong>Short answer:</strong> Vireault encrypts vault contents on your Android phone with
-        AES-256-GCM. A random 256-bit master key does the encryption. Your PIN, 3×3 or 5×5 pattern or
-        passphrase unlocks that key through Argon2id. We run no vault servers and hold no keys, so
+        AES-256-GCM. A random 256-bit master key does the encryption. Your PIN, a 5×5, 10×10 or 25×25
+        pattern, or a passphrase unlocks that key through Argon2id. We run no vault servers and hold no keys, so
         we cannot perform a remote reset. If you keep a user-held 12-word recovery phrase, you can
         use it locally to choose a new unlock secret. This page states what ships today and
         what encryption does <em>not</em> protect against.
@@ -48,7 +48,7 @@ const articleLd = {
 
       <h2>What happens when you unlock</h2>
       <ol>
-        <li>You enter a PIN, draw a 3×3 or 5×5 pattern, or type a passphrase.</li>
+        <li>You enter a PIN, draw a pattern on a 5×5, 10×10 or 25×25 grid, or type a passphrase. A 3×3 pad remains only for unlocking an older vault, not for a new pattern.</li>
         <li>Argon2id stretches that secret with a per-vault salt (default about 64&nbsp;MiB of memory on phones that can spare it; 32&nbsp;MiB on tighter devices).</li>
         <li>The derived key unwraps a random master key stored in the vault header (AES-256-GCM wrap).</li>
         <li>That master key decrypts the encrypted index and file blobs while the vault stays open.</li>
@@ -155,7 +155,7 @@ const articleLd = {
         </li>
         <li>
           <strong>No cloud sync, and no third-party audit claim.</strong> The current build
-          implements folders, notes, 5×5 patterns, compatible-device fingerprint unlock, recovery
+          implements folders, notes, 5×5, 10×10 and 25×25 patterns, compatible-device fingerprint unlock, recovery
           phrases, camera capture and Pro hidden/decoy and alternate-icon features. We do not claim
           an independent third-party audit.
         </li>

@@ -3,50 +3,94 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Cta from '../../components/Cta.astro';
 const pageSlug = 'encrypt-files-on-android';
+const description = 'How to encrypt files on Android so an unlocked phone is not enough, and how Vireault applies AES-256-GCM on the device.';
 const articleLd = {
   '@context': 'https://schema.org',
   '@type': 'Article',
   headline: 'Encrypting files on Android',
-  description: 'How file encryption works on Android phones and how Vireault applies AES-256-GCM locally.',
+  description,
   author: { '@type': 'Organization', name: 'Vireault' },
   datePublished: '2026-11-05',
-  dateModified: '2026-11-05',
+  dateModified: '2026-11-21',
   mainEntityOfPage: 'https://vireault.app/guides/encrypt-files-on-android',
 };
 ---
 <BaseLayout
   title="Encrypting files on Android"
-  description="A plain-language guide to encrypting files on Android, covering AES-256-GCM, key derivation, backups and common mistakes."
+  description={description}
   path="/guides/encrypt-files-on-android"
   pageSlug={pageSlug}
   ogType="article"
   jsonLd={articleLd}
-  article={{ published: '2026-11-05', modified: '2026-11-05' }}
+  article={{ published: '2026-11-05', modified: '2026-11-21' }}
 >
   <div class="container">
     <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/guides', label: 'Guides' }, { label: 'Encrypt files' }]} />
     <article class="section prose">
       <h1>Encrypting files on Android</h1>
-      <p>Full-disk encryption protects a powered-off phone, but it does not stop someone who unlocks your device from opening the gallery. App-level file encryption adds a second gate around specific private documents and media.</p>
-      <h2>The pieces that matter</h2>
+      <p><strong>Short answer:</strong> Android encrypts storage, so a powered-off phone does not hand readable files to a computer. Once the phone is unlocked, the gallery, a file manager, and apps with photo access can open files in shared storage. To put selected files behind a second secret, encrypt them in an app. Vireault does this on the phone: a random 256-bit key seals each file with AES-256-GCM, and your PIN, pattern or passphrase unlocks that key through Argon2id. Nothing is uploaded, and there is no account reset.</p>
+
+      <h2>What the phone already encrypts</h2>
+      <p>Before the first unlock after a restart, most files on a current Android phone stay unavailable. After you enter the screen lock, the system makes that storage available to apps that are allowed to read it. That protects a stolen phone that is switched off. It does not protect a file from someone who knows your screen PIN, or from you handing over a phone that is already open.</p>
+      <p>Shared folders such as DCIM and Documents are then ordinary files. Hiding an album, archiving a photo, or dropping a <code>.nomedia</code> file into a folder only changes what one app lists. The bytes stay put. <a href="/guides/where-do-hidden-photos-go-android">Where hidden photos actually go</a> covers those cases. App-level encryption is different: the file sits in the app's private storage as ciphertext, and opening it needs the vault's own secret.</p>
+
+      <h2>How Vireault encrypts a file</h2>
+      <p>The app does not use your PIN as the key. A short PIN used directly would be cheap to guess. These are the steps the shipping app takes.</p>
+      <ol>
+        <li>You choose a PIN, a pattern or a passphrase, and you enter it twice. A new PIN needs at least 6 digits. A repeated single digit, or a straight run such as 123456, is refused. A new passphrase needs at least 10 characters and at least 4 different characters. A new pattern is drawn on a 5×5, 10×10 or 25×25 grid, with at least 6 dots, no dot twice, and at least one change of direction.</li>
+        <li>The grid size is part of the secret. The same dots on two grids are different secrets, and the vault header does not record the grid. The lock screen starts on 5×5 so the pad does not show which grid a vault uses. A 3×3 pad remains only for unlocking an older vault, or for entering the current secret when you change it. New patterns do not offer 3×3.</li>
+        <li>Argon2id turns the secret into a 32-byte key, using a fresh 16-byte salt stored in the header. New vaults try 64 MiB of memory, 3 iterations and a parallelism of 1. If the phone cannot spare that memory, the app uses 32 MiB. Older PBKDF2 vaults move to Argon2id on the next successful unlock, without rewriting the files.</li>
+        <li>A random 256-bit master key does the encryption. It is stored only wrapped with AES-256-GCM under the derived key. The wrap is tied to the header version, the Argon2id settings and the salt, so weakening those settings makes the unwrap fail.</li>
+        <li>Each file is sealed with AES-256-GCM. A changed file fails a check instead of opening as garbage. New files are split into 256 KiB pieces. Each piece is checked before it is shown, and it is bound to that item's id, so two files cannot be swapped. Video and PDF viewing read those pieces in memory. Nothing decrypted is written to shared storage.</li>
+        <li>Names, types and sizes live in an encrypted index. Thumbnails are encrypted and bound to the same item. The header on disk is not encrypted, but it holds settings only: not your secret, not the file list, and not the master key in the clear.</li>
+      </ol>
+      <p>When the vault locks, the app wipes the master key it holds. It locks when you leave the app, and after about five minutes idle. Ordinary screenshots of vault screens are blocked. There is no server reset. If you lose the secret and the recovery material, nobody can open the files, including us.</p>
+
+      <h2>A practical way to encrypt files you already have</h2>
+      <ol>
+        <li>Install Vireault and create a vault with the secret above.</li>
+        <li>Write the 12-word recovery phrase down offline, not as a photo in the gallery you are about to clear. Anyone with the phrase can set a new unlock secret. If you skip it, you are told that a forgotten secret cannot be reset.</li>
+        <li>Import the photos, videos, audio or PDFs you want private. Folders, search, sort and filter stay inside the vault. The free plan is one vault and 50 items.</li>
+        <li>Open a couple of files and confirm they display or play. Then delete the originals. The app checks that the encrypted copy decrypts and matches in size before that delete. It is Android's normal delete, so cloud copies, chat attachments and the gallery trash are still yours to clear. Photos from the in-app camera never go to the gallery. An unfinished video recording is discarded if you leave the app.</li>
+      </ol>
+
+      <Cta pageSlug={pageSlug} heading="Encrypt files without creating an account" body="Vireault keeps the ciphertext on your Android phone and lets you export an encrypted backup when you want a spare copy you control." />
+
+      <h2>Back up without undoing the encryption</h2>
+      <p>Copying the app's private folder by hand is a poor backup. Use the in-app export, described on the <a href="/features/backup-restore">backup and restore</a> page. The backup is a separate encrypted file with its own generated code of 24 symbols (120 random bits), not your PIN. The app does not keep that code. Store the file and the code apart. Someone who has both has the vault.</p>
+      <p>A damaged or reordered backup fails its check. The app reads the file back before it records a backup date, then a restore re-encrypts items under the destination vault. Changing your PIN re-wraps the same master key. If a secret may have leaked, restore a backup into a new vault and delete the old one.</p>
+
+      <h2>Mistakes that leave the file readable</h2>
       <ul>
-        <li><strong>Key derivation</strong> — turns a PIN, pattern or passphrase into cryptographic material (Vireault: Argon2id)</li>
-        <li><strong>Master key</strong> — a random key that actually encrypts file bytes</li>
-        <li><strong>Authenticated encryption</strong> — AES-256-GCM protects confidentiality and detects tampering</li>
-        <li><strong>Encrypted index</strong> — keeps names from leaking beside the ciphertext</li>
+        <li>Calling a file encrypted because a gallery hid it. If a file manager can open it, it was only hidden.</li>
+        <li>Leaving the gallery original, the trash, and a cloud copy from before the import.</li>
+        <li>Storing the recovery phrase or the backup code in that same gallery.</li>
+        <li>Trusting a 6-digit PIN after the vault files have been copied off the phone. Lockout applies on the device only. Argon2id slows each guess. It does not lengthen a short PIN. A passphrase is the stronger choice for that case.</li>
+        <li>Saving a file back out "just this once". That makes a normal unprotected copy. The app warns first.</li>
       </ul>
-      <h2>Common mistakes</h2>
+
+      <h2>What this does not cover</h2>
+      <p>A known secret is not a secret. Malware on an open vault is outside what file encryption stops. The installed app is not hidden, and in normal mode the vault folder uses the vault's name. Pro can hide the vault list and use a Calculator, Notes or Clock icon. That is disguise, not a forensic guarantee. There is no cloud sync and no independent audit. See the <a href="/security">security page</a>, the <a href="/features/encryption">encryption page</a>, and the <a href="/features/offline">offline design</a>.</p>
+
+      <h2>FAQ</h2>
+      <h3>Does the lock screen encrypt one file at a time?</h3>
+      <p>No. It encrypts storage for the device. After unlock, a PDF or an album in shared storage is available to the gallery and to apps with permission.</p>
+      <h3>Can Vireault staff decrypt a vault?</h3>
+      <p>No. The master key stays wrapped by a key from your secret. There is no account reset. The recovery phrase and the backup code are shown to you, and we do not keep them.</p>
+      <h3>Is a pattern as strong as a passphrase?</h3>
+      <p>A new pattern needs at least 6 dots and a change of direction, on a 5×5, 10×10 or 25×25 grid. The grid is part of the secret, so the same shape on two grids is not the same key. A long passphrase still gives an offline attacker more to search.</p>
+      <h3>What if I forget the PIN?</h3>
+      <p>Use the 12-word phrase to choose a new PIN, pattern or passphrase. Wrong phrases count as attempts. If you skipped the phrase, the backup file and its code are the other copy. Without either, the files cannot be recovered.</p>
+
+      <h2>Bottom line</h2>
+      <p>Phone encryption protects a locked device. It does not keep an album private from anyone who can unlock the phone. Encrypt the files inside the vault, delete the originals and the leftover copies, and keep an encrypted backup whose code lives somewhere else. Vireault does that on the device with Argon2id and AES-256-GCM, with no account in the middle.</p>
+
+      <h2>Related guides</h2>
       <ul>
-        <li>Assuming “hidden” equals “encrypted”</li>
-        <li>Leaving gallery originals after import</li>
-        <li>Storing recovery material inside the same unlocked photo roll</li>
-        <li>Skipping backups because the vault “feels permanent”</li>
+        <li><a href="/guides/how-to-lock-folder-on-android">How to lock a folder on Android</a></li>
+        <li><a href="/guides/secure-photo-vault-android">Secure photo vault for Android</a></li>
+        <li><a href="/guides/where-do-hidden-photos-go-android">Where do hidden photos go on Android?</a></li>
       </ul>
-      <Cta pageSlug={pageSlug} heading="Encrypt files without creating an account" body="Vireault keeps ciphertext local and lets you export an encrypted backup file when you need a spare copy." />
-      <h2>Backup without undoing encryption</h2>
-      <p>Copying raw vault directories around is risky if you do not understand the format. Prefer the app’s <a href="/features/backup-restore">encrypted backup and restore</a> flow, then store that file deliberately.</p>
-      <h2>How this ties to Vireault features</h2>
-      <p>Read the <a href="/features/encryption">encryption page</a>, the <a href="/features/offline">offline design</a>, and the <a href="/faq">FAQ</a> for product specifics. For category shopping, use the <a href="/guides/safest-private-gallery-android">private gallery checklist</a>.</p>
     </article>
     <Cta pageSlug={pageSlug} />
   </div>

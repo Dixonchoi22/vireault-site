@@ -7,34 +7,35 @@ const articleLd = {
   '@context': 'https://schema.org',
   '@type': 'Article',
   headline: 'PIN, pattern or passphrase unlock',
-  description: 'Unlock Vireault with a PIN, 3x3 or 5x5 pattern or passphrase, with optional fingerprint unlock and lockout after wrong attempts.',
+  description: 'Unlock Vireault with a PIN, a 5×5, 10×10 or 25×25 pattern, or a passphrase, with optional fingerprint unlock and lockout after wrong attempts.',
   author: { '@type': 'Organization', name: 'Vireault' },
   datePublished: '2026-11-05',
-  dateModified: '2026-11-05',
+  dateModified: '2026-11-21',
   mainEntityOfPage: 'https://vireault.app/features/unlock',
 };
 ---
 <BaseLayout
   title="PIN, pattern or passphrase unlock"
-  description="Unlock Vireault using a PIN, 3×3 or 5×5 pattern or passphrase. Compatible devices can enable fingerprint unlock. Wrong attempts trigger lockout."
+  description="Unlock Vireault with a PIN, a 5×5, 10×10 or 25×25 pattern, or a passphrase. Fingerprint unlock on compatible devices. Lockout after wrong attempts."
   path="/features/unlock"
   pageSlug={pageSlug}
   ogType="article"
   jsonLd={articleLd}
-  article={{ published: '2026-11-05', modified: '2026-11-05' }}
+  article={{ published: '2026-11-05', modified: '2026-11-21' }}
 >
   <div class="container">
     <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/features', label: 'Features' }, { label: 'Unlock' }]} />
     <article class="section prose">
-      <h1>PIN, 3×3 or 5×5 pattern or passphrase</h1>
+      <h1>PIN, pattern or passphrase</h1>
       <p>Every vault needs an unlock secret. Vireault lets you pick the style that fits how you use the phone.</p>
       <h2>Supported unlock methods</h2>
       <ul>
         <li><strong>PIN</strong> for quick numeric unlock</li>
-        <li><strong>3×3 or 5×5 pattern</strong> for gesture unlock</li>
+        <li><strong>Pattern</strong> on a 5×5, 10×10 or 25×25 grid</li>
         <li><strong>Passphrase</strong> for longer secrets</li>
       </ul>
-      <p>Your secret feeds <a href="/features/encryption">Argon2id key derivation</a>. On compatible devices you can enable fingerprint unlock after unlocking with your secret. The first unlock after a reboot still requires that secret. Fingerprint unlock is unavailable in hidden-list mode.</p>
+      <p>Your secret feeds <a href="/features/encryption">Argon2id key derivation</a>. A new pattern uses one of those three grids. A 3×3 pad is still offered only when you unlock a vault that was created with one, or when you enter the current secret to change it. It is not offered for a new pattern. The lock screen starts on 5×5 and does not reveal which grid a vault uses.</p>
+      <p>On compatible devices you can enable fingerprint unlock after unlocking with your secret. The first unlock after a reboot still requires that secret. Fingerprint unlock is unavailable in hidden-list mode.</p>
       <Cta pageSlug={pageSlug} heading="Set up unlock in minutes" />
       <h2>Lockout and auto-lock</h2>
       <p>Wrong attempts lead to lockout. The app also locks when it goes to the background or after about five minutes idle, and screenshot blocking is enabled to reduce casual capture of open vault contents.</p>
