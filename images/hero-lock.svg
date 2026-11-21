@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 460" role="img" aria-label="Padlock with 5x5 pattern lock">
+<defs>
+<linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b1fd1"/><stop offset=".55" stop-color="#7a2be0"/><stop offset="1" stop-color="#e0245e"/></linearGradient>
+<linearGradient id="s" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffc93c"/><stop offset="1" stop-color="#ff7a3d"/></linearGradient>
+<radialGradient id="g" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#1fc8a0" stop-opacity=".35"/><stop offset="1" stop-color="#1fc8a0" stop-opacity="0"/></radialGradient>
+</defs>
+<circle cx="200" cy="270" r="190" fill="url(#g)"/>
+<path d="M110 210V140a90 90 0 0 1 180 0v70" fill="none" stroke="url(#s)" stroke-width="38" stroke-linecap="round"/>
+<path d="M110 210V140a90 90 0 0 1 180 0v70" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="8" stroke-linecap="round" transform="translate(-8 0)"/>
+<rect x="50" y="200" width="300" height="230" rx="34" fill="url(#b)"/>
+<rect x="66" y="216" width="268" height="198" rx="24" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="3"/>
+<g fill="#fff" fill-opacity=".45"><circle cx="128" cy="236" r="6"/><circle cx="164" cy="236" r="6"/><circle cx="200" cy="236" r="6"/><circle cx="236" cy="236" r="6"/><circle cx="272" cy="236" r="6"/><circle cx="128" cy="272" r="6"/><circle cx="164" cy="272" r="6"/><circle cx="200" cy="272" r="6"/><circle cx="236" cy="272" r="6"/><circle cx="272" cy="272" r="6"/><circle cx="128" cy="308" r="6"/><circle cx="164" cy="308" r="6"/><circle cx="200" cy="308" r="6"/><circle cx="236" cy="308" r="6"/><circle cx="272" cy="308" r="6"/><circle cx="128" cy="344" r="6"/><circle cx="164" cy="344" r="6"/><circle cx="200" cy="344" r="6"/><circle cx="236" cy="344" r="6"/><circle cx="272" cy="344" r="6"/><circle cx="128" cy="380" r="6"/><circle cx="164" cy="380" r="6"/><circle cx="200" cy="380" r="6"/><circle cx="236" cy="380" r="6"/><circle cx="272" cy="380" r="6"/></g>
+<polyline points="128,236 164,272 200,272 236,236 272,272 236,308 200,344 164,380 236,380 272,344" fill="none" stroke="#ffc93c" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".9"/>
+<circle cx="128" cy="236" r="10" fill="#ffc93c"/><circle cx="164" cy="272" r="10" fill="#ffc93c"/><circle cx="200" cy="272" r="10" fill="#ffc93c"/><circle cx="236" cy="236" r="10" fill="#ffc93c"/><circle cx="272" cy="272" r="10" fill="#ffc93c"/><circle cx="236" cy="308" r="10" fill="#ffc93c"/><circle cx="200" cy="344" r="10" fill="#ffc93c"/><circle cx="164" cy="380" r="10" fill="#ffc93c"/><circle cx="236" cy="380" r="10" fill="#ffc93c"/><circle cx="272" cy="344" r="10" fill="#ffc93c"/><circle cx="128" cy="236" r="15" fill="none" stroke="#fff" stroke-width="3"/>
+<g font-family="monospace" font-size="13" fill="#fff" fill-opacity=".55"><text x="88" y="418">AES-256-GCM</text><text x="236" y="418">ARGON2ID</text></g>
+<g fill="#ffc93c"><path d="M340 70l6 16 16 6-16 6-6 16-6-16-16-6 16-6z"/></g>
+<g fill="#1fc8a0"><path d="M50 110l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/></g>
+</svg>
