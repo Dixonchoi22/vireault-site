@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Cta from '../../components/Cta.astro';
+import GuideHero from '../../components/GuideHero.astro';
 const pageSlug = 'safest-private-gallery-android';
 const articleLd = {
   '@context': 'https://schema.org',
@@ -27,6 +28,7 @@ const articleLd = {
     <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/guides', label: 'Guides' }, { label: 'Safest private gallery' }]} />
     <article class="section prose">
       <h1>Safest private gallery app for Android</h1>
+      <GuideHero slug={pageSlug} alt="Safest private gallery app for Android" />
       <p>No reviewer can crown a single forever-winner. Threat models differ. What you can do is score apps against a checklist that weeds out disguise-only tools and vague “military grade” claims.</p>
       <h2>Buyer’s checklist</h2>
       <ol>

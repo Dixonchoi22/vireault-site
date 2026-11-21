@@ -2,6 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Cta from '../../components/Cta.astro';
+import GuideHero from '../../components/GuideHero.astro';
+import { howToLd, faqLd } from '../../data/guide-schema';
 const pageSlug = 'encrypt-files-on-android';
 const description = 'How to encrypt files on Android so an unlocked phone is not enough, and how Vireault applies AES-256-GCM on the device.';
 const articleLd = {
@@ -14,6 +16,26 @@ const articleLd = {
   dateModified: '2026-11-21',
   mainEntityOfPage: 'https://vireault.app/guides/encrypt-files-on-android',
 };
+// Same steps and Q&A as the visible sections below; the JSON-LD is built from these arrays.
+const steps = [
+  { text: 'Install Vireault and create a vault with the secret above.' },
+  { text: 'Write the 12-word recovery phrase down offline, not as a photo in the gallery you are about to clear. Anyone with the phrase can set a new unlock secret. If you skip it, you are told that a forgotten secret cannot be reset.' },
+  { text: 'Import the photos, videos, audio or PDFs you want private. Folders, search, sort and filter stay inside the vault. The free plan is one vault and 50 items.' },
+  { text: 'Open a couple of files and confirm they display or play. Then delete the originals. The app checks that the encrypted copy decrypts and matches in size before that delete. It is Android\'s normal delete, so cloud copies, chat attachments and the gallery trash are still yours to clear. Photos from the in-app camera never go to the gallery. An unfinished video recording is discarded if you leave the app.' },
+];
+const faqs = [
+  { question: 'Does the lock screen encrypt one file at a time?', answer: 'No. It encrypts storage for the device. After unlock, a PDF or an album in shared storage is available to the gallery and to apps with permission.' },
+  { question: 'Can Vireault staff decrypt a vault?', answer: 'No. The master key stays wrapped by a key from your secret. There is no account reset. The recovery phrase and the backup code are shown to you, and we do not keep them.' },
+  { question: 'Is a pattern as strong as a passphrase?', answer: 'A new pattern needs at least 6 dots and a change of direction, on a 5×5, 10×10 or 25×25 grid. The grid is part of the secret, so the same shape on two grids is not the same key. A long passphrase still gives an offline attacker more to search.' },
+  { question: 'What if I forget the PIN?', answer: 'Use the 12-word phrase to choose a new PIN, pattern or passphrase. Wrong phrases count as attempts. If you skipped the phrase, the backup file and its code are the other copy. Without either, the files cannot be recovered.' },
+];
+const howTo = howToLd({
+  slug: pageSlug,
+  name: 'How to encrypt files you already have on Android with Vireault',
+  description: 'Create a vault, write down the recovery phrase, import your files, then delete the originals once they open.',
+  steps,
+});
+const faq = faqLd(faqs);
 ---
 <BaseLayout
   title="Encrypting files on Android"
@@ -21,13 +43,14 @@ const articleLd = {
   path="/guides/encrypt-files-on-android"
   pageSlug={pageSlug}
   ogType="article"
-  jsonLd={articleLd}
+  jsonLd={[articleLd, howTo, faq]}
   article={{ published: '2026-11-05', modified: '2026-11-21' }}
 >
   <div class="container">
     <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/guides', label: 'Guides' }, { label: 'Encrypt files' }]} />
     <article class="section prose">
       <h1>Encrypting files on Android</h1>
+      <GuideHero slug={pageSlug} alt="Encrypting files on Android" />
       <p><strong>Short answer:</strong> Android encrypts storage, so a powered-off phone does not hand readable files to a computer. Once the phone is unlocked, the gallery, a file manager, and apps with photo access can open files in shared storage. To put selected files behind a second secret, encrypt them in an app. Vireault does this on the phone: a random 256-bit key seals each file with AES-256-GCM, and your PIN, pattern or passphrase unlocks that key through Argon2id. Nothing is uploaded, and there is no account reset.</p>
 
       <h2>What the phone already encrypts</h2>

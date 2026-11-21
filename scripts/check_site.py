@@ -9,6 +9,7 @@ utm_campaign; reports approximate word counts for guide pages.
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import subprocess
 import sys
@@ -22,6 +23,78 @@ PLAY_HOST = "play.google.com"
 PACKAGE = "com.vireault.app"
 
 
+def norm(text: str) -> str:
+    return re.sub(r"\s+", " ", text.replace("\u2019", "'")).strip()
+
+
+def ld_types(block: dict) -> str:
+    t = block.get("@type")
+    return t if isinstance(t, str) else ""
+
+
+def check_structured_data(rel: str, page_path: str, parser: "PageParser") -> list[str]:
+    """JSON-LD hygiene for guides and the guides index; schema must match visible content."""
+    problems: list[str] = []
+    blocks: list[dict] = []
+    for raw in parser.ld_blocks:
+        try:
+            data = json.loads(raw)
+        except ValueError as e:
+            problems.append(f"{rel}: invalid JSON-LD ({e})")
+            continue
+        blocks.extend(data if isinstance(data, list) else [data])
+    by_type: dict[str, list[dict]] = {}
+    for b in blocks:
+        by_type.setdefault(ld_types(b), []).append(b)
+    visible = parser.visible_text
+
+    if "BreadcrumbList" not in by_type:
+        problems.append(f"{rel}: missing BreadcrumbList JSON-LD")
+    if is_guide_page(page_path):
+        if "Article" not in by_type:
+            problems.append(f"{rel}: missing Article JSON-LD")
+        elif not by_type["Article"][0].get("image"):
+            problems.append(f"{rel}: Article JSON-LD has no image")
+    else:  # guides index
+        lists = by_type.get("ItemList", [])
+        if not lists:
+            problems.append(f"{rel}: missing ItemList JSON-LD")
+        else:
+            urls = [e.get("url", "") for e in lists[0].get("itemListElement", [])]
+            card_paths = [
+                h.split("#", 1)[0].rstrip("/")
+                for h in parser.links
+                if re.search(r"/guides/[^/]+/?$", h)
+            ]
+            ld_paths = [urlparse(u).path.rstrip("/") for u in urls]
+            seen: list[str] = []
+            for cp in card_paths:  # footer/nav may repeat guide links; keep first occurrence
+                if cp not in seen:
+                    seen.append(cp)
+            if seen != ld_paths:
+                problems.append(f"{rel}: ItemList does not match visible guide cards/order")
+    for q in by_type.get("FAQPage", []):
+        entities = q.get("mainEntity", [])
+        if not entities:
+            problems.append(f"{rel}: FAQPage has no questions")
+        for e in entities:
+            for text in (e.get("name", ""), e.get("acceptedAnswer", {}).get("text", "")):
+                if not text or norm(text) not in visible:
+                    problems.append(f"{rel}: FAQPage text not visible on page: {text[:60]!r}")
+    for h in by_type.get("HowTo", []):
+        steps = h.get("step", [])
+        if not steps:
+            problems.append(f"{rel}: HowTo has no steps")
+        for st in steps:
+            text = st.get("text", "")
+            if not text or norm(text) not in visible:
+                problems.append(f"{rel}: HowTo step text not visible on page: {text[:60]!r}")
+    for src, alt in parser.img_alts:
+        if not (alt or "").strip():
+            problems.append(f"{rel}: guide image {src} has no alt text")
+    return problems
+
+
 class PageParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
@@ -32,6 +105,10 @@ class PageParser(HTMLParser):
         self.robots: str = ""
         self.canonical: str | None = None
         self.links: list[str] = []
+        self.verification: str | None = None
+        self.ld_blocks: list[str] = []
+        self._in_ld = False
+        self.img_alts: list[tuple[str, str | None]] = []
         self.text_chunks: list[str] = []
         self._skip_text = False
 
@@ -43,6 +120,10 @@ class PageParser(HTMLParser):
             self.in_body = True
         elif tag == "meta" and ad.get("name", "").lower() == "description":
             self.meta_description = ad.get("content") or ""
+        elif tag == "meta" and ad.get("name", "").lower() == "google-site-verification":
+            self.verification = ad.get("content") or ""
+        elif tag == "img" and "/images/guides/" in ad.get("src", ""):
+            self.img_alts.append((ad.get("src", ""), ad.get("alt")))
         elif tag == "meta" and ad.get("name", "").lower() == "robots":
             self.robots = (ad.get("content") or "").lower()
         elif tag == "link" and ad.get("rel", "").lower() == "canonical":
@@ -51,14 +132,20 @@ class PageParser(HTMLParser):
             self.links.append(ad["href"])
         elif tag in {"script", "style", "noscript"}:
             self._skip_text = True
+            if tag == "script" and ad.get("type") == "application/ld+json":
+                self._in_ld = True
+                self.ld_blocks.append("")
 
     def handle_endtag(self, tag: str) -> None:
         if tag == "title":
             self.in_title = False
         elif tag in {"script", "style", "noscript"}:
             self._skip_text = False
+            self._in_ld = False
 
     def handle_data(self, data: str) -> None:
+        if self._in_ld and self.ld_blocks:
+            self.ld_blocks[-1] += data
         if self.in_title:
             self.title_parts.append(data)
         if self.in_body and not self._skip_text:
@@ -67,6 +154,10 @@ class PageParser(HTMLParser):
     @property
     def title(self) -> str:
         return "".join(self.title_parts).strip()
+
+    @property
+    def visible_text(self) -> str:
+        return norm("".join(self.text_chunks))
 
     @property
     def word_count(self) -> int:
@@ -225,6 +316,10 @@ def main() -> int:
                 )
             if not parser.canonical:
                 errors.append(f"{rel}: missing canonical")
+            if (is_guide_page(page_path) and html.name == "index.html") or page_path == "/guides/":
+                if not parser.verification:
+                    errors.append(f"{rel}: missing google-site-verification meta")
+                errors.extend(check_structured_data(rel, page_path, parser))
             # Only count Astro guide routes: dist/guides/<slug>/index.html
             if is_guide_page(page_path) and html.name == "index.html":
                 guide_words.append((page_path, parser.word_count))

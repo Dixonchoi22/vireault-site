@@ -93,6 +93,7 @@ export const COMPARES = [
   },
 ] as const;
 
+// Order matters: strongest search pages first. The guides index and its ItemList JSON-LD use this order.
 export const GUIDES = [
   {
     slug: 'how-to-hide-photos-on-android',
@@ -101,10 +102,10 @@ export const GUIDES = [
     href: '/guides/how-to-hide-photos-on-android',
   },
   {
-    slug: 'secure-photo-vault-android',
-    title: 'Secure photo vault for Android',
-    description: 'What makes a photo vault actually secure on Android, from key derivation to offline storage.',
-    href: '/guides/secure-photo-vault-android',
+    slug: 'hide-photos-android-without-app',
+    title: 'How to hide photos on Android without an app',
+    description: 'Built-in ways to keep photos out of the gallery — Google Photos Locked Folder, Android 15 Private Space, and weak file-manager tricks — plus when encryption still matters.',
+    href: '/guides/hide-photos-android-without-app',
   },
   {
     slug: 'how-to-lock-folder-on-android',
@@ -113,16 +114,10 @@ export const GUIDES = [
     href: '/guides/how-to-lock-folder-on-android',
   },
   {
-    slug: 'encrypt-files-on-android',
-    title: 'Encrypting files on Android',
-    description: 'How AES-256-GCM file encryption works on a phone, and how to back up encrypted data safely.',
-    href: '/guides/encrypt-files-on-android',
-  },
-  {
-    slug: 'safest-private-gallery-android',
-    title: 'Safest private gallery app for Android',
-    description: 'A buyer’s checklist for private gallery apps: offline storage, real crypto, lockout, and no account required.',
-    href: '/guides/safest-private-gallery-android',
+    slug: 'keepsafe-alternative-android-no-account',
+    title: 'Keepsafe alternative without an account (Android)',
+    description: 'A factual Keepsafe alternative checklist for Android users who want a vault with no email account, citing Keepsafe’s own docs.',
+    href: '/guides/keepsafe-alternative-android-no-account',
   },
   {
     slug: 'photo-vault-lost-photos-android',
@@ -131,21 +126,27 @@ export const GUIDES = [
     href: '/guides/photo-vault-lost-photos-android',
   },
   {
-    slug: 'keepsafe-alternative-android-no-account',
-    title: 'Keepsafe alternative without an account (Android)',
-    description: 'A factual Keepsafe alternative checklist for Android users who want a vault with no email account, citing Keepsafe’s own docs.',
-    href: '/guides/keepsafe-alternative-android-no-account',
-  },
-  {
-    slug: 'hide-photos-android-without-app',
-    title: 'How to hide photos on Android without an app',
-    description: 'Built-in ways to keep photos out of the gallery — Google Photos Locked Folder, Android 15 Private Space, and weak file-manager tricks — plus when encryption still matters.',
-    href: '/guides/hide-photos-android-without-app',
+    slug: 'secure-photo-vault-android',
+    title: 'Secure photo vault for Android',
+    description: 'What makes a photo vault actually secure on Android, from key derivation to offline storage.',
+    href: '/guides/secure-photo-vault-android',
   },
   {
     slug: 'where-do-hidden-photos-go-android',
     title: 'Where do hidden photos go on Android?',
     description: 'Why hidden albums and archived photos stay in the same folder, who can still see them, and which options actually lock photos away.',
     href: '/guides/where-do-hidden-photos-go-android',
+  },
+  {
+    slug: 'safest-private-gallery-android',
+    title: 'Safest private gallery app for Android',
+    description: 'A buyer’s checklist for private gallery apps: offline storage, real crypto, lockout, and no account required.',
+    href: '/guides/safest-private-gallery-android',
+  },
+  {
+    slug: 'encrypt-files-on-android',
+    title: 'Encrypting files on Android',
+    description: 'How AES-256-GCM file encryption works on a phone, and how to back up encrypted data safely.',
+    href: '/guides/encrypt-files-on-android',
   },
 ] as const;

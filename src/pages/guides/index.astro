@@ -3,13 +3,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Cta from '../../components/Cta.astro';
 import { GUIDES } from '../../data/site';
+import { itemListLd } from '../../data/guide-schema';
 const pageSlug = 'guides';
+const listLd = itemListLd(GUIDES);
 ---
 <BaseLayout
   title="Android privacy guides"
   description="Practical Android guides on hiding photos, locking folders, encrypting files and choosing a private gallery vault."
   path="/guides"
   pageSlug={pageSlug}
+  jsonLd={listLd}
 >
   <div class="container">
     <Breadcrumbs items={[{ href: '/', label: 'Home' }, { label: 'Guides' }]} />

@@ -19,6 +19,12 @@ npm run dev
 
 Only claim shipping features. Never copy Vaultaire branding or text. See `SEO-PLAYBOOK.md` for the daily Search Console → one guide → internal links routine.
 
+## Guide schema and images
+
+- Guide pages emit `Article`, `BreadcrumbList` (from the visible breadcrumbs), and where the page has the content, `HowTo` and `FAQPage` JSON-LD. The step/Q&A arrays live in each page's frontmatter and must match the visible text; `scripts/check_site.py` fails if they do not.
+- Guide order in `GUIDES` (`src/data/site.ts`) is the order of the guides index and its `ItemList` JSON-LD: strongest search pages first.
+- Optional images in `public/images/guides/<slug>/`: `hero.(webp|png|jpg|avif|svg)` is the unique hero (shown on the page, used as og:image and Article image; falls back to the site feature graphic when missing) and `step-1`, `step-2`, … are how-to step screenshots (`<StepShot>`, alt text required, skipped when the file is missing).
+
 ## Hosting
 
 Deployed to GitHub Pages (branch `gh-pages`, built by `./deploy/publish-gh-pages.sh`) at https://dixonchoi22.github.io/vireault-site/.

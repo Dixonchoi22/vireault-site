@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Cta from '../../components/Cta.astro';
+import GuideHero from '../../components/GuideHero.astro';
 
 const pageSlug = 'photo-vault-lost-photos-android';
 const articleLd = {
@@ -35,6 +36,7 @@ const articleLd = {
     />
     <article class="section prose">
       <h1>Photo vault app lost my photos on Android: what to do and how to avoid it</h1>
+      <GuideHero slug={pageSlug} alt="Photo vault app lost my photos on Android: what to do and how to avoid it" />
       <p>
         Searching “photo vault lost my photos” is usually a panic moment: the app opens, the PIN
         works, and the library is empty — or you moved to a new phone and nothing came back. This

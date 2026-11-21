@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Cta from '../../components/Cta.astro';
+import GuideHero from '../../components/GuideHero.astro';
 const pageSlug = 'where-do-hidden-photos-go-android';
 const title = 'Where do hidden photos go on Android? Why hidden albums aren’t private';
 const description = 'Hiding an album on Android usually leaves the photo where it was. See where hidden photos really live, who can still see them, and what actually locks them.';
@@ -29,6 +30,7 @@ const articleLd = {
     <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/guides', label: 'Guides' }, { label: 'Where hidden photos go' }]} />
     <article class="section prose">
       <h1>Where do hidden photos go on Android? Why hidden albums aren’t private</h1>
+      <GuideHero slug={pageSlug} alt="Where do hidden photos go on Android? Why hidden albums aren’t private" />
       <p><strong>Short answer:</strong> usually nowhere. When you hide an album in Samsung Gallery, archive a photo in Google Photos, or drop a <code>.nomedia</code> file into a folder, the photo stays in the same place on your phone’s storage, normally <code>DCIM/Camera</code> or <code>Pictures</code>. Only the view in one app changes. A file manager, another gallery app with photo access, or a computer plugged in over USB can still find it.</p>
       <p>A few tools do move the file somewhere other apps can’t reach: Google Photos Locked Folder, the Safe folder in Files by Google, Samsung Secure Folder, and Private space on Android 15. Encrypted vault apps work the same way. Below is what each option really does, what it protects you from, and the copies people tend to forget about.</p>
 

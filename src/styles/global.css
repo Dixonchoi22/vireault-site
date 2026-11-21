@@ -308,6 +308,23 @@ a:hover {
   max-width: 46rem;
 }
 
+.guide-hero,
+.step-shot {
+  margin: 1.25rem 0;
+}
+
+.guide-hero img,
+.step-shot img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.step-shot {
+  max-width: 22rem;
+}
+
 .prose h1 {
   font-size: clamp(1.8rem, 5vw, 2.6rem);
   line-height: 1.15;

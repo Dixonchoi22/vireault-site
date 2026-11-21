@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Cta from '../../components/Cta.astro';
+import GuideHero from '../../components/GuideHero.astro';
 
 const pageSlug = 'keepsafe-alternative-android-no-account';
 const articleLd = {
@@ -35,6 +36,7 @@ const articleLd = {
     />
     <article class="section prose">
       <h1>Keepsafe alternative without an account (Android)</h1>
+      <GuideHero slug={pageSlug} alt="Keepsafe alternative without an account (Android)" />
       <p>
         Keepsafe is one of the best-known Android photo vaults — Google Play lists it at
         <strong>50M+</strong> downloads with ads and in-app purchases on the free tier

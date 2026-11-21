@@ -2,6 +2,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Cta from '../../components/Cta.astro';
+import GuideHero from '../../components/GuideHero.astro';
+import StepShot from '../../components/StepShot.astro';
+import { howToLd } from '../../data/guide-schema';
 const pageSlug = 'hide-photos-android-without-app';
 const articleLd = {
   '@context': 'https://schema.org',
@@ -14,6 +17,25 @@ const articleLd = {
   dateModified: '2026-11-09',
   mainEntityOfPage: 'https://vireault.app/guides/hide-photos-android-without-app',
 };
+// Plain-text copy of the visible Locked Folder steps (section 1); the HowTo JSON-LD is built from it.
+const steps = [
+  { text: 'Open the Google Photos app.', image: 'step-1' },
+  { text: 'Tap Collections, then Locked.', image: 'step-2' },
+  { text: 'Set up Locked Folder if prompted, and authenticate with your screen lock.', image: 'step-3' },
+  { text: 'Select photos or videos, then choose Add to → Move to Locked Folder.', image: 'step-4' },
+];
+const stepAlts = [
+  'Google Photos app open on the Photos tab',
+  'Google Photos Collections tab with the Locked Folder entry',
+  'Locked Folder setup asking for the screen lock',
+  'Photo selection menu with Move to Locked Folder',
+];
+const howTo = howToLd({
+  slug: pageSlug,
+  name: 'How to hide photos in Google Photos Locked Folder',
+  description: 'Move photos and videos into the Google Photos Locked Folder using your device screen lock.',
+  steps,
+});
 ---
 <BaseLayout
   title="How to hide photos on Android without an app"
@@ -21,7 +43,7 @@ const articleLd = {
   path="/guides/hide-photos-android-without-app"
   pageSlug={pageSlug}
   ogType="article"
-  jsonLd={articleLd}
+  jsonLd={[articleLd, howTo]}
   article={{ published: '2026-11-09', modified: '2026-11-09' }}
 >
   <div class="container">
@@ -34,6 +56,7 @@ const articleLd = {
     />
     <article class="section prose">
       <h1>How to hide photos on Android without an app</h1>
+      <GuideHero slug={pageSlug} alt="How to hide photos on Android without an app" />
       <p>
         You can keep many private photos out of the main gallery without installing a third-party
         vault. The honest catch is that “hidden” is not the same as “encrypted,” and the built-in
@@ -53,10 +76,10 @@ const articleLd = {
       </p>
       <p>Typical steps (wording follows Google’s help article):</p>
       <ol>
-        <li>Open the Google Photos app.</li>
-        <li>Tap <strong>Collections</strong>, then <strong>Locked</strong>.</li>
-        <li>Set up Locked Folder if prompted, and authenticate with your screen lock.</li>
-        <li>Select photos or videos, then choose <strong>Add to → Move to Locked Folder</strong>.</li>
+        <li>Open the Google Photos app.<StepShot slug={pageSlug} name="step-1" alt={stepAlts[0]} /></li>
+        <li>Tap <strong>Collections</strong>, then <strong>Locked</strong>.<StepShot slug={pageSlug} name="step-2" alt={stepAlts[1]} /></li>
+        <li>Set up Locked Folder if prompted, and authenticate with your screen lock.<StepShot slug={pageSlug} name="step-3" alt={stepAlts[2]} /></li>
+        <li>Select photos or videos, then choose <strong>Add to → Move to Locked Folder</strong>.<StepShot slug={pageSlug} name="step-4" alt={stepAlts[3]} /></li>
       </ol>
       <p>
         Google also documents optional backup for Locked Folder. If backup is off, items live only

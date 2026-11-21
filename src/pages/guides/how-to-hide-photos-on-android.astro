@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Cta from '../../components/Cta.astro';
+import GuideHero from '../../components/GuideHero.astro';
 const pageSlug = 'how-to-hide-photos-on-android';
 const articleLd = {
   '@context': 'https://schema.org',
@@ -27,6 +28,7 @@ const articleLd = {
     <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/guides', label: 'Guides' }, { label: 'Hide photos on Android' }]} />
     <article class="section prose">
       <h1>How to hide photos on Android</h1>
+      <GuideHero slug={pageSlug} alt="How to hide photos on Android" />
       <p>People search for “hide photos on Android” when a shared phone, a borrowed device, or a nosy gallery scroll becomes a problem. Android does not give every manufacturer the same privacy tools, so the honest answer is a short menu of options with different strengths.</p>
       <h2>1. Use your gallery’s built-in hide or Locked Folder</h2>
       <p>Google Photos offers a Locked Folder on many devices. Some OEM galleries also let you move albums out of the main grid. These tools are convenient and free, but they usually stay inside one vendor ecosystem and may still leave originals elsewhere if you share or sync aggressively.</p>
