@@ -1,0 +1,17 @@
+---
+// Optional step screenshot for how-to guides: public/images/guides/<slug>/<name>.<ext>.
+// Renders nothing when the file is missing. Alt text is required.
+import { guideAsset } from '../data/guide-schema';
+interface Props {
+  slug: string;
+  name: string; // e.g. 'step-1'
+  alt: string;
+}
+const { slug, name, alt } = Astro.props;
+const src = guideAsset(slug, name);
+---
+{src && (
+  <figure class="step-shot">
+    <img src={src} alt={alt} loading="lazy" decoding="async" />
+  </figure>
+)}

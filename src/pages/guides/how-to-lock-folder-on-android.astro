@@ -2,6 +2,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Cta from '../../components/Cta.astro';
+import GuideHero from '../../components/GuideHero.astro';
+import StepShot from '../../components/StepShot.astro';
+import { howToLd } from '../../data/guide-schema';
 const pageSlug = 'how-to-lock-folder-on-android';
 const articleLd = {
   '@context': 'https://schema.org',
@@ -13,6 +16,21 @@ const articleLd = {
   dateModified: '2026-11-05',
   mainEntityOfPage: 'https://vireault.app/guides/how-to-lock-folder-on-android',
 };
+// Same steps as the visible list below; the HowTo JSON-LD is built from this array.
+const steps = [
+  { text: 'Install from Google Play and create a vault with PIN, pattern or passphrase.', image: 'step-1' },
+  { text: 'Import the files you would have placed in a locked folder.', image: 'step-2' },
+  { text: 'Confirm they open inside the vault.', image: 'step-3' },
+  { text: 'Delete originals only after you are satisfied.', image: 'step-4' },
+  { text: 'Create an encrypted backup before changing devices.', image: 'step-5' },
+];
+const stepAlts = ['Vireault vault setup screen asking for a PIN, pattern or passphrase', 'Vireault import screen with files selected from the phone', 'Imported files opening inside the Vireault vault', 'Delete-original prompt after a successful import', 'Vireault encrypted backup export screen'];
+const howTo = howToLd({
+  slug: pageSlug,
+  name: 'How to lock files on Android with a Vireault vault',
+  description: 'Import the files you would put in a locked folder into an encrypted vault, check them, then delete the originals.',
+  steps,
+});
 ---
 <BaseLayout
   title="How to lock a folder on Android"
@@ -20,13 +38,14 @@ const articleLd = {
   path="/guides/how-to-lock-folder-on-android"
   pageSlug={pageSlug}
   ogType="article"
-  jsonLd={articleLd}
+  jsonLd={[articleLd, howTo]}
   article={{ published: '2026-11-05', modified: '2026-11-05' }}
 >
   <div class="container">
     <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/guides', label: 'Guides' }, { label: 'Lock a folder' }]} />
     <article class="section prose">
       <h1>How to lock a folder on Android</h1>
+      <GuideHero slug={pageSlug} alt="How to lock a folder on Android" />
       <p>Search results promise a universal “lock folder” switch. Reality is messier: some phones include Secure Folder or Locked Folder style tools, while stock Android file managers often do not encrypt a directory for you.</p>
       <h2>Option A — Manufacturer secure spaces</h2>
       <p>Samsung Secure Folder, Google Photos Locked Folder, and similar OEM features can isolate media behind device authentication. They are excellent when you already live in that ecosystem. They may not travel cleanly if you switch brands.</p>
@@ -37,11 +56,12 @@ const articleLd = {
       <p>If your goal is long-term storage, export an <a href="/features/backup-restore">encrypted backup</a> and keep it somewhere you control. A locked UI without a backup plan fails the day the phone is wiped.</p>
       <h2>Practical steps with Vireault</h2>
       <ol>
-        <li>Install from Google Play and create a vault with PIN, pattern or passphrase.</li>
-        <li>Import the files you would have placed in a locked folder.</li>
-        <li>Confirm they open inside the vault.</li>
-        <li>Delete originals only after you are satisfied.</li>
-        <li>Create an encrypted backup before changing devices.</li>
+        {steps.map((step, i) => (
+          <li>
+            {step.text}
+            <StepShot slug={pageSlug} name={step.image} alt={stepAlts[i]} />
+          </li>
+        ))}
       </ol>
       <h2>Related guides</h2>
       <ul>

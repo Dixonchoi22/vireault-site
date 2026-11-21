@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Cta from '../../components/Cta.astro';
+import GuideHero from '../../components/GuideHero.astro';
 const pageSlug = 'secure-photo-vault-android';
 const articleLd = {
   '@context': 'https://schema.org',
@@ -27,6 +28,7 @@ const articleLd = {
     <Breadcrumbs items={[{ href: '/', label: 'Home' }, { href: '/guides', label: 'Guides' }, { label: 'Secure photo vault' }]} />
     <article class="section prose">
       <h1>Secure photo vault for Android</h1>
+      <GuideHero slug={pageSlug} alt="Secure photo vault for Android" />
       <p>“Secure” is a marketing word until you unpack it. For a photo vault on Android, security usually means protecting file bytes, reducing metadata leaks, controlling unlock attempts, and avoiding an unnecessary account.</p>
       <h2>Minimum bar for a secure vault</h2>
       <ul>

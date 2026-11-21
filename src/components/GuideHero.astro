@@ -1,0 +1,16 @@
+---
+// Optional unique hero for a guide: public/images/guides/<slug>/hero.<ext>.
+// Renders nothing when the file is missing (the site default is still used for og:image).
+import { guideAsset } from '../data/guide-schema';
+interface Props {
+  slug: string;
+  alt: string;
+}
+const { slug, alt } = Astro.props;
+const src = guideAsset(slug, 'hero');
+---
+{src && (
+  <figure class="guide-hero">
+    <img src={src} alt={alt} loading="eager" decoding="async" />
+  </figure>
+)}

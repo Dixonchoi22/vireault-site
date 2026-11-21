@@ -9,6 +9,7 @@ Play CTAs use the site Cta component + playUrl(), which tags:
 """
 from __future__ import annotations
 
+import html
 import re
 import sys
 from datetime import date
@@ -75,6 +76,7 @@ def main(argv: list[str]) -> int:
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Cta from '../../components/Cta.astro';
+import GuideHero from '../../components/GuideHero.astro';
 const pageSlug = '{slug}';
 const articleLd = {{
   '@context': 'https://schema.org',
@@ -100,6 +102,7 @@ const articleLd = {{
     <Breadcrumbs items={{[{{ href: '/', label: 'Home' }}, {{ href: '/guides', label: 'Guides' }}, {{ label: {crumb_js} }}]}} />
     <article class="section prose">
       <h1>{title}</h1>
+      <GuideHero slug={{pageSlug}} alt="{html.escape(title)}" />
       <p>Write the job-to-be-done answer in the first screen. Cite primary sources. Only claim shipping Vireault features.</p>
       <h2>What this guide covers</h2>
       <p>Replace this scaffold body with researched sections.</p>
